@@ -2,6 +2,7 @@ package com.example.front.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -23,7 +24,7 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
-    @GetMapping("/api_post/write")
+    @PostMapping("/api_post/write")
     public ResponseEntity<String> write() {
         String url = "http://board.default.svc.cluster.local:8080/api_post/write";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
