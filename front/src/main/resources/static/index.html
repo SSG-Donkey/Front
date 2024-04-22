@@ -62,7 +62,7 @@
   const postsList = document.getElementById('posts-list');
 
   //메인 화면 뿌리기
-  fetch('/api_post/getRecentPost')
+  fetch('/proxy/api_post/getRecentPost')
           .then(response => response.json())
           .then(data => {
             const itemsWrap = document.querySelector('.items-wrap');
