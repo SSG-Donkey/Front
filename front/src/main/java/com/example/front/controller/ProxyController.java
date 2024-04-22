@@ -24,9 +24,18 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
+
     @PostMapping("/api_post/write")
     public ResponseEntity<String> write() {
         String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return ResponseEntity.ok(response.getBody());
+    }
+
+    // 댓글 조회
+    @GetMapping("/comment/selectCommentByPostNo")
+    public ResponseEntity<String> selectCommentByPostNo() {
+        String url = "http://board.default.svc.cluster.local:8080/comment/selectCommentByPostNo";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
