@@ -22,4 +22,11 @@ public class ProxyController {
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
+
+    @GetMapping("/api_post/write")
+    public ResponseEntity<String> write() {
+        String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        return ResponseEntity.ok(response.getBody());
+    }
 }
