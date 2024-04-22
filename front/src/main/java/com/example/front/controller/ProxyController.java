@@ -33,11 +33,11 @@ public class ProxyController {
 
     @PostMapping("/api_post/write")
     public ResponseEntity<String> write(@RequestBody Map<String, Object> requestData) {
-    String url = "http://board.default.svc.cluster.local:8080/api_post/write";
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
-    ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+        String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
     return ResponseEntity.ok(response.getBody());
 }
 
