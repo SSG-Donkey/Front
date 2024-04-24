@@ -1,0 +1,87 @@
+name: Build and Deploy Spring Boot Application
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 17 with Zulu
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+
+      - name: Set executable permission for gradlew
+        run: chmod +x ./gradlew
+        working-directory: ./backend
+
+      - name: Set Jasypt Encryptor Password
+        run: echo "jasypt.encryptor.password=${{ secrets.JASYPT_ENCRYPTOR_PASSWORD }}" >> ./src/main/resources/application.properties
+        working-directory: ./backend
+
+      - name: Build with Gradle
+        run: ./gradlew build
+        working-directory: ./backend
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push Docker image to Amazon ECR
+        run: |
+          TAG_NAME=$(date +'%Y%m%d%H%M%S')
+          IMAGE_URI=${{ steps.login-ecr.outputs.registry }}/donkey-frontend:$TAG_NAME
+          docker build -f Dockerfile -t $IMAGE_URI .
+          docker push $IMAGE_URI
+          echo "IMAGE_URI=$IMAGE_URI" >> $GITHUB_ENV
+        working-directory: ./backend
+        env:
+          TZ: Asia/Seoul
+
+      - name: Setup Kustomize
+        uses: imranismail/setup-kustomize@v1
+
+      - name: Checkout kustomize repository
+        uses: actions/checkout@v2
+        with:
+          repository: SSG-Donkey/k8s-manifest-repo
+          ref: main
+          token: ${{ secrets.ACTION_TOKEN }}
+          path: k8s-manifest-repo
+
+      - name: Setup Git identity
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo
+
+      - name: Update frontend-deployment.yaml with new image URI and tag
+        run: |
+          sed -i "s|image: .*|image: $IMAGE_URI|" ./base/frontend-deployment.yaml
+          cat ./base/frontend-deployment.yaml # For debugging purposes
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo
+        env:
+          IMAGE_URI: ${{ env.IMAGE_URI }}
+
+      - name: Commit and push the updated frontend-deployment.yaml
+        run: |
+          git add base/frontend-deployment.yaml
+          git commit -m "Update image URI for donkey-frontend to $IMAGE_URI"
+          git push
+        working-directory: ${{ github.workspace }}/k8s-manifest-repo
+        env:
+          IMAGE_URI: ${{ env.IMAGE_URI }}
