@@ -17,9 +17,9 @@ public class ProxyController {
         this.restTemplate = restTemplate;
     }
 
-    @GetMapping("/api_post/getRecentPost")
+    @GetMapping("/api_post/getRecentPosts")
     public ResponseEntity<String> getRecentPost() {
-        String url = "http://board.default.svc.cluster.local:8080/api_post/getRecentPost";
+        String url = "http://board.default.svc.cluster.local:8080/api_post/getRecentPosts";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
