@@ -46,7 +46,7 @@ public class ProxyController {
     // 은행 목록 조회
     @GetMapping("/banks")
     public ResponseEntity<String> getAllBanks() {
-        String url = "http://user.default.svc.cluster.local/user/banks";
+        String url = "http://user-service.default.svc.cluster.local/user/banks";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
@@ -54,7 +54,7 @@ public class ProxyController {
     // 로그인 페이지
     @GetMapping("/loginForm")
     public ResponseEntity<String> loginForm() {
-        String url = "http://user.default.svc.cluster.local/user/loginForm";
+        String url = "http://user-service.default.svc.cluster.local/user/loginForm";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
@@ -62,7 +62,7 @@ public class ProxyController {
     // 개인 페이지
     @GetMapping("/private")
     public ResponseEntity<String> privatePage() {
-        String url = "http://user.default.svc.cluster.local/user/private";
+        String url = "http://user-service.default.svc.cluster.local/user/private";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
@@ -70,7 +70,7 @@ public class ProxyController {
     // 관리자 페이지
     @GetMapping("/admin")
     public ResponseEntity<String> adminPage() {
-        String url = "http://user.default.svc.cluster.local/user/admin";
+        String url = "http://user-service.default.svc.cluster.local/user/admin";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
@@ -78,7 +78,7 @@ public class ProxyController {
     // 회원가입
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody Map<String, Object> requestData) {
-        String url = "http://user.default.svc.cluster.local/user/signup";
+        String url = "http://user-service.default.svc.cluster.local/user/signup";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
@@ -89,7 +89,7 @@ public class ProxyController {
     // 로그인
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse response) {
-        String url = "http://user.default.svc.cluster.local/user/login";
+        String url = "http://user-service.default.svc.cluster.local/user/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
@@ -101,7 +101,7 @@ public class ProxyController {
     // 회원 정보 업데이트
     @PutMapping("/user/{userId}/updateInfo")
     public ResponseEntity<String> updateUserInfo(@PathVariable Long userId, @RequestBody Map<String, Object> requestData) {
-        String url = String.format("http://user.default.svc.cluster.local/user/%d/updateInfo", userId);
+        String url = String.format("http://user-service.default.svc.cluster.local/user/%d/updateInfo", userId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
@@ -112,7 +112,7 @@ public class ProxyController {
     // 회원 탈퇴
     @DeleteMapping("/user/{userId}")
     public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
-        String url = String.format("http://user.default.svc.cluster.local/user/%d", userId);
+        String url = String.format("http://user-service.default.svc.cluster.local/user/%d", userId);
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<?> requestEntity = new HttpEntity<>(headers);
