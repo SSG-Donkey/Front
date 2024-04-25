@@ -32,6 +32,15 @@
             border-radius: 4px;
         }
 
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
         .login-link {
             text-align: center;
             margin-top: 20px;
@@ -39,16 +48,20 @@
 
         .login-link a {
             color: #007bff;
-            margin-top: 300px;
             text-decoration: none;
         }
 
-        /* PNG 파일 이미지를 클릭 가능한 링크로 만들기 */
+        /* 로그인 버튼 가운데 정렬 */
+        .form-group:last-child {
+            display: flex; /* 부모 노드를 flex 컨테이너로 설정 */
+            justify-content: center; /* 자식 요소들을 가운데 정렬 */
+        }
+
         .image-button {
             display: flex; /* 이미지를 가운데 정렬하기 위해 Flexbox를 사용합니다. */
             justify-content: center;
             padding: 8px;
-            margin-top: 100px;
+            margin-top: 50px;
             border: none;
             background-color: transparent;
             cursor: pointer;
@@ -71,6 +84,8 @@
 <body>
 
 <div class="container">
+    <img src="https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png" alt="이미지 설명" width="400" height="300">
+
 
     <h2>당나귀 로그인</h2>
 
@@ -84,10 +99,10 @@
             <label for="user_password">비밀번호</label>
             <input type="password" id="user_password" name="user_password" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
-
         <div class="form-group:last-child" style="display: flex; justify-content: center;">
             <button type="submit" class="btn btn-primary" style="width: 150px; height: 50px;">로그인</button>
         </div>
+
     </form>
 
     <div class="login-link">
@@ -96,11 +111,10 @@
         <a href="#">비밀번호 찾기</a>
     </div>
 
+
     <a href="/oauth2/authorization/google" class="image-button">
         <img src="/static/assets/image/google_login.png" alt="Google 로그인">
     </a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-</body>
-</html>
