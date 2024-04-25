@@ -57,29 +57,6 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
-    // 로그인 페이지
-    @GetMapping("/loginForm")
-    public ResponseEntity<String> loginForm() {
-        String url = "http://user-service.default.svc.cluster.local/user/loginForm";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
-
-    // 개인 페이지
-    @GetMapping("/private")
-    public ResponseEntity<String> privatePage() {
-        String url = "http://user-service.default.svc.cluster.local/user/private";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
-
-    // 관리자 페이지
-    @GetMapping("/admin")
-    public ResponseEntity<String> adminPage() {
-        String url = "http://user-service.default.svc.cluster.local/user/admin";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
 
     // 회원가입
     @PostMapping("/signup")
