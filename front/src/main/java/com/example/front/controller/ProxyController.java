@@ -4,6 +4,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.Map;
 
 
@@ -35,14 +37,25 @@ public class ProxyController {
     }
 
     @PostMapping("/api_post/write")
-    public ResponseEntity<String> write(@RequestBody Map<String, Object> requestData) {
+    public ResponseEntity<String> write(@RequestParam ("post_file") MultipartFile post_file,
+                                        @RequestParam ("point") Integer point,
+                                        @RequestParam ("post_category") Integer post_category,
+                                        @RequestParam ("post_title") String post_title,
+                                        @RequestParam ("post_content") String post_content,
+                                        @RequestParam ("user_no") Integer user_no,
+                                        @RequestParam ("post_views") Integer post_views,
+                                        @RequestParam ("region_no") Integer region_no,
+                                        @RequestParam ("post_status") Integer post_status
+
+    ) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        String Data ="?post_file=post_file&point=point&post_category=3&post_title=post_title&post_content=post_content&user_no=user_no&post_views=post_views&region_no=region_no&post_status=post_status";
+        System.out.printf("%d d %d %s",point,post_category,post_category,post_title );
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+        HttpEntity<String> requestEntity= new HttpEntity<>(Data,headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
-    return ResponseEntity.ok(response.getBody());
-}
+        return ResponseEntity.ok("ok");
+    }
 
     // 댓글 조회
     @GetMapping("/comment/selectCommentByPostNo")
