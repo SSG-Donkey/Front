@@ -84,15 +84,16 @@
               console.log("currentPage : " + currentPage);
               console.log("totalPages : " + totalPages);
 
-              console.log("data 시작: " + data);
+              console.log("data 시작[0]: " + data[0]);
 
-              const keys = Object.keys(data) //
+              const keys = Object.keys(data) 
 
               for (let i = 0; i < keys.length; i++) {
                 const key = keys[i] // 각각의 키
                 const value = data[key] // 각각의 키에 해당하는 각각의 값
 
-                console.log(value)
+                console.log("key :: " + key)
+                console.log("value :: " + value)
               }
 
               renderPosts(data);
