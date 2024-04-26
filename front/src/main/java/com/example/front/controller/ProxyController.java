@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.Map;
 
 
@@ -40,7 +41,7 @@ public class ProxyController {
     }
 
     @PostMapping("/api_post/write")
-    public ResponseEntity<String> write(@RequestParam ("post_file") MultipartFile post_file,
+    public ResponseEntity<String> write(@RequestParam ("post_file") MultipartFile post_file1,
                                         @RequestParam ("point") Integer point,
                                         @RequestParam ("post_category") Integer post_category,
                                         @RequestParam ("post_title") String post_title,
@@ -53,8 +54,9 @@ public class ProxyController {
     ) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/write";
         // 클라이언트에서 데이터 생성
+
         PostWriteData postData = new PostWriteData();
-        postData.setPostFile(post_file);
+
         postData.setPoint(point);
         postData.setPostCategory(post_category);
         postData.setPostTitle(post_title);
