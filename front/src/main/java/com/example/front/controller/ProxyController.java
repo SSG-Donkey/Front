@@ -23,17 +23,37 @@ public class ProxyController {
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
-
+    
+    @GetMapping("/api_post/category/{categoryNo}")
+    public ResponseEntity<String> getCategoryPosts(@PathVariable String categoryNo) {
+        String url = "http://board.default.svc.cluster.local:8080/api_post/category/" + categoryNo;
+        System.out.println("getCategoryPosts 진입");
+        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        System.out.println("Response Body: " + response.getBody());
+        System.out.println("getCategoryPosts 아웃");
+        return ResponseEntity.ok(response.getBody());
+    }
 
     @PostMapping("/api_post/write")
-    public ResponseEntity<String> write(@RequestBody Map<String, Object> requestData) {
+    public ResponseEntity<String> write(@RequestParam ("post_file") MultipartFile post_file,
+                                        @RequestParam ("point") Integer point,
+                                        @RequestParam ("post_category") Integer post_category,
+                                        @RequestParam ("post_title") String post_title,
+                                        @RequestParam ("post_content") String post_content,
+                                        @RequestParam ("user_no") Integer user_no,
+                                        @RequestParam ("post_views") Integer post_views,
+                                        @RequestParam ("region_no") Integer region_no,
+                                        @RequestParam ("post_status") Integer post_status
+
+    ) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        String Data ="?post_file=post_file&point=point&post_category=3&post_title=post_title&post_content=post_content&user_no=user_no&post_views=post_views&region_no=region_no&post_status=post_status";
+        System.out.printf("%d d %d %s",point,post_category,post_category,post_title );
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+        HttpEntity<String> requestEntity= new HttpEntity<>(Data,headers);
         ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
-    return ResponseEntity.ok(response.getBody());
-}
+        return ResponseEntity.ok("ok");
+    }
 
     // 댓글 조회
     @GetMapping("/comment/selectCommentByPostNo")
@@ -51,29 +71,6 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
-    // 로그인 페이지
-    @GetMapping("/loginForm")
-    public ResponseEntity<String> loginForm() {
-        String url = "http://user-service.default.svc.cluster.local/user/loginForm";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
-
-    // 개인 페이지
-    @GetMapping("/private")
-    public ResponseEntity<String> privatePage() {
-        String url = "http://user-service.default.svc.cluster.local/user/private";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
-
-    // 관리자 페이지
-    @GetMapping("/admin")
-    public ResponseEntity<String> adminPage() {
-        String url = "http://user-service.default.svc.cluster.local/user/admin";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        return ResponseEntity.ok(response.getBody());
-    }
 
     // 회원가입
     @PostMapping("/signup")
@@ -88,15 +85,16 @@ public class ProxyController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse response){
         String url = "http://user-service.default.svc.cluster.local/user/login";
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON); // Content-Type 설정
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
         response.setHeader("Authorization", "Bearer " + responseEntity.getHeaders().getFirst("Authorization"));
         return ResponseEntity.ok(responseEntity.getBody());
     }
+
 
     // 회원 정보 업데이트
     @PutMapping("/user/{userId}/updateInfo")

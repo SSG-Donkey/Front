@@ -76,12 +76,13 @@
 
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
-    fetch(`/api_post/category/${category}?page=${page}&size=${pageSize}`)
+    fetch(`/proxy/api_post/category/${category}?page=${page}&size=${pageSize}`)
             .then(response => response.json())
             .then(data => {
               currentPage = data.currentPage;
               totalPages = data.totalPages;
-              renderPosts(data.data);
+              console.log("data : " + data);
+              renderPosts(data);
               renderPagination();
             })
             .catch(error => console.error('Error loading posts:', error));
