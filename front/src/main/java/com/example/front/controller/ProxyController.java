@@ -1,5 +1,8 @@
 package com.example.front.controller;
 
+import com.example.front.Dto.PostWriteData;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -48,13 +51,38 @@ public class ProxyController {
                                         @RequestParam ("post_status") Integer post_status
 
     ) {
-        String url = "http://board.default.svc.cluster.local:8080/api_post/write?";
-        String Data ="post_file"+post_file+"&point"+point+"&post_category"+post_category+"&post_title"+post_title+"&post_content"+post_content+"&user_no"+user_no+"&post_views"+post_views+"&region_no"+region_no+"&post_status"+post_status;
-        System.out.printf("%d d %d %s",point,post_category,post_category,post_title );
+        String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        // 클라이언트에서 데이터 생성
+        PostWriteData postData = new PostWriteData();
+        postData.setPostFile(post_file);
+        postData.setPoint(point);
+        postData.setPostCategory(post_category);
+        postData.setPostTitle(post_title);
+        postData.setPostContent(post_content);
+        postData.setUserNo(user_no);
+        postData.setPostViews(post_views);
+        postData.setRegionNo(region_no);
+        postData.setPostStatus(post_status);
+
+// JSON conversion with exception handling
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonData;
+        try {
+            jsonData = objectMapper.writeValueAsString(postData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace(); // Log the error for debugging
+            // Handle the error here, potentially return an error message
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating JSON request: " + e.getMessage());
+        }
+
+// Create HttpEntity with JSON data
         HttpHeaders headers = new HttpHeaders();
-        HttpEntity<String> requestEntity= new HttpEntity<>(Data,headers);
+        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<String> requestEntity = new HttpEntity<>(jsonData, headers);
+
+// Send POST request
         ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
-        return ResponseEntity.ok("ok");
+        return ResponseEntity.ok(response.getBody());
     }
 
     // 댓글 조회
