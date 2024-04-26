@@ -4,6 +4,8 @@ import com.example.front.Dto.PostWriteData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.java.Log;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -14,6 +16,7 @@ import java.util.Map;
 
 
 @RestController
+@Log
 @RequestMapping("/proxy")
 public class ProxyController {
 
@@ -31,12 +34,12 @@ public class ProxyController {
     }
     
     @GetMapping("/api_post/category/{categoryNo}")
-    public ResponseEntity<String> getCategoryPosts(@PathVariable String categoryNo) {
+    public ResponseEntity<String> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "10") int size) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/category/" + categoryNo;
-        System.out.println("getCategoryPosts 진입");
+
+        log.info("getCategoryPosts 진입 :: page "+page +" size ::" + size);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
-        System.out.println("Response Body: " + response.getBody());
-        System.out.println("getCategoryPosts 아웃");
         return ResponseEntity.ok(response.getBody());
     }
 
