@@ -81,6 +81,7 @@
             .then(data => {
               currentPage = data.currentPage;
               totalPages = data.totalPages;
+              console.log("data.data : " + data.data);
               renderPosts(data.data);
               renderPagination();
             })

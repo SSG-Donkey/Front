@@ -27,7 +27,10 @@ public class ProxyController {
     @GetMapping("/api_post/category/{categoryNo}")
     public ResponseEntity<String> getCategoryPosts(@PathVariable String categoryNo) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/category/" + categoryNo;
+        System.out.println("getCategoryPosts 진입");
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+        System.out.println("Response Body: " + response.getBody());
+        System.out.println("getCategoryPosts 아웃");
         return ResponseEntity.ok(response.getBody());
     }
 
