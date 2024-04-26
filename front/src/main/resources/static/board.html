@@ -81,8 +81,8 @@
             .then(data => {
               currentPage = data.currentPage;
               totalPages = data.totalPages;
-              console.log("data.data : " + data.data);
-              renderPosts(data.data);
+              console.log("data : " + data);
+              renderPosts(data);
               renderPagination();
             })
             .catch(error => console.error('Error loading posts:', error));
