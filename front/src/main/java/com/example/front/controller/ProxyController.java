@@ -74,15 +74,16 @@ public class ProxyController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse response) {
+    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse response){
         String url = "http://user-service.default.svc.cluster.local/user/login";
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.setContentType(MediaType.APPLICATION_JSON); // Content-Type 설정
         HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
         response.setHeader("Authorization", "Bearer " + responseEntity.getHeaders().getFirst("Authorization"));
         return ResponseEntity.ok(responseEntity.getBody());
     }
+
 
     // 회원 정보 업데이트
     @PutMapping("/user/{userId}/updateInfo")
