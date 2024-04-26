@@ -48,8 +48,8 @@ public class ProxyController {
                                         @RequestParam ("post_status") Integer post_status
 
     ) {
-        String url = "http://board.default.svc.cluster.local:8080/api_post/write";
-        String Data ="?post_file=post_file&point=point&post_category=3&post_title=post_title&post_content=post_content&user_no=user_no&post_views=post_views&region_no=region_no&post_status=post_status";
+        String url = "http://board.default.svc.cluster.local:8080/api_post/write?";
+        String Data ="post_file"+post_file+"&point"+point+"&post_category"+post_category+"&post_title"+post_title+"&post_content"+post_content+"&user_no"+user_no+"&post_views"+post_views+"&region_no"+region_no+"&post_status"+post_status;
         System.out.printf("%d d %d %s",point,post_category,post_category,post_title );
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> requestEntity= new HttpEntity<>(Data,headers);
