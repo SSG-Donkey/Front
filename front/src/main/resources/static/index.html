@@ -62,7 +62,7 @@
   const postsList = document.getElementById('posts-list');
 
   //메인 화면 뿌리기
-  fetch('https://www.dangnagwi.store/api_post/getRecentPosts')
+  fetch('https://k8s-eksdemogroup-f95ddb1cc9-110750492.ap-northeast-2.elb.amazonaws.com/api_post/getRecentPosts')
           .then(response => response.json())
           .then(data => {
             const itemsWrap = document.querySelector('.items-wrap');
