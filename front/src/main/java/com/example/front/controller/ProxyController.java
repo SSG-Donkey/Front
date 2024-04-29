@@ -1,13 +1,22 @@
 package com.example.front.controller;
 
+import com.example.front.Dto.PostWriteData;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.java.Log;
+
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 import java.util.Map;
 
 
 @RestController
+@Log
 @RequestMapping("/proxy")
 public class ProxyController {
 
@@ -25,21 +34,61 @@ public class ProxyController {
     }
     
     @GetMapping("/api_post/category/{categoryNo}")
-    public ResponseEntity<String> getCategoryPosts(@PathVariable String categoryNo) {
+    public ResponseEntity<String> getCategoryPosts(@PathVariable String categoryNo, @RequestParam(defaultValue = "1") int page,
+    @RequestParam(defaultValue = "10") int size) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/category/" + categoryNo;
+
+        log.info("getCategoryPosts 진입 :: page "+page +" size ::" + size);
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
 
     @PostMapping("/api_post/write")
-    public ResponseEntity<String> write(@RequestBody Map<String, Object> requestData) {
+    public ResponseEntity<String> write(@RequestParam ("post_file") MultipartFile post_file1,
+                                        @RequestParam ("point") Integer point,
+                                        @RequestParam ("post_category") Integer post_category,
+                                        @RequestParam ("post_title") String post_title,
+                                        @RequestParam ("post_content") String post_content,
+                                        @RequestParam ("user_no") Integer user_no,
+                                        @RequestParam ("post_views") Integer post_views,
+                                        @RequestParam ("region_no") Integer region_no,
+                                        @RequestParam ("post_status") Integer post_status
+
+    ) {
         String url = "http://board.default.svc.cluster.local:8080/api_post/write";
+        // 클라이언트에서 데이터 생성
+
+        PostWriteData postData = new PostWriteData();
+
+        postData.setPoint(point);
+        postData.setPostCategory(post_category);
+        postData.setPostTitle(post_title);
+        postData.setPostContent(post_content);
+        postData.setUserNo(user_no);
+        postData.setPostViews(post_views);
+        postData.setRegionNo(region_no);
+        postData.setPostStatus(post_status);
+
+// JSON conversion with exception handling
+        ObjectMapper objectMapper = new ObjectMapper();
+        String jsonData;
+        try {
+            jsonData = objectMapper.writeValueAsString(postData);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace(); // Log the error for debugging
+            // Handle the error here, potentially return an error message
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating JSON request: " + e.getMessage());
+        }
+
+// Create HttpEntity with JSON data
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+        HttpEntity<String> requestEntity = new HttpEntity<>(jsonData, headers);
+
+// Send POST request
         ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
-    return ResponseEntity.ok(response.getBody());
-}
+        return ResponseEntity.ok(response.getBody());
+    }
 
     // 댓글 조회
     @GetMapping("/comment/selectCommentByPostNo")

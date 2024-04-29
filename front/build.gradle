@@ -28,9 +28,12 @@ ext {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
 	// Spring Security OAuth2 Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.7.11'
-	
+
 }
 
 dependencyManagement {
