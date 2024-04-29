@@ -1,18 +1,23 @@
 package com.example.front.controller;
 
+import com.example.front.Dto.CommentDto;
 import com.example.front.Dto.PostWriteData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.java.Log;
+import java.util.List;
 
 import org.springframework.http.*;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.util.Map;
+import java.util.HashMap;
 
 
 @RestController
@@ -50,27 +55,25 @@ public class ProxyController {
 
         PostWriteData postData = new PostWriteData();
 
-        
+    // JSON conversion with exception handling
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonData;
+            try {
+                jsonData = objectMapper.writeValueAsString(postData);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace(); // Log the error for debugging
+                // Handle the error here, potentially return an error message
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating JSON request: " + e.getMessage());
+            }
 
-// JSON conversion with exception handling
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonData;
-        try {
-            jsonData = objectMapper.writeValueAsString(postData);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace(); // Log the error for debugging
-            // Handle the error here, potentially return an error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating JSON request: " + e.getMessage());
-        }
+    // Create HttpEntity with JSON data
+            HttpHeaders headers = new HttpHeaders();
+            headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
+            HttpEntity<String> requestEntity = new HttpEntity<>(jsonData, headers);
 
-// Create HttpEntity with JSON data
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<String> requestEntity = new HttpEntity<>(jsonData, headers);
-
-// Send POST request
-        ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
-        return ResponseEntity.ok(response.getBody());
+    // Send POST request
+            ResponseEntity<String> response = restTemplate.postForEntity(url, requestEntity, String.class);
+            return ResponseEntity.ok(response.getBody());
     }
 
     // 댓글 조회
@@ -81,13 +84,39 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
+    //댓글 입력
+    @PostMapping("/api_comment/insertComment")
+    public ResponseEntity<String> insertComment(@ModelAttribute CommentDto commentDto) {
+        String url = "http://board.default.svc.cluster.local:8080/comment/insertComment";
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        Map<String, String> map = new HashMap<>();
+        map.put("userNo", commentDto.getUserNo());
+        map.put("postNo", commentDto.getPostNo());
+        map.put("userNickname", commentDto.getUserNickname());
+        map.put("commentContent", commentDto.getCommentContent());
+
+        for (Map.Entry<String, String> entry : map.entrySet()) {
+            String key = entry.getKey();
+            String value = entry.getValue();
+            System.out.println("Key: " + key + ", Value: " + value);
+        }
+
+        HttpEntity<Map<String, String>> request = new HttpEntity<>(map, headers);
+
+        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
+
+        return ResponseEntity.ok(response.getBody());
+    }
+
     // 은행 목록 조회
     @GetMapping("/banks")
     public ResponseEntity<String> getAllBanks() {
         String url = "http://user-service.default.svc.cluster.local/user/banks";
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
-    }
+}
 
 
     // 회원가입
@@ -135,8 +164,5 @@ public class ProxyController {
         ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.DELETE, requestEntity, String.class);
         return ResponseEntity.ok(response.getBody());
     }
-
-
-
 }
 
