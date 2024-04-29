@@ -152,14 +152,12 @@ public class ProxyController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
 
-        // 받은 응답에서 Authorization 헤더 추출 및 설정
-        String authToken = responseEntity.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
-        if (authToken != null) {
-            servletResponse.setHeader(HttpHeaders.AUTHORIZATION, authToken);
-        }
-
-        return ResponseEntity.ok(responseEntity.getBody());
+        // JWT 토큰을 클라이언트의 응답 헤더에 추가
+        HttpHeaders responseHeaders = new HttpHeaders();
+        responseHeaders.putAll(responseEntity.getHeaders());
+        return new ResponseEntity<>(responseEntity.getBody(), responseHeaders, responseEntity.getStatusCode());
     }
+
 
 
 
