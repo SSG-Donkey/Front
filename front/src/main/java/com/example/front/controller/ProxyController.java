@@ -9,6 +9,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -98,25 +100,18 @@ public class ProxyController {
     @PostMapping("/comment/insertComment")
     public ResponseEntity<String> insertComment(@RequestBody CommentDto commentDto) {
         String url = "http://board.default.svc.cluster.local:8080/comment/insertComment";
+        
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.setContentType(MediaType.APPLICATION_JSON); // JSON 타입으로 설정
 
-        Map<String, String> map = new HashMap<>();
-        map.put("userNo", commentDto.getUserNo());
-        map.put("postNo", commentDto.getPostNo());
-        map.put("userNickname", commentDto.getUserNickname());
-        map.put("commentContent", commentDto.getCommentContent());
+        HttpEntity<CommentDto> request = new HttpEntity<>(commentDto, headers);
 
-        for (Map.Entry<String, String> entry : map.entrySet()) {
-            String key = entry.getKey();
-            String value = entry.getValue();
-            System.out.println("Key: " + key + ", Value: " + value);
-        }
-
-        HttpEntity<Map<String, String>> request = new HttpEntity<>(map, headers);
+        RestTemplate restTemplate = new RestTemplate();
+        
+        // JSON 변환을 위한 MappingJackson2HttpMessageConverter 추가
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
 
         ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-
         return ResponseEntity.ok(response.getBody());
     }
 
