@@ -86,5 +86,24 @@
           })
           .catch(error => console.error('Error loading posts:', error));
 </script>
+
+<script>
+  $(document).ready(function() {
+    function checkLogin() {
+      if (localStorage.getItem('authToken')) {
+        $('.login-link').html('<a href="#" onclick="logout()">로그아웃</a>');
+      } else {
+        $('.login-link').html('<a href="/loginForm.html">로그인/회원가입</a>');
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('authToken'); // 토큰 제거
+      window.location.href = 'index.html'; // 리다이렉트
+    }
+
+    checkLogin();
+  });
+</script>
 </body>
 </html>

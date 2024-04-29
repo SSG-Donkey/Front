@@ -141,11 +141,29 @@ public class ProxyController {
         String url = "http://user-service.default.svc.cluster.local/user/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); // Content-Type 설정
-        HttpEntity<Map<String, Object>> requestEntity = new HttpEntity<>(requestData, headers);
+
+        // requestData를 사용하여 JSON 객체 생성
+        ObjectMapper objectMapper = new ObjectMapper();
+        String requestBody;
+        try {
+            requestBody = objectMapper.writeValueAsString(requestData);
+        } catch (JsonProcessingException e) {
+            log.severe("JSON writing error: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("JSON processing error");
+        }
+
+        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
-        response.setHeader("Authorization", "Bearer " + responseEntity.getHeaders().getFirst("Authorization"));
+        String authToken = responseEntity.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+
+        if (authToken != null && response != null) {
+            response.setHeader("Authorization", authToken); // 클라이언트의 응답 헤더에 JWT 토큰 추가
+        }
+
         return ResponseEntity.ok(responseEntity.getBody());
     }
+
+
 
 
     // 회원 정보 업데이트
