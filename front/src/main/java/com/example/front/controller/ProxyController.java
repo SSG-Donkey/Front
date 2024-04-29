@@ -9,11 +9,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -135,40 +133,33 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
-    // 로그인
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse response){
+    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse servletResponse) {
         String url = "http://user-service.default.svc.cluster.local/user/login";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON); // Content-Type 설정
 
-        // requestData를 사용하여 JSON 객체 생성
         ObjectMapper objectMapper = new ObjectMapper();
         String requestBody;
         try {
             requestBody = objectMapper.writeValueAsString(requestData);
         } catch (JsonProcessingException e) {
-            log.severe("JSON writing error: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("JSON processing error");
+            log.severe("Error creating JSON from requestData: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in JSON processing");
         }
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-
-        // RestTemplate 객체 생성 및 설정
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
-
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
-        String authToken = responseEntity.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
-        if (authToken != null && response != null) {
-            response.setHeader("Authorization", authToken); // 클라이언트의 응답 헤더에 JWT 토큰 추가
+        // 받은 응답에서 Authorization 헤더 추출 및 설정
+        String authToken = responseEntity.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
+        if (authToken != null) {
+            servletResponse.setHeader(HttpHeaders.AUTHORIZATION, authToken);
         }
 
         return ResponseEntity.ok(responseEntity.getBody());
     }
-
-
 
 
 
