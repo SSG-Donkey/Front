@@ -153,6 +153,11 @@ public class ProxyController {
         }
 
         HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
+
+        // RestTemplate 객체 생성 및 설정
+        RestTemplate restTemplate = new RestTemplate();
+        restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
         String authToken = responseEntity.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
 
@@ -162,6 +167,7 @@ public class ProxyController {
 
         return ResponseEntity.ok(responseEntity.getBody());
     }
+
 
 
 
