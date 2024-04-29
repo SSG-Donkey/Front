@@ -95,8 +95,8 @@ public class ProxyController {
     }
 
     //댓글 입력
-    @PostMapping("/api_comment/insertComment")
-    public ResponseEntity<String> insertComment(@ModelAttribute CommentDto commentDto) {
+    @PostMapping("/comment/insertComment")
+    public ResponseEntity<String> insertComment(@RequestBody CommentDto commentDto) {
         String url = "http://board.default.svc.cluster.local:8080/comment/insertComment";
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
