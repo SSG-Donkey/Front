@@ -3,6 +3,7 @@ package com.example.front.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.example.front.Dto.LoginRequestDto;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -133,31 +134,21 @@ public class ProxyController {
         return ResponseEntity.ok(response.getBody());
     }
 
+    // 로그인
+
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, Object> requestData, HttpServletResponse servletResponse) {
-        String url = "http://user-service.default.svc.cluster.local/user/login";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON); // Content-Type 설정
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto loginRequestDto){
+        String url = "http://user.default.svc.cluster.local/user/login";
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String requestBody;
-        try {
-            requestBody = objectMapper.writeValueAsString(requestData);
-        } catch (JsonProcessingException e) {
-            log.severe("Error creating JSON from requestData: " + e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in JSON processing");
-        }
+        // User 백엔드로 전달할 HTTP 요청 생성
+        HttpEntity<LoginRequestDto> request = new HttpEntity<>(loginRequestDto);
 
-        HttpEntity<String> requestEntity = new HttpEntity<>(requestBody, headers);
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
+        // User 백엔드로 POST 요청 보내기
+        ResponseEntity<String> userResponse = restTemplate.postForEntity(url, request, String.class);
 
-        // JWT 토큰을 클라이언트의 응답 헤더에 추가
-        HttpHeaders responseHeaders = new HttpHeaders();
-        responseHeaders.putAll(responseEntity.getHeaders());
-        return new ResponseEntity<>(responseEntity.getBody(), responseHeaders, responseEntity.getStatusCode());
+        // User 백엔드에서 받은 응답 반환
+        return ResponseEntity.ok(userResponse.getBody());
     }
-
 
 
 
