@@ -1,23 +1,33 @@
 package com.example.front.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.example.front.Dto.CommentDto;
 import com.example.front.Dto.PostWriteData;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.java.Log;
-import java.util.List;
-
-import org.springframework.http.*;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.File;
-import java.util.Map;
-import java.util.HashMap;
 
 
 @RestController
@@ -78,8 +88,8 @@ public class ProxyController {
 
     // 댓글 조회
     @GetMapping("/comment/selectCommentByPostNo")
-    public ResponseEntity<String> selectCommentByPostNo() {
-        String url = "http://board.default.svc.cluster.local:8080/comment/selectCommentByPostNo";
+    public ResponseEntity<String> selectCommentByPostNo(@RequestParam String postNo) {
+        String url = "http://board.default.svc.cluster.local:8080/comment/selectCommentByPostNo" + "?postNo=" + postNo;
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
         return ResponseEntity.ok(response.getBody());
     }
