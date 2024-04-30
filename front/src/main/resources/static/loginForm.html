@@ -121,10 +121,13 @@
         $("form").submit(function(event) {
             event.preventDefault(); // 폼 기본 제출 막기
             var userData = {
-                user_id: $("#user_id").val(),
-                user_password: $("#user_password").val()
+                username: $("#user_id").val(),
+                password: $("#user_password").val()
             };
-
+            
+            console.log("username :: " + userData.username);
+            console.log("password :: " + userData.password);
+            
             $.ajax({
                 type: "POST",
                 url: "https://www.dangnagwi.store/user/login", // 올바른 엔드포인트 URL인지 확인하세요.
