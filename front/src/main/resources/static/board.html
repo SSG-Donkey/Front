@@ -122,24 +122,24 @@
     });
     paginationDiv.appendChild(prevButton);
 
-    // 페이지 버튼 렌더링
-    const maxPageButtons = 5;
-    const startPage = Math.max(0, currentPage - Math.floor(maxPageButtons / 2));
-    const endPage = Math.min(totalPages, startPage + maxPageButtons);
+  // 페이지 버튼 렌더링
+  const maxPageButtons = 5;
+  const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons + 1));
+  const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
 
-    for (let i = startPage; i < endPage; i++) {
-      const pageButton = document.createElement('button');
-      pageButton.textContent = i + 1;
-      pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button'); // Bootstrap 버튼 클래스 추가
-      if (i === currentPage) {
-        pageButton.classList.add('active'); // 활성화된 페이지를 나타내는 클래스 추가
-      }
-      pageButton.addEventListener('click', () => {
-        loadCategoryPosts(category, i);
-        scrollToTop(); // 스크롤 맨 위로 이동
-      });
-      paginationDiv.appendChild(pageButton);
+  for (let i = startPage; i < endPage; i++) {
+    const pageButton = document.createElement('button');
+    pageButton.textContent = i + 1;
+    pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button');
+    if (i === currentPage) {
+      pageButton.classList.add('active');
     }
+    pageButton.addEventListener('click', () => {
+      loadCategoryPosts(category, i);
+      scrollToTop();
+    });
+    paginationDiv.appendChild(pageButton);
+  }
 
     // 다음 버튼 렌더링
     const nextButton = document.createElement('button');
