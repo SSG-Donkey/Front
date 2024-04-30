@@ -1,0 +1,19 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.iamport.kr/js/iamport.v1.5.1.js"></script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>결제 성공</title>
+</head>
+<body>
+<h1>결제 성공!</h1>
+
+<p>결제 금액: <span th:text="${결제금액}"></span> 원</p>
+<p>결제 방식: : <span th:text="${결제방법}"></span></p>
+
+
+
+<a href="/">홈으로 돌아가기</a>
+<a href="payment">결제화면으로 돌아가기</a>
+</body>
+</html>

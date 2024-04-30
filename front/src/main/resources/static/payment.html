@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>포인트 충전 </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>포인트 충전</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <img src="https://www.mangboard.com/wp-content/uploads/mangboard/2017/04/07/F814_points.png" class="img-fluid" alt="포인트 이미지">
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form action="http://localhost:8081/payment" method="post" content>
+                        <div class="form-group">
+                            <label for="amount">충전 금액</label>
+                            <div class="input-group">
+                                <input type="number" id="amount" name="amount" class="form-control" min="1000" max="1000000" value="10000">
+                                <span class="input-group-addon">원</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="paymentMethod">충전 방식</label>
+                            <select name="paymentMethod" class="form-control">
+                                <option value="">결제 방식 선택</option>
+                                <option value="card">카드 결제</option>
+                                <option value="account">계좌이체</option>
+                                <option value="naverpay">네이버페이</option>
+                                    <option value="kakaopay">카카오페이</option>
+                                <option value="tosspay">토스페이</option>
+                            </select>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary btn-block">결제하기</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div id="after-payment" style="display: none;">
+                <h2>결제 후 !</h2>
+                <p>충전 금액: ${amount}</p>
+                <p>결제 방식: ${paymentMethod}</p>
+                <p>결제 후 포인트 잔액: ${pointBalance}</p>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("#before-payment").submit(function() {
+            // Submit 버튼 클릭 시 별다른 로직을 추가하지 않음
+        });
+    });
+</script>
+</body>
