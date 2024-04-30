@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카카오페이</title>
+    <link rel="stylesheet" href="./css/paymentSuccess.css">
+</head>
+<body>
+<div class="approval_container__Ju32R">
+    <img alt="" loading="lazy" width="58" height="24" decoding="async"
+         data-nimg="1"
+         src="https://t1.kakaocdn.net/payfe_ssr/production/payment-demo-web/bc4424afb1821f24acbf36e948c8e7241101e035/_next/static/media/kp_core_ic_common_kpay.8a7fa604.svg"
+         style="color: transparent;">
+
+    <h1 class="kp-m-typography-title28-600 high-emphasis title_title__Mgsei">온라인 결제</h1>
+    <p class="kp-m-typography-body16-normal high-emphasis">카카오페이 결제가 완료되었습니다.</p>
+    <div class="kp-m-card card-grey margin-0 radius-16 approval_section__PnMit">
+        <div class="kp-m-flexlayout row justify-between align-center">
+            <p class="kp-m-typography-body13-normal high-emphasis">구매처</p>
+            <p class="kp-m-typography-body13-600 high-emphasis"></p>
+        </div>
+        <div class="kp-m-flexlayout row justify-between align-center">
+            <p class="kp-m-typography-body13-normal high-emphasis">결제일</p>
+            <p class="kp-m-typography-body13-600 high-emphasis"></p>
+        </div>
+        <div class="kp-m-flexlayout row justify-between align-center">
+            <p class="kp-m-typography-body13-normal high-emphasis">상품명</p>
+            <p class="kp-m-typography-body13-600 high-emphasis"></p>
+        </div>
+        <div class="kp-m-flexlayout row justify-between align-center">
+            <p class="kp-m-typography-body13-normal high-emphasis">결제금액</p>
+            <p class="kp-m-typography-body13-600 high-emphasis"></p>
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    window.onload = function () {
+        const pgToken = (new URLSearchParams(window.location.search)).get('pg_token');
+        if (pgToken != null) {
+            // pg_token을 사용하여 서버로 GET 요청을 보냅니다.
+            fetch(`http://localhost:8081/kakao/success?pg_token=${pgToken}`)
+                .then(response => response.json())
+                .then(data => {
+                    const store = '당신의 나눔은 귀하다'
+                    // 서버로부터 받은 결과를 출력합니다.
+                    document.querySelector('.kp-m-flexlayout:nth-child(1) p:last-child').textContent = store;
+                    document.querySelector('.kp-m-flexlayout:nth-child(2) p:last-child').textContent = data.approved_at;
+                    document.querySelector('.kp-m-flexlayout:nth-child(3) p:last-child').textContent = data.item_name;
+                    document.querySelector('.kp-m-flexlayout:nth-child(4) p:last-child').textContent = data.amount.total + '원';
+                    // 여기에서 원하는 처리를 수행할 수 있습니다.
+                })
+                .catch(error => console.error('결제 결과를 가져오는 중 오류 발생:', error));
+        }
+    };
+</script>
+</html>

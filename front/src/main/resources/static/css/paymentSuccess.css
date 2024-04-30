@@ -1,0 +1,56 @@
+.approval_container__Ju32R {
+    background: none;
+    border: 0;
+    box-sizing: border-box;
+    color: #000;
+    display: block;
+    font: 16px Pretendard, system-ui, AppleSDGothicNeo, sans-serif;
+    height: 360px;
+    line-height: 16px;
+    margin: 40px auto;
+    max-width: 320px;
+    padding: 0 24px;
+    text-align: center;
+    text-rendering: optimizeLegibility;
+    width: 320px;
+    word-break: keep-all;
+}
+
+.kp-m-typography-title28-600 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.kp-m-typography-body16-normal {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.kp-m-card {
+    background-color: #f5f5f5;
+    border-radius: 16px;
+    margin: 0;
+    padding: 16px;
+}
+
+.kp-m-flexlayout {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.kp-m-typography-body13-normal {
+    font-size: 13px;
+    font-weight: normal;
+}
+
+.kp-m-typography-body13-600 {
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.kp-m-typography-body13-medium-emphasis {
+    color: #757575;
+    font-size: 13px;
+    font-weight: normal;
+}
