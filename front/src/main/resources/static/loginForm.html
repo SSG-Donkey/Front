@@ -90,13 +90,13 @@
 
     <form>
         <div class="form-group">
-            <label for="user_id">아이디</label>
-            <input type="text" id="user_id" name="user_id" class="form-control" placeholder="아이디를 입력하세요">
+            <label for="username">아이디</label>
+            <input type="text" id="username" name="username" class="form-control" placeholder="아이디를 입력하세요">
         </div>
 
         <div class="form-group">
-            <label for="user_password">비밀번호</label>
-            <input type="password" id="user_password" name="user_password" class="form-control" placeholder="비밀번호를 입력하세요">
+            <label for="password">비밀번호</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="비밀번호를 입력하세요">
         </div>
         <div class="form-group:last-child" style="display: flex; justify-content: center;">
             <button type="submit" class="btn btn-primary" style="width: 150px; height: 50px;">로그인</button>
@@ -115,34 +115,56 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="./js/common.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
     $(document).ready(function() {
+        $("#header").load("common/header.html", function() {
+            // header.html이 로드된 후에 로그인 상태를 업데이트합니다.
+            updateLoginStatus();
+        });
+        // 다른 페이지 로드 코드
+        $("#main").load("common/main.html");
+        $("#footer").load("common/footer.html");
+    });
+</script>
+
+<script src="./js/common.js"></script>
+<script>
+    $(document).ready(function() {
+        // 폼 제출 이벤트 핸들러
         $("form").submit(function(event) {
-            event.preventDefault(); // 폼 기본 제출 막기
+            event.preventDefault();
             var userData = {
-                user_id: $("#user_id").val(),
-                user_password: $("#user_password").val()
+                username: $("#username").val(),
+                password: $("#password").val()
             };
 
+            // AJAX 요청
             $.ajax({
                 type: "POST",
-                url: "https://www.dangnagwi.store/user/login", // 올바른 엔드포인트 URL인지 확인하세요.
+                // url: "http://localhost:8081/user/login",
+                url: "https://www.dangnagwi.store/user/login",
                 contentType: "application/json",
                 data: JSON.stringify(userData),
                 success: function(response) {
-                    localStorage.setItem('authToken', response.token); // 토큰 저장
-                    window.location.href = 'index.html'; // 성공 시 리다이렉트
+                    localStorage.setItem('authToken', response.token);
+                    updateLoginStatus(); // 성공 후 로그인 상태 업데이트
+                    window.location.href = 'index.html';
                 },
                 error: function(xhr) {
-                    var errorMsg = xhr.responseJSON ? xhr.responseJSON.message : "로그인에 실패했습니다.";
-                    alert("로그인 실패: " + errorMsg);
+                    alert("로그인 실패: " + xhr.responseJSON.message);
                 }
             });
+        });
 
+        // header.html 로드 후 로그인 상태를 확인합니다.
+        $("#header").load("common/header.html", function() {
+            updateLoginStatus();
         });
     });
 </script>
+
 
 </body>
 </html>

@@ -15,7 +15,7 @@
         <li><a class="font-orange" href="/board.html">나눔 게시판 </a></li>
         <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
         <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
-        <li><a href="/loginForm.html">로그인/회원가입</a></li>
+        <li id="login-status"><a href="/loginForm.html">로그인/회원가입</a></li>
 
       </ul>
     </div>
@@ -25,6 +25,14 @@
     </div>
   </div>
 </header>
+
+<script src="./js/common.js"></script>
+<script>
+  // 페이지가 준비된 후에 로그인 상태를 업데이트합니다.
+  $(document).ready(function() {
+    updateLoginStatus();
+  });
+</script>
 
 <script>
   $(document).ready(function(){
@@ -81,5 +89,28 @@
                 console.error('검색 API 호출 중 오류 발생:', error);
               });
     }
+  });
+</script>
+
+<script>
+  // 로그아웃 함수 전역 등록
+  function logout() {
+    localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
+    window.location.href = 'index.html'; // 홈페이지로 리다이렉트
+  }
+  window.logout = logout;
+
+  $(document).ready(function() {
+    // 로그인 상태 확인 및 UI 업데이트 함수 정의
+    function checkLoginStatus() {
+      if (localStorage.getItem('authToken')) {
+        $('#login-status').html('<a href="#" onclick="logout()">로그아웃</a>');
+      } else {
+        $('#login-status').html('<a href="loginForm.html">로그인/회원가입</a>');
+      }
+    }
+
+    // 페이지 로딩 시 로그인 상태 확인
+    checkLoginStatus();
   });
 </script>
