@@ -1,15 +1,17 @@
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
-    const post = postParameter.get("post")
-    loadPostNumber(post);
+    const postNo = postParameter.get("postNo")
+    console.log("첫 postNo 값 : " + postNo)
+    loadPostNumber(postNo);
 };
 
-function loadPostNumber(post) {
-    fetch(`https://www.dangnagwi.store/api_post/post/${post}`)
+function loadPostNumber(postNo) {
+    fetch(`http://www.dangnagwi.store/api_post/post/${postNo}`)
         .then(response => response.json())
         .then(data => {
             const content = data.content;
             const comment = data.comment;
+            console.log("postNo :" + postNo)
             console.log("게시글: "+content)
             console.log("작성자: "+content.userNickname)
             const containerWrap = document.querySelector('.container')

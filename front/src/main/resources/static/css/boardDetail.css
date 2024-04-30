@@ -1,0 +1,77 @@
+
+img {
+    display: block;
+    margin: 0 auto; /* 이미지를 가운데로 정렬합니다. */
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #F4F4F4;
+    margin: 0;
+    padding: 0;
+}
+main {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.post-title {
+    font-size: 24px;
+    margin-top: 0;
+}
+#pay {
+    color: #FF6347;
+    font-weight: bold;
+}
+.post-info {
+    margin-top: 20px;
+}
+.post-content {
+    line-height: 1.6;
+}
+.comments {
+    margin-top: 20px;
+}
+.comments h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.comments input[type="text"] {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.comments p {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.comments li {
+    margin-bottom: 5px;
+}
+form {
+    margin: 10px;
+    display: flex; /* 요소들을 가로로 배열합니다. */
+    flex-direction: row; /* 가로 방향으로 정렬합니다. */
+    position: relative; /* 버튼 위치 설정 */
+}
+/* 버튼 색상 및 디자인 */
+.input-button {
+    margin-left: 10px;
+    width: 80px; /* 버튼 너비 */
+    height: 40px; /* 버튼 높이 */
+    background-color: #007BFF; /* 버튼 배경색 */
+    color: #fff; /* 버튼 글자색 */
+    border: none; /* 버튼 테두리 제거 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 설정 */
+    cursor: pointer; /* 마우스 포인터 변경 */
+}
+/* 버튼 효과 */
+.input-button:hover {
+    background-color: #0056B3; /* 마우스 포인터 올리면 배경색 변경 */
+}
+.hidden {
+    display: none
+}
