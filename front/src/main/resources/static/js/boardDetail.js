@@ -29,7 +29,7 @@ function loadPostNumber(postNo) {
                             <p id="pay" class="hidden">책임비 결제</p>
                             <p>작성자 : ${content.userNickname}</p>
                         </div>
-                        <img src="${content.postFile}" alt="게시물 사진">
+                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''} 
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
                             <div class="comments">
