@@ -138,7 +138,8 @@ public class ProxyController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody LoginRequestDto loginRequestDto){
-        String url = "http://user-service.default.svc.cluster.local/user/login";
+//        String url = "http://user-service.default.svc.cluster.local/user/login";
+        String url = "http://localhost:8081/user/login";
 
         // User 백엔드로 전달할 HTTP 요청 생성
         HttpEntity<LoginRequestDto> request = new HttpEntity<>(loginRequestDto);
@@ -149,7 +150,6 @@ public class ProxyController {
         // User 백엔드에서 받은 응답 반환
         return ResponseEntity.ok(userResponse.getBody());
     }
-
 
 
     // 회원 정보 업데이트
