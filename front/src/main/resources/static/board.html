@@ -130,6 +130,7 @@
     for (let i = startPage; i < endPage; i++) {
       const pageButton = document.createElement('button');
       pageButton.textContent = i + 1;
+      pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button'); // Bootstrap 버튼 클래스 추가
       if (i === currentPage) {
         pageButton.classList.add('active'); // 활성화된 페이지를 나타내는 클래스 추가
       }
