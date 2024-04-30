@@ -127,19 +127,22 @@
 
             $.ajax({
                 type: "POST",
-                url: "/proxy/login",
+                url: "https://www.dangnagwi.store/user/login", // 올바른 엔드포인트 URL인지 확인하세요.
                 contentType: "application/json",
                 data: JSON.stringify(userData),
                 success: function(response) {
                     localStorage.setItem('authToken', response.token); // 토큰 저장
-                    window.location.href = 'index.html'; // 페이지 리다이렉트
+                    window.location.href = 'index.html'; // 성공 시 리다이렉트
                 },
-                error: function(xhr, status, error) {
-                    alert("로그인 실패: " + xhr.responseText);
+                error: function(xhr) {
+                    var errorMsg = xhr.responseJSON ? xhr.responseJSON.message : "로그인에 실패했습니다.";
+                    alert("로그인 실패: " + errorMsg);
                 }
             });
+
         });
     });
 </script>
+
 </body>
 </html>

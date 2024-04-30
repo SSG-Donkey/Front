@@ -91,19 +91,22 @@
   $(document).ready(function() {
     function checkLogin() {
       if (localStorage.getItem('authToken')) {
-        $('.login-link').html('<a href="#" onclick="logout()">로그아웃</a>');
+        // 로그인 상태인 경우
+        $('#login-link').html('<a href="#" onclick="logout()">로그아웃</a>'); // 로그아웃 링크로 변경
       } else {
-        $('.login-link').html('<a href="/loginForm.html">로그인/회원가입</a>');
+        // 비로그인 상태인 경우
+        $('#login-link').html('<a href="loginForm.html">로그인/회원가입</a>'); // 로그인/회원가입 링크로 변경
       }
     }
 
     function logout() {
-      localStorage.removeItem('authToken'); // 토큰 제거
-      window.location.href = 'index.html'; // 리다이렉트
+      localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
+      window.location.href = 'index.html'; // 홈페이지로 리다이렉트
     }
 
-    checkLogin();
+    checkLogin(); // 페이지 로딩 시 로그인 상태 체크
   });
 </script>
+
 </body>
 </html>
