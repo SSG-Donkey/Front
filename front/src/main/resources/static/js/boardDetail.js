@@ -5,7 +5,7 @@ window.onload = function () {
 };
 
 function loadPostNumber(post) {
-    fetch(`/proxy/api_post/post/${post}`)
+    fetch(`https://www.dangnagwi.store/api_post/post/${post}`)
         .then(response => response.json())
         .then(data => {
             const content = data.content;

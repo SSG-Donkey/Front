@@ -76,7 +76,7 @@
 
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
-    fetch(`/proxy/api_post/category/${category}?page=${page}&size=${pageSize}`)
+    fetch(`https://www.dangnagwi.store/api_post/category/${category}?page=${page}&size=${pageSize}`)
             .then(response => response.json())
             .then(data => {
               currentPage = data.currentPage;
@@ -93,7 +93,7 @@
       const itemElement = document.createElement('article');
       itemElement.classList.add('item');
       itemElement.innerHTML = `
-                          <a class="item-link" href="/post/${post.postNo}">
+                          <a class="item-link" href="boardDetail.html?postNo=${post.postNo}">
                               <div class="item-photo">
                                   <img src="${post.postFile}" alt="${post.postTitle}">
                               </div>
