@@ -151,6 +151,15 @@
       scrollToTop(); // 스크롤 맨 위로 이동
     });
     paginationDiv.appendChild(nextButton);
+
+    // 현재/총 페이지 명시 요소 생성
+    const pageNumber = document.createElement('span');
+    pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+    pageNumber.classList.add('page-number'); // 선택적으로 클래스를 추가할 수 있습니다.
+
+    // 페이지네이션 div에 추가  
+    paginationDiv.appendChild(pageNumber);
+
   }
   // 스크롤을 맨 위로 이동하는 함수
   function scrollToTop() {
