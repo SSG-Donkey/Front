@@ -57,7 +57,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="http://localhost:8081/api_post/write" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+                    <form action="https://www.dangnagwi.store/api_post/write" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="user_no" name="user_no"  value="1" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
@@ -120,7 +120,7 @@
     // 페이지 로드 시 실행
     window.onload = function () {
         // 서버에서 지역 데이터를 가져와서 옵션으로 추가
-        fetch('http://localhost:8081/region/findAll')
+        fetch('https://www.dangnagwi.store/region/findAll')
             .then(response => response.json())
             .then(data => {
                 const regionSelect = document.getElementById('region_no');
