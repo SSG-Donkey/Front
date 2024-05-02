@@ -43,13 +43,13 @@
             fetch(`https://www.dangnagwi.store/kakao/success?pg_token=${pgToken}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data)
                     const store = '당신의 나눔은 귀하다'
                     // 서버로부터 받은 결과를 출력합니다.
                     document.querySelector('.kp-m-flexlayout:nth-child(1) p:last-child').textContent = store;
                     document.querySelector('.kp-m-flexlayout:nth-child(2) p:last-child').textContent = data.approved_at;
                     document.querySelector('.kp-m-flexlayout:nth-child(3) p:last-child').textContent = data.item_name;
                     document.querySelector('.kp-m-flexlayout:nth-child(4) p:last-child').textContent = data.amount.total + '원';
-                    // 여기에서 원하는 처리를 수행할 수 있습니다.
                 })
                 .catch(error => console.error('결제 결과를 가져오는 중 오류 발생:', error));
         }
