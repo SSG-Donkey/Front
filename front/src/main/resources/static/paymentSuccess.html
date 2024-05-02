@@ -56,7 +56,10 @@
                     document.querySelector('.kp-m-flexlayout:nth-child(3) p:last-child').textContent = data.item_name;
                     document.querySelector('.kp-m-flexlayout:nth-child(4) p:last-child').textContent = data.amount.total + '원';
                 })
-                .catch(error => console.error('결제 결과를 가져오는 중 오류 발생:', error));
+                .catch(error => {
+                    console.error('결제 결과를 가져오는 중 오류 발생:', error);
+                    location.reload();
+                });
         }
     };
 </script>
