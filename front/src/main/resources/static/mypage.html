@@ -164,6 +164,24 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        // 사용자 정보 로드
+        var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
+        var bankNo = localStorage.getItem('userBankNo'); // 은행 번호 가져오기
+
+        // 기존 정보가 있다면 입력란에 설정
+        if (nickname) {
+            $('#nickname').val(nickname);
+        }
+
+        if (bankNo) {
+            $('#bankNo').val(bankNo);
+        }
+    });
+</script>
+
+
+<script>
     $(document).ready(function() {
         const userId = localStorage.getItem('userId');
 
