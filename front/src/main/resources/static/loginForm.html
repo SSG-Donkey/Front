@@ -149,7 +149,7 @@
                 success: function(response) {
                     localStorage.setItem('authToken', response.data.token);
                     localStorage.setItem('userNickname', response.data.nickname); // 닉네임 저장
-                    localStorage.setItem('userPassword', response.data.password); // 비밀번호 저장
+                    localStorage.setItem('userEmail', response.data.email); // 이메일 저장
                     localStorage.setItem('userBankNo', response.data.bankNo); // 은행정보 저장
                     localStorage.setItem('userAccount', response.data.account); // 계좌 저장
                     localStorage.setItem('userId', response.data.userId);

@@ -146,6 +146,8 @@
         <input type="password" id="passwordconfirm" name="passwordconfirm">
         <label for="nickname">닉네임:</label>
         <input type="text" id="nickname" name="nickname">
+        <label for="email">이메일:</label>
+        <input type="text" id="email" name="email">
         <label for="bankNo">은행 및 계좌번호:</label>
         <div style="display: flex;">
             <select id="bankNo" name="bankNo">
@@ -167,6 +169,7 @@
     $(document).ready(function () {
         // 사용자 정보 로드
         var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
+        var email = localStorage.getItem('userEmail'); // 이메일 가져오기
         var bankNo = localStorage.getItem('userBankNo'); // 은행 번호 가져오기
 
         // 기존 정보가 있다면 입력란에 설정
@@ -176,6 +179,10 @@
 
         if (bankNo) {
             $('#bankNo').val(bankNo);
+        }
+
+        if (bankNo) {
+            $('#email').val(email);
         }
     });
 </script>
@@ -191,6 +198,7 @@
                 password: $("#password").val(),
                 passwordconfirm: $("#passwordconfirm").val(),
                 nickname: $("#nickname").val(),
+                email: $("#email").val(),
                 bankNo: $("#bankNo").val(),
                 account: $("#account").val()
             };
