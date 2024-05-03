@@ -77,7 +77,7 @@
     // 페이지 로드 시 실행
     window.onload = function () {
         // 서버에서 은행 데이터를 가져와서 옵션으로 추가
-        fetch('http://localhost:8081/user/banks')
+        fetch('https://www.dangnagwi.store/user/banks')
             .then(response => response.json())
             .then(data => {
                 const bankSelect = document.getElementById('bankInput');
@@ -116,7 +116,7 @@
             
             $.ajax({
                 type: "POST",
-                url: "http://localhost:8081/user/signup",
+                url: "https://www.dangnagwi.store/user/signup",
                 contentType: "application/json",
                 data: JSON.stringify(userData),
                 success: function(response) {
