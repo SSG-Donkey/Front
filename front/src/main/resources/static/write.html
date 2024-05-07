@@ -47,7 +47,8 @@
 </header>
 <br><br><br><br><br><br><br>
 <div class="container">
-    <h1>나눔게시판작성테스트</h1>
+    <h1> <p id="nickname-output">님!</p>나눔게시판작성</h1>
+    <input type="hidden" class="form-control" style="font-size: 20px;" id="user_nickname" name="user_nickname"  value="nickname-output" required>
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
     </div>
@@ -57,7 +58,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="https://www.dangnagwi.store/api_post/write" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+                    <form action="board.default.svc.cluster.local:8080/api_post/write" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="user_no" name="user_no"  value="1" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
@@ -117,10 +118,23 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        // 사용자 정보 로드
+        var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
+        document.getElementById('nickname-output').innerHTML = nickname; // 'nickname-output' ID를 가진 요소에 삽입
+        // 기존 정보가 있다면 입력란에 설정
+        if (nickname) {
+            document.getElementById('nickname-output').innerHTML = nickname;
+        }
+
+    });
+</script>
+
+<script>
     // 페이지 로드 시 실행
     window.onload = function () {
         // 서버에서 지역 데이터를 가져와서 옵션으로 추가
-        fetch('https://www.dangnagwi.store/region/findAll')
+        fetch('board.default.svc.cluster.local:8080/region/findAll')
             .then(response => response.json())
             .then(data => {
                 const regionSelect = document.getElementById('region_no');
@@ -138,7 +152,7 @@
             });
     };
 
-    fetch('https://www.dangnagwi.store/api_post/write', {
+    fetch('board.default.svc.cluster.local:8080/api_post/write', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
