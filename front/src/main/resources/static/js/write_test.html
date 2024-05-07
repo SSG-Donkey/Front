@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage 예제</title>
+</head>
+<body>
+<h1>님, 안녕하세요!</h1>
+<p id="user-nickname"></p>
+
+<script>
+    // 1. localStorage에서 사용자 닉네임 가져오기
+    const userNickname = localStorage.getItem('userNickname');
+
+    // 2. 가져온 닉네임을 HTML 요소에 적용하기
+    const nicknameElement = document.getElementById('user-nickname');
+    nicknameElement.textContent = userNickname || '사용자 닉네임 없음'; // 닉네임이 없으면 "사용자 닉네임 없음" 출력
+
+    // 3. (선택사항) 사용자 닉네임이 없으면 알림 메시지 출력
+    if (!userNickname) {
+        alert('사용자 닉네임이 없습니다. 설정해주세요!');
+    }
+</script>
+</body>
+</html>
