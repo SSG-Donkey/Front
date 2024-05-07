@@ -10,7 +10,7 @@
             var nickname = localStorage.getItem('userNickname');
 
             // 페이지가 로드될 때 환영 메시지 삽입
-            $('#welcome-message').text(`환영합니다! ${nickname}님! 하이`);
+            $('#welcome-message').text(`환영합니다! ${nickname}님!`);
 
             $.get('./common/head.html', function (data) {
                 $('head').append(data);
