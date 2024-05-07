@@ -46,8 +46,21 @@
     </div>
 </header>
 <br><br><br><br><br><br><br>
+<div id="app">
+    <h1><p id="nickname-output"></p>님!</h1>
+</div>
+
+<script>
+    // EJS 템플릿 렌더링
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userNickname: localStorage.getItem('userNickname') // localStorage에서 사용자 닉네임 가져오기
+        }
+    });
+</script>
 <div class="container">
-    <h1> <p id="nickname-output">님!</p>나눔게시판작성</h1>
+    <h1>나눔게시판작성 테스트159 </h1>
     <input type="hidden" class="form-control" style="font-size: 20px;" id="user_nickname" name="user_nickname"  value="nickname" required>
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
