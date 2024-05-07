@@ -127,10 +127,10 @@
 <script>
     // 1. localStorage에서 사용자 닉네임 가져오기
     const userNickname = localStorage.getItem('userNickname');
-    const userNo= localStorage.getItem('userNo');
+
     // 2. 가져온 닉네임을 HTML 요소에 적용하기
     const nicknameElement = document.getElementById('user_nickname');
-    const nicknameElement = document.getElementById('user-no');
+
     nicknameElement.textContent = userNickname || '사용자 닉네임 없음'; // 닉네임이 없으면 "사용자 닉네임 없음" 출력
 
     // 3. (선택사항) 사용자 닉네임이 없으면 알림 메시지 출력
