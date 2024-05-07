@@ -46,22 +46,13 @@
     </div>
 </header>
 <br><br><br><br><br><br><br>
-<div id="app">
-    <h1><p id="nickname-output"></p>님!</h1>
+
 </div>
 
-<script>
-    // EJS 템플릿 렌더링
-    var app = new Vue({
-        el: '#app',
-        data: {
-            userNickname: localStorage.getItem('userNickname') // localStorage에서 사용자 닉네임 가져오기
-        }
-    });
-</script>
+
 <div class="container">
-    <h1>나눔게시판작성 테스트159 </h1>
-    <input type="hidden" class="form-control" style="font-size: 20px;" id="user_nickname" name="user_nickname"  value="nickname-output" required>
+    <h1><p id="user-nickname"></p> 님 나눔게시판작성  </h1>
+    <input type="hidden" class="form-control" style="font-size: 20px;" id="user_nickname" name="user_nickname"  value="user-nickname" required>
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
     </div>
@@ -71,7 +62,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="https://www.dangnagwi.store/api_post/write" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+                    <form action="https://www.dangnagwi.store/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="user_no" name="user_no"  value="1" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
@@ -130,17 +121,20 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        // 사용자 정보 로드
-        var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
-        document.getElementById('nickname-output').innerHTML = nickname; // 'nickname-output' ID를 가진 요소에 삽입
-        // 기존 정보가 있다면 입력란에 설정
-        if (nickname) {
-            document.getElementById('nickname-output').innerHTML = nickname;
-        }
 
-    });
+
+<script>
+    // 1. localStorage에서 사용자 닉네임 가져오기
+    const userNickname = localStorage.getItem('userNickname');
+
+    // 2. 가져온 닉네임을 HTML 요소에 적용하기
+    const nicknameElement = document.getElementById('user-nickname');
+    nicknameElement.textContent = userNickname || '사용자 닉네임 없음'; // 닉네임이 없으면 "사용자 닉네임 없음" 출력
+
+    // 3. (선택사항) 사용자 닉네임이 없으면 알림 메시지 출력
+    if (!userNickname) {
+        alert('사용자 닉네임이 없습니다. 설정해주세요!');
+    }
 </script>
 
 <script>
