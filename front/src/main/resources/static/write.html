@@ -46,8 +46,21 @@
     </div>
 </header>
 <br><br><br><br><br><br><br>
+<script>
+    $(document).ready(function () {
+        // 유저 닉네임 가져오기
+        var nickname = localStorage.getItem('userNickname');
+
+        // 페이지가 로드될 때 환영 메시지 삽입
+        $('#welcome-message').text(`환영합니다! ${nickname}님!`);
+
+        $.get('./common/head.html', function (data) {
+            $('head').append(data);
+        });
+    });
+</script>
 <div class="container">
-    <h1>나눔게시판작성테스트</h1>
+    <h1>나눔게시판작성</h1>
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
     </div>
@@ -160,5 +173,18 @@
         });
 
 
+</script>
+<script>
+    $(document).ready(function () {
+        // 사용자 정보 로드
+        var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
+
+
+        // 기존 정보가 있다면 입력란에 설정
+        if (nickname) {
+            $('#nickname').val(nickname);
+        }
+
+    });
 </script>
 </body>
