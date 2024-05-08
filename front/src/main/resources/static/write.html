@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 test  </h1>
+    <h1>  나눔게시판작성 1  </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -129,7 +129,37 @@
         // 사용자 정보 로드
         var user_nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
         var user_no = localStorage.getItem('userId'); // 은행 번호 가져오기
+        // 닉네임 설정
+        $('#user_nickname').val(user_nickname);
 
+        // 은행 번호 설정
+        $('#user_no').val(user_no);
+
+        // 폼 제출
+        $('form').submit(function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            // 데이터 직접 전송
+            var data = {
+                user_nickname: user_nickname,
+                user_id: user_no // Assuming user_id is the same as user_no
+            };
+
+            // POST 요청 보내기
+            $.ajax({
+                url: '/your-spring-endpoint', // Replace with your Spring endpoint URL
+                type: 'POST',
+                data: data,
+                success: function(response) {
+                    console.log('Success:', response);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            return false; // Prevent default form submission
+        });
     });
 
 
@@ -168,7 +198,7 @@
             post_title: post_title,
             post_content: post_content,
             post_file: post_file,
-            user_nickname : userNickname
+
         })
     })
         .then(response => response.json())
