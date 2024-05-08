@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 작성자등록123  </h1>
+    <h1>  나눔게시판작성   </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -65,12 +65,12 @@
                     <form action="https://www.dangnagwi.store/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
                             <div class="form-group">
-                                <label for="user_nickname">Nickname:</label>
-                                <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
+
+                                <input type="hidden" class="form-control" id="user_nickname" name="user_nickname" required>
                             </div>
                             <div class="form-group">
-                                <label for="user_no">User_no:</label>
-                                <input type="text" class="form-control" id="user_no" name="user_no" required>
+
+                                <input type="hidden" class="form-control" id="user_no" name="user_no" required>
                             </div>
 
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
