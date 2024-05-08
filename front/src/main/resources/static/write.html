@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 hi 작성자등록 1 </h1>
+    <h1>  나눔게시판작성 hi 작성자등록  </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -141,7 +141,7 @@
             event.preventDefault(); // Prevent default form submission
 
             // 데이터 직접 전송
-            var data = {
+            var data2 = {
                 user_nickname: user_nickname
 
             };
@@ -150,7 +150,7 @@
             $.ajax({
                 url: 'http://localhost:6154/api_post/write2', // Replace with your Spring endpoint URL
                 type: 'POST',
-                data: data,
+                data: data2,
                 success: function(response) {
                     console.log('Success:', response);
                     alert('User information submitted successfully!');
