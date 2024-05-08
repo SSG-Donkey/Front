@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 test   </h1>
+    <h1>  나눔게시판작성 test  </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -62,7 +62,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="https://www.dangnagwi.store/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+                    <form action="http://localhost:6154/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
                             <input type="hidden" class="form-control" id="user_no" name="user_no" value="1" >
                             <input type="hidden" class="form-control" id="user_nickname" name="user_nickname" >
@@ -125,12 +125,13 @@
 
 
 <script>
-    var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
-    const nicknameElement = document.getElementById('user_nickname');
-    nicknameElement.value = nickname;
-    var userno = localStorage.getItem('userId'); // 유저넘버
-    const nicknameElement = document.getElementById('user_no');
-    nicknameElement.value = userno;
+    $(document).ready(function () {
+        // 사용자 정보 로드
+        var user_nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
+        var user_no = localStorage.getItem('userId'); // 은행 번호 가져오기
+
+    });
+
 
 </script>
 
