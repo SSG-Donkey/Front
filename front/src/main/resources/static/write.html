@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 1  </h1>
+    <h1>  나눔게시판작성  </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -147,7 +147,7 @@
 
             // POST 요청 보내기
             $.ajax({
-                url: '/your-spring-endpoint', // Replace with your Spring endpoint URL
+                url: 'http://localhost:6154/api_post/write2', // Replace with your Spring endpoint URL
                 type: 'POST',
                 data: data,
                 success: function(response) {
