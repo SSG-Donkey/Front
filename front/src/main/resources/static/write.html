@@ -37,7 +37,7 @@
                 <li><a class="font-orange" href="/board.html">나눔 게시판 </a></li>
                 <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
                 <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
-                <li><a href="/loginForm.html">로그인/회원가입</a></li>
+                <li><a href="/mypage.html">마이페이지</a></li>
             </ul>
         </div>
         <div class="search-block">
@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 demo  </h1>
+    <h1>  나눔게시판작성 </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -156,7 +156,7 @@
 
             // POST 요청 보내기
             $.ajax({
-                url: 'https://www.dangnagwi.store/api_post/user-info', // Replace with your Spring endpoint URL
+                url: 'https://www.dangnagwi.store/api_post/write2', // Replace with your Spring endpoint URL
                 type: 'POST',
                 data: data,
                 success: function(response) {
@@ -196,7 +196,7 @@
             });
     };
 
-    fetch('https://www.dangnagwi.store/api_post/write', {
+    fetch('https://www.dangnagwi.store/api_post/write2', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
