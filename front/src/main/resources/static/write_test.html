@@ -3,24 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>localStorage 예제</title>
+    <title>  예제</title>
 </head>
 <body>
-<h1>님, 안녕하세요!</h1>
-<p id="user-nickname"></p>
 
+<input id="user-nickname"><h1>님, 안녕하세요</h1>
+
+<form action="http://localhost:6154/api_post/user-info" method="post">
+    <input type="hidden" name="user_nickname" id="user_nickname" >
+    <button type="submit">전송</button>
+</form>
 <script>
     // 1. localStorage에서 사용자 닉네임 가져오기
-    const userNickname = localStorage.getItem('userNickname');
+    const userNickname = '서동훈';
 
-    // 2. 가져온 닉네임을 HTML 요소에 적용하기
-    const nicknameElement = document.getElementById('user-nickname');
-    nicknameElement.textContent = userNickname || '사용자 닉네임 없음'; // 닉네임이 없으면 "사용자 닉네임 없음" 출력
 
-    // 3. (선택사항) 사용자 닉네임이 없으면 알림 메시지 출력
-    if (!userNickname) {
-        alert('사용자 닉네임이 없습니다. 설정해주세요!');
-    }
+    // 4. 숨겨진 입력 필드에 닉네임 값 설정
+    const hiddenNicknameInput = document.getElementById('user_nickname');
+    hiddenNicknameInput.value = userNickname;
+
 </script>
+
+
 </body>
 </html>
