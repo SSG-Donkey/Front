@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 gi작성자등록  </h1>
+    <h1>  나눔게시판작성 작성자등록123  </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -130,14 +130,14 @@
 </div>
 
 
-
-<script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<<script>
     $(document).ready(function() {
         // 사용자 정보 로드
         var user_nickname = localStorage.getItem('userNickname');
-        user_nickname='hi';
+
         var user_no =localStorage.getItem('userId') ;
-        user_no=125;
+
         // 닉네임 설정
         $('#user_nickname').val(user_nickname);
 
@@ -152,13 +152,13 @@
             var data = {
                 user_nickname: user_nickname,
                 user_no: user_no
-            };dd.
+            };
 
             // POST 요청 보내기
             $.ajax({
-                url: 'http://localhost:6154/api_post/write2', // Replace with your Spring endpoint URL
+                url: 'http://localhost:6154/api_post/user-info', // Replace with your Spring endpoint URL
                 type: 'POST',
-                data: data2,
+                data: data,
                 success: function(response) {
                     console.log('Success:', response);
                     alert('User information submitted successfully!');
@@ -172,8 +172,6 @@
             return false; // Prevent default form submission
         });
     });
-
-
 </script>
 
 <script>
