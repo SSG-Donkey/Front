@@ -130,49 +130,7 @@
 </div>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<<script>
-    $(document).ready(function() {
-        // 사용자 정보 로드
-        var user_nickname = localStorage.getItem('userNickname');
 
-        var user_no =localStorage.getItem('userId') ;
-
-        // 닉네임 설정
-        $('#user_nickname').val(user_nickname);
-
-        // 유저 번호 설정
-        $('#user_no').val(user_no);
-
-        // 폼 제출
-        $('form').submit(function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // 데이터 직접 전송
-            var data = {
-                user_nickname: user_nickname,
-                user_no: user_no
-            };
-
-            // POST 요청 보내기
-            $.ajax({
-                url: 'https://www.dangnagwi.store/api_post/write2', // Replace with your Spring endpoint URL
-                type: 'POST',
-                data: data,
-                success: function(response) {
-                    console.log('Success:', response);
-                    alert('User information submitted successfully!');
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                    alert('Error submitting user information!');
-                }
-            });
-
-            return false; // Prevent default form submission
-        });
-    });
-</script>
 
 <script>
     // 페이지 로드 시 실행
