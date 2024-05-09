@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성2(파일첨부필수) </h1>
+    <h1>  나눔게시판작성2(파일첨부필수)1 </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="user_no">User_no:</label>
-                                <input type="text" class="form-control" id="user_no" name="user_no" require>
+                                <input type="text" class="form-control" id="user_no" name="user_no" required>
                             </div>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_status" name="post_status"  value="0" required>
@@ -133,9 +133,10 @@
     $(document).ready(function() {
         var user_nickname = localStorage.getItem('userNickname');
         var user_no =localStorage.getItem('userId') ;
-
+        //user_nickname='서동훈';
+        //user_no=1;
         // Set nickname and user number in form fields (Optional)
-        $('#user_nickname').val(user_nickname);
+       $('#user_nickname').val(user_nickname);
         $('#user_no').val(user_no);
 
         // Form submission handling
@@ -144,15 +145,16 @@
 
             // Use FormData for multipart form data (recommended)
             const formData = new FormData();
+
             formData.append('user_nickname', user_nickname);
-            formData.append('user_no', user_no);
+            formData.append('user_no', parseInt(user_no));
             formData.append('post_title', $('#post_title').val()); // Get value from form field
             formData.append('post_content', $('#post_content').val()); // Get value from form field
-            formData.append('post_category', $('#post_category').val()); // Get value from form field
-            formData.append('post_views', $('#post_views').val()); // Get value from form field
-            formData.append('post_status', $('#post_status').val()); // Get value from form field
-            formData.append('region_no', $('#region_no').val()); // Get value from form field
-            formData.append('point', $('#point').val()); // Get value from form field
+            formData.append('post_category', parseInt($('#post_category').val())); // Get value from form field
+            formData.append('post_views', parseInt($('#post_views').val())); // Get value from form field
+            formData.append('post_status',parseInt( $('#post_status').val())); // Get value from form field
+            formData.append('region_no', parseInt($('#region_no').val())); // Get value from form field
+            formData.append('point',parseInt($('#point').val())); // Get value from form field
             const fileInput = $('#post_file')[0];
             if (fileInput.files && fileInput.files[0]) {
                 formData.append('post_file', fileInput.files[0]);
