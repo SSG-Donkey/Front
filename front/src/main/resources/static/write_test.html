@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +12,9 @@
     <link rel="stylesheet" href="./css/main.css" />
     <link rel="stylesheet" href="./css/footer.css" />
 </head>
-
 <body>
-
 <!-- header -->
 <div id="header-placeholder"></div>
-
 <!-- header -->
 <header>
     <div class="header-wrap">
@@ -37,7 +33,7 @@
                 <li><a class="font-orange" href="/board.html">나눔 게시판 </a></li>
                 <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
                 <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
-                <li><a href="/mypage.html">마이페이지</a></li>
+                <li><a href="/loginForm.html">로그인/회원가입</a></li>
             </ul>
         </div>
         <div class="search-block">
@@ -46,32 +42,19 @@
     </div>
 </header>
 <br><br><br><br><br><br><br>
-
-</div>
-
-
 <div class="container">
-    <h1>  나눔게시판작성2(파일첨부필수)111! </h1>
-
+    <h1>나눔게시판작성테스트</h1>
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
     </div>
-
-
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="http://localhost:6154/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+
+                    <form action="https://www.dangnagwi.store/api_post/write" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
-                            <div class="form-group">
-                                <label for="user_nickname">Nickname:</label>
-                                <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="user_no">User_no:</label>
-                                <input type="text" class="form-control" id="user_no" name="user_no" required>
-                            </div>
+                            <input type="hidden" class="form-control" style="font-size: 20px;" id="user_no" name="user_no"  value="1" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_status" name="post_status"  value="0" required>
                             <div class="form-group mb-3">
@@ -91,7 +74,6 @@
                                     <input type="number" class="form-control" style="font-size: 20px;" id="point" name="point" min="1000" max="1000000" value="10000" required>
                                 </div>
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="post_category" class="form-label" style="font-size: 20px;">나눔 물건 종류</label>
                                 <select class="form-select" style="font-size: 20px;" id="post_category" name="post_category" required>
@@ -105,56 +87,31 @@
                                     <option value="9">기타</option>
                                 </select>
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="post_content" class="form-label" style="font-size: 20px;">내용:</label>
                                 <textarea class="form-control" id="post_content"  style="font-size: 20px;" name="post_content" rows="20"   placeholder="내용을 입력하세요" required></textarea>
                             </div>
-
                             <div class="form-group mb-3">
                                 <label for="post_file" class="form-label" style="font-size: 20px;">사진 첨부:</label>
                                 <input type="file" style="font-size: 20px;"class="form-control" id="post_file" name="post_file" >
                             </div>
-
                             <button type="submit" style="font-size: 20px;" class="btn btn-primary btn-block" onclick="location.href = '/board.html'">나눔 글 작성 완료</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-
-
         </div>
     </div>
 </div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function() {
-        // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-        var user_nickname = localStorage.getItem('userNickname') ;
-        var user_no=localStorage.getItem('userId');
-        user_nickname='서동';
-        user_no=155;
-        // Set nickname and user number in form fields (Optional)
-        $('#user_nickname').val(user_nickname);
-        $('#user_no').val(user_no);
-
-        // Form submission handling
-
-    });
-</script>
 <script>
     // 페이지 로드 시 실행
     window.onload = function () {
         // 서버에서 지역 데이터를 가져와서 옵션으로 추가
+
         fetch('https://www.dangnagwi.store/region/findAll')
             .then(response => response.json())
             .then(data => {
                 const regionSelect = document.getElementById('region_no');
-
                 // 가져온 데이터를 옵션으로 추가
                 data.forEach(region => {
                     const option = document.createElement('option');
@@ -168,9 +125,5 @@
             });
     };
 
-
-
-
 </script>
 </body>
-</html>
