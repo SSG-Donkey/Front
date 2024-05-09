@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성2(파일첨부필수) </h1>
+    <h1>  나눔게시판작성2(파일첨부필수)! </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -62,7 +62,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="https://www.dangnagwi.store/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+                    <form action="http://localhost:6154/api_post/user-info" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
                             <div class="form-group">
                                 <label for="user_nickname">Nickname:</label>
@@ -131,13 +131,14 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        var user_nickname = localStorage.getItem('userNickname');
-        var user_no =localStorage.getItem('userId') ;
-      //  user_nickname='서동훈';
-       // user_no=1;
+        // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
+        var user_nickname = localStorage.getItem('userNickname') ;
+        var user_no=localStorage.getItem('userId');
+        user_nickname='seo';
+        user_no=12345;
         // Set nickname and user number in form fields (Optional)
-       $('#user_nickname').val(user_nickname);
-        $('#user_no').val(user_no);
+          $('#user_nickname').val(user_nickname);
+           $('#user_no').val(user_no);
 
         // Form submission handling
         $('form').submit(function(event) {
@@ -145,23 +146,16 @@
 
             // Use FormData for multipart form data (recommended)
             const formData = new FormData();
-
             formData.append('user_nickname', user_nickname);
-            formData.append('user_no', parseInt(user_no));
+            formData.append('user_no', user_no);
             formData.append('post_title', $('#post_title').val()); // Get value from form field
-            formData.append('post_content', $('#post_content').val()); // Get value from form field
-            formData.append('post_category', parseInt($('#post_category').val())); // Get value from form field
-            formData.append('post_views', parseInt($('#post_views').val())); // Get value from form field
-            formData.append('post_status',parseInt( $('#post_status').val())); // Get value from form field
-            formData.append('region_no', parseInt($('#region_no').val())); // Get value from form field
-            formData.append('point',parseInt($('#point').val())); // Get value from form field
             const fileInput = $('#post_file')[0];
             if (fileInput.files && fileInput.files[0]) {
                 formData.append('post_file', fileInput.files[0]);
             }
             // POST request using FormData
             $.ajax({
-                url: 'https://www.dangnagwi.store/api_post/write2', // Replace with your Spring endpoint URL
+                url: 'http://localhost:6154/api_post/user-info', // Replace with your Spring endpoint URL
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -202,27 +196,7 @@
             });
     };
 
-    fetch('https://www.dangnagwi.store/api_post/write2', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            point: point,
-            post_category: post_category,
-            post_title: post_title,
-            post_content: post_content,
-            post_file: post_file,
 
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.showAlert) {
-                alert(data.alertMessage); // Display the alert message
-            }
-            // Handle other response data as needed
-        });
 
 
 </script>
