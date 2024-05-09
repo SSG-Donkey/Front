@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 test </h1>
+    <h1>  나눔게시판작성2(파일첨부필수) </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -133,43 +133,46 @@
     $(document).ready(function() {
         var user_nickname = localStorage.getItem('userNickname');
         var user_no =localStorage.getItem('userId') ;
-        user_nickname='hi';
-        user_no=12345;
-        // 닉네임 설정
-        $('#user_nickname').val(user_nickname);
 
-        // 유저 번호 설정
+        // Set nickname and user number in form fields (Optional)
+        $('#user_nickname').val(user_nickname);
         $('#user_no').val(user_no);
 
-        // 폼 제출
+        // Form submission handling
         $('form').submit(function(event) {
             event.preventDefault(); // Prevent default form submission
-            const formData = new FormData();
-            formData.append('post_file',$('#post_file').val());
-            formData.append('post_title',$('#post_title').val());
-            formData.append('post_content',$('#post_content').val());
-            formData.append('post_status',$('#post_status').val());
-            formData.append('post_views',$('#post_views').val());
-            formData.append('region_no',$('#region_no').val());
-            formData.append('point',$('#point').val());
-            formData.append('post_category',$('#post_category').val());
-            formData.append('user_nickname',user_nickname);
-            formData.append('user_no',user_no);
 
-            axios.post('http://localhost:6154/api_post/write2', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-                .then(response => {
+            // Use FormData for multipart form data (recommended)
+            const formData = new FormData();
+            formData.append('user_nickname', user_nickname);
+            formData.append('user_no', user_no);
+            formData.append('post_title', $('#post_title').val()); // Get value from form field
+            formData.append('post_content', $('#post_content').val()); // Get value from form field
+            formData.append('post_category', $('#post_category').val()); // Get value from form field
+            formData.append('post_views', $('#post_views').val()); // Get value from form field
+            formData.append('post_status', $('#post_status').val()); // Get value from form field
+            formData.append('region_no', $('#region_no').val()); // Get value from form field
+            formData.append('point', $('#point').val()); // Get value from form field
+            const fileInput = $('#post_file')[0];
+            if (fileInput.files && fileInput.files[0]) {
+                formData.append('post_file', fileInput.files[0]);
+            }
+            // POST request using FormData
+            $.ajax({
+                url: 'http://localhost:6154/api_post/write2', // Replace with your Spring endpoint URL
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false, // Set these for FormData
+                success: function(response) {
                     console.log('Success:', response);
                     alert('User information submitted successfully!');
-                })
-                .catch(error => {
+                },
+                error: function(error) {
                     console.error('Error:', error);
                     alert('Error submitting user information!');
-                });
-        });
+                }
+            });
         });
     });
 </script>

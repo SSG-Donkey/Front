@@ -31,9 +31,10 @@
 <script>
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-        const user_nickname = localStorage.getItem('userNickname') ;
-        const user_no=localStorage.getItem('userId');
-
+        var user_nickname = localStorage.getItem('userNickname') ;
+        var user_no=localStorage.getItem('userId');
+        user_nickname='seo';
+        user_no=12345;
         // Set nickname and user number in form fields (Optional)
         $('#user_nickname').val(user_nickname);
         $('#user_no').val(user_no);
