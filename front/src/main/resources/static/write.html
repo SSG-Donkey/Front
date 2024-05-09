@@ -124,25 +124,6 @@
                 console.error('지역 데이터를 가져오는 중 에러 발생:', error);
             });
     };
-    fetch('https://www.dangnagwi.store/api_post/write', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            point: point,
-            post_category: post_category,
-            post_title: post_title,
-            post_content: post_content,
-            post_file: post_file
-        })
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.showAlert) {
-                alert(data.alertMessage); // Display the alert message
-            }
-            // Handle other response data as needed
-        });
+
 </script>
 </body>
