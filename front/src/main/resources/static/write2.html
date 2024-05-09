@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 데모1</h1>
+    <h1>  나눔게시판작성 데모 bb</h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -141,8 +141,8 @@
         $('form').submit(function(event) {
             event.preventDefault(); // Prevent default form submission
             const formData = new FormData();
-            const user_nickname = localStorage.getItem('userNickname');
-            const user_no =localStorage.getItem('userId') ;
+            var user_nickname = localStorage.getItem('userNickname');
+            var user_no =localStorage.getItem('userId') ;
             formData.append('post_file',$('#post_file').val());
             formData.append('post_title',$('#post_title').val());
             formData.append('post_content',$('#post_content').val());
