@@ -7,7 +7,7 @@
 <body>
 <h1>User Information Form</h1>
 
-<form action="http://localhost:6154/api_post/write2" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
+<form action="http://localhost:6154/api_post/user-info" method="post" class="needs-validation" enctype="multipart/form-data" novalidate>
     <div class="form-group">
         <label for="user_nickname">Nickname:</label>
         <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
@@ -17,42 +17,47 @@
         <input type="text" class="form-control" id="user_no" name="user_no" required>
     </div>
     <div class="form-group">
-        <label for="post_title">title:</label>
-        <input type="text" class="form-control" id="post_title" name="post_title" required>
+        <label for="post_file">Select File:</label>
+        <input type="file" class="form-control" id="post_file" name="post_file" required>
     </div>
+    <div class="form-group">
+        <label for="post_title">title:</label>
+        <input type="text" class="form-control" id="post_title" name="post_title" required> </div>
     <button type="submit" class="btn btn-primary">Submit</button>
+
 </form>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        // 사용자 정보 로드
-        var user_nickname = localStorage.getItem('userNickname');
-        user_nickname='hi';
-        var user_no =localStorage.getItem('userId') ;
-        user_no=123;
-        // 닉네임 설정
-        $('#user_nickname').val(user_nickname);
+        // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
+        const user_nickname = localStorage.getItem('userNickname') ;
+        const user_no=localStorage.getItem('userId');
 
-        // 유저 번호 설정
+        // Set nickname and user number in form fields (Optional)
+        $('#user_nickname').val(user_nickname);
         $('#user_no').val(user_no);
-        $('#post_title').val();
-        // 폼 제출
+
+        // Form submission handling
         $('form').submit(function(event) {
             event.preventDefault(); // Prevent default form submission
 
-            // 데이터 직접 전송
-            var data = {
-                user_nickname: user_nickname,
-                user_no: user_no,
-                post_title: post_title
-            };
-
-            // POST 요청 보내기
+            // Use FormData for multipart form data (recommended)
+            const formData = new FormData();
+            formData.append('user_nickname', user_nickname);
+            formData.append('user_no', user_no);
+            formData.append('post_title', $('#post_title').val()); // Get value from form field
+            const fileInput = $('#post_file')[0];
+            if (fileInput.files && fileInput.files[0]) {
+                formData.append('post_file', fileInput.files[0]);
+            }
+            // POST request using FormData
             $.ajax({
                 url: 'http://localhost:6154/api_post/user-info', // Replace with your Spring endpoint URL
                 type: 'POST',
-                data: data,
+                data: formData,
+                processData: false,
+                contentType: false, // Set these for FormData
                 success: function(response) {
                     console.log('Success:', response);
                     alert('User information submitted successfully!');
@@ -62,8 +67,6 @@
                     alert('Error submitting user information!');
                 }
             });
-
-            return false; // Prevent default form submission
         });
     });
 </script>
