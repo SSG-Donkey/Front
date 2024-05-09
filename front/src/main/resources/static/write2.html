@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 데모 bb</h1>
+    <h1>  나눔게시판작성 test </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -131,18 +131,19 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-
-
+        var user_nickname = localStorage.getItem('userNickname');
+        var user_no =localStorage.getItem('userId') ;
         // 닉네임 설정
+        $('#user_nickname').val(user_nickname);
 
-
+        // 유저 번호 설정
+        $('#user_no').val(user_no);
 
         // 폼 제출
         $('form').submit(function(event) {
             event.preventDefault(); // Prevent default form submission
             const formData = new FormData();
-            var user_nickname = localStorage.getItem('userNickname');
-            var user_no =localStorage.getItem('userId') ;
+
             formData.append('post_file',$('#post_file').val());
             formData.append('post_title',$('#post_title').val());
             formData.append('post_content',$('#post_content').val());
@@ -153,13 +154,6 @@
             formData.append('post_category',$('#post_category').val());
             formData.append('user_nickname',user_nickname);
             formData.append('user_no',user_no);
-
-            cosnt response = axios.post('http://localhost:6154/api_post/write2', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            })
-
 
         });
     });
