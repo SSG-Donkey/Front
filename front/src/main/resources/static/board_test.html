@@ -243,7 +243,10 @@
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
     var user_no=localStorage.getItem('userId');
-    user_nickname='서동훈';
+    // Set nickname and user number in form fields (Optional)
+    $('#user_nickname').val(user_nickname);
+    $('#user_no').val(user_no);
+
     $('.point-status h4').text(`${user_nickname}님의 포인트 현황`);
     // Set nickname and user number in form fields (Optional)
     $('#user_nickname').val(user_nickname);
