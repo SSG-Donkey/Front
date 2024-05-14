@@ -1,8 +1,16 @@
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
-    console.log("첫 postNo 값 : " + postNo);
     loadPostNumber(postNo);
+
+
+     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
+     var user_nickname = localStorage.getItem('userNickname') ;
+     var user_no=localStorage.getItem('userId');
+
+    // 사용자 정보를 각 input 요소에 할당
+    $('#user_nickname').val(user_nickname);
+    $('#user_no').val(user_no);
 };
 
 function loadPostNumber(postNo) {
@@ -13,9 +21,6 @@ function loadPostNumber(postNo) {
         success: function (data) {
             const content = data.content;
             const comment = data.comment;
-            console.log("postNo :" + postNo);
-            console.log("게시글: " + content);
-            console.log("작성자: " + content.userNickname);
 
             $('.container').empty();
 
@@ -35,8 +40,8 @@ function loadPostNumber(postNo) {
                             <div class="comments">
                                 <h2>댓글</h2>
                                 <form id="commentForm">
-                                    <input type="text" name="commentContent">
-                                    <input type="hidden" name="userNo" value="1">
+                                    <input type="text" id="user_nickname" name="commentContent">
+                                    <input type="hidden" id="user_no" name="userNo">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
                                     <button class="input-button" type="submit">입력</button>
