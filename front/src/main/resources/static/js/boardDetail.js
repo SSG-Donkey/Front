@@ -11,6 +11,11 @@ window.onload = function () {
     // 사용자 정보를 각 input 요소에 할당
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(user_no);
+
+
+    //테스트
+    $('#display_user_nickname').text(userNickname);
+    $('#display_user_no').text(userId);
 };
 
 function loadPostNumber(postNo) {
@@ -39,6 +44,17 @@ function loadPostNumber(postNo) {
                             <p class="post-content">내용: ${content.postContent}</p>
                             <div class="comments">
                                 <h2>댓글</h2>
+                                
+                                <div>
+                                    <label for="user_nickname">테스트 User Nickname:</label>
+                                    <span id="display_user_nickname"></span>
+                                </div>
+                                <div>
+                                    <label for="user_no">테스트 User ID:</label>
+                                    <span id="display_user_no"></span>
+                                </div>
+
+
                                 <form id="commentForm">
                                     <input type="text" id="user_nickname" name="commentContent">
                                     <input type="hidden" id="user_no" name="userNo">
@@ -87,6 +103,7 @@ function loadPostNumber(postNo) {
                 window.location.href = response.redirectUrl;
             },
             error: function (xhr, status, error) {
+                console.log(error);
                 alert('댓글 추가에 실패하였습니다.');
             }
         });
