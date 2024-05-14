@@ -14,8 +14,8 @@ window.onload = function () {
 
 
     //테스트
-    $('#display_user_nickname').text(userNickname);
-    $('#display_user_no').text(userId);
+    $('#display_user_nickname').text(user_nickname);
+    $('#display_user_no').text(user_no);
 };
 
 function loadPostNumber(postNo) {
