@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <form action="http://localhost:8081/payment" method="post" content>
+                    <form action="https://www.dangnagwi.store/payment" method="post" content>
 
                             <label for="user_nickname">(추후에 안보이게할것임)Nickname:</label>
                             <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
@@ -66,7 +66,7 @@
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
         var user_nickname = localStorage.getItem('userNickname') ;
         var user_no=localStorage.getItem('userId');
-        user_no=28;
+
         $('.container h1').text(` ${user_nickname}님!  포인트 충전`);
         // Set nickname and user number in form fields (Optional)
         $('#user_nickname').val(user_nickname);
