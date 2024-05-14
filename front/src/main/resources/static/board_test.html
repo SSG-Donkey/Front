@@ -230,16 +230,6 @@
 
 <script>
   $(document).ready(function() {
-    // 포인트 정보 가져오기 (예: API 호출)
-    $.get('https://www.dangnagwi.store/api_post/point', function(data) {
-      const currentPoints = data.points; // 포인트 정보에서 실제 보유 포인트 추출
-      // 보유 포인트 정보 업데이트
-      $('.point-status p').text(`보유 포인트: ${currentPoints}점`);
-    });
-  });
-</script>
-<script>
-  $(document).ready(function() {
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
     var user_no=localStorage.getItem('userId');
@@ -247,9 +237,12 @@
     // Set nickname and user number in form fields (Optional)
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(user_no);
+    $.get('https://www.dangnagwi.store/api_post/point', function(data) {
+      const currentPoints = data.points; // 포인트 정보에서 실제 보유 포인트 추출
+      // 보유 포인트 정보 업데이트
+      $('.point-status p').text(`보유 포인트: ${currentPoints}점`);
+    });
 
-
-    $('.point-status h4').text(`${user_nickname}님의 포인트 현황!!`);
 
 
     // Form submission handling
