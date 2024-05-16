@@ -9,11 +9,11 @@ window.onload = function () {
      var user_no=localStorage.getItem('userId');
 
     // 사용자 정보를 각 input 요소에 할당
-    $('#user_nickname').val(user_nickname);
-    $('#user_no').val(user_no);
+    $('#userNickname').val(user_nickname);
+    $('#userNo').val(user_no);
 
-    console.log("nickname" + $('#user_nickname').val());
-    console.log($('#user_no').val());
+    console.log("nickname" + $('#userNickname').val());
+    console.log($('#userNo').val());
 
     //테스트
     $('#display_user_nickname').text(user_nickname);
@@ -48,18 +48,18 @@ function loadPostNumber(postNo) {
                                 <h2>댓글</h2>
                                 
                                 <div>
-                                    <label for="user_nickname">테스트 User Nickname:</label>
+                                    <label for="userNickname">테스트 User Nickname:</label>
                                     <span id="display_user_nickname"></span>
                                 </div>
                                 <div>
-                                    <label for="user_no">테스트 User ID:</label>
+                                    <label for="userNo">테스트 User ID:</label>
                                     <span id="display_user_no"></span>
                                 </div>
 
 
                                 <form id="commentForm">
-                                    <input type="text" id="user_nickname" name="commentContent">
-                                    <input type="hidden" id="user_no" name="userNo">
+                                    <input type="text" id="userNickname" name="commentContent">
+                                    <input type="hidden" id="userNo" name="userNo">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
                                     <button class="input-button" type="submit">입력</button>
