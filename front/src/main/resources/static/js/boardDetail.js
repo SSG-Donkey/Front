@@ -33,16 +33,6 @@ function loadPostNumber(postNo, userNo) {
                             <p class="post-content">내용: ${content.postContent}</p>
                             <div class="comments">
                                 <h2>댓글</h2>
-                                
-                                <div>
-                                    <label for="userNickname">테스트 User Nickname:</label>
-                                    <span id="display_user_nickname"></span>
-                                </div>
-                                <div>
-                                    <label for="userNo">테스트 User ID:</label>
-                                    <span id="display_user_no"></span>
-                                </div>
-
                                 <form id="commentForm">
                                     <input type="text" name="commentContent">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
