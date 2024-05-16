@@ -105,18 +105,18 @@
     console.log("document.ready 진입")
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
-    var user_no=localStorage.getItem('userId');
+    var userNo=localStorage.getItem('userId');
 
     // Set nickname and user number in form fields (Optional)
     $('#user_nickname').val(user_nickname);
-    $('#user_no').val(user_no);
+    $('#user_no').val(userNo);
     $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
 
     console.log("백엔드 호출")
     async function getUserPoint() {
       try {
         // 백엔드 엔드포인트 호출
-        const response = await fetch(`https://www.dangnagwi.store/api_post/point/${user_no}`, {
+        const response = await fetch(`https://www.dangnagwi.store/api_post/point/${userNo}`, {
           method: 'GET',
           credentials: 'include', // 세션 쿠키를 포함
         });
