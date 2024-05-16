@@ -1,27 +1,13 @@
-var user_no;
-
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
+    const userNo=localStorage.getItem('userId');
 
-    // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-    var user_nickname = localStorage.getItem('userNickname') ;
-    user_no=localStorage.getItem('userId');
-
-    console.log(user_nickname);
-    console.log(user_no);
-
-    loadPostNumber(postNo);
-
-       
-   console.log("input에 할당");
-
-   console.log("nickname: " + $('#userNickname').val());
-   console.log("userNo: " + $('#userNo').val());
+    loadPostNumber(postNo,userNo);
 };
 
 
-function loadPostNumber(postNo) {
+function loadPostNumber(postNo, userNo) {
     $.ajax({
         url: `https://www.dangnagwi.store/api_post/post/${postNo}`,
         type: 'GET',
@@ -47,19 +33,9 @@ function loadPostNumber(postNo) {
                             <p class="post-content">내용: ${content.postContent}</p>
                             <div class="comments">
                                 <h2>댓글</h2>
-                                
-                                <div>
-                                    <label for="userNickname">테스트 User Nickname:</label>
-                                    <span id="display_user_nickname"></span>
-                                </div>
-                                <div>
-                                    <label for="userNo">테스트 User ID:</label>
-                                    <span id="display_user_no"></span>
-                                </div>
-
                                 <form id="commentForm">
                                     <input type="text" name="commentContent">
-                                    <input type="hidden" id="userNo" name="userNo" value="${user_no}">
+                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
                                     <button class="input-button" type="submit">입력</button>
