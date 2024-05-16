@@ -3,10 +3,6 @@ window.onload = function () {
     const postNo = postParameter.get("postNo");
 
     loadPostNumber(postNo);
-};
-
-// DOM이 준비되면 실행될 코드를 여기에 작성
-$(document).ready(function() {
 
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
@@ -21,7 +17,8 @@ $(document).ready(function() {
 
    console.log("nickname: " + $('#userNickname').val());
    console.log("userNo: " + $('#userNo').val());
-  });
+};
+
 
 function loadPostNumber(postNo) {
     $.ajax({
@@ -59,10 +56,9 @@ function loadPostNumber(postNo) {
                                     <span id="display_user_no"></span>
                                 </div>
 
-
                                 <form id="commentForm">
                                     <input type="text" name="commentContent">
-                                    <input type="hidden" id="userNo" name="userNo">
+                                    <input type="hidden" id="userNo" name="userNo" value="${user_no}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
                                     <button class="input-button" type="submit">입력</button>
