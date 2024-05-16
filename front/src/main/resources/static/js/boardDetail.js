@@ -1,6 +1,7 @@
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
+
     loadPostNumber(postNo);
 
 
@@ -8,16 +9,15 @@ window.onload = function () {
      var user_nickname = localStorage.getItem('userNickname') ;
      var user_no=localStorage.getItem('userId');
 
+    console.log(user_nickname);
+    console.log(user_no);
+    console.log("input에 할당");
     // 사용자 정보를 각 input 요소에 할당
     $('#userNickname').val(user_nickname);
-    $('#userNo').val(user_no);
+    $('#userNo').val($.escapeSelector(user_no));
 
-    console.log("nickname" + $('#userNickname').val());
-    console.log($('#userNo').val());
-
-    //테스트
-    $('#display_user_nickname').text(user_nickname);
-    $('#display_user_no').text(user_no);
+    console.log("nickname: " + $('#userNickname').val());
+    console.log("userNo: " + $('#userNo').val());
 };
 
 function loadPostNumber(postNo) {
@@ -58,7 +58,7 @@ function loadPostNumber(postNo) {
 
 
                                 <form id="commentForm">
-                                    <input type="text" id="userNickname" name="commentContent">
+                                    <input type="text" name="commentContent">
                                     <input type="hidden" id="userNo" name="userNo">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
