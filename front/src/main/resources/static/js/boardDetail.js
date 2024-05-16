@@ -3,22 +3,25 @@ window.onload = function () {
     const postNo = postParameter.get("postNo");
 
     loadPostNumber(postNo);
-
-
-     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-     var user_nickname = localStorage.getItem('userNickname') ;
-     var user_no=localStorage.getItem('userId');
-
-    console.log(user_nickname);
-    console.log(user_no);
-    console.log("input에 할당");
-    // 사용자 정보를 각 input 요소에 할당
-    $('#userNickname').val(user_nickname);
-    $('#userNo').val($.escapeSelector(user_no));
-
-    console.log("nickname: " + $('#userNickname').val());
-    console.log("userNo: " + $('#userNo').val());
 };
+
+// DOM이 준비되면 실행될 코드를 여기에 작성
+$(document).ready(function() {
+
+    // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
+    var user_nickname = localStorage.getItem('userNickname') ;
+    var user_no=localStorage.getItem('userId');
+
+   console.log(user_nickname);
+   console.log(user_no);
+   console.log("input에 할당");
+   // 사용자 정보를 각 input 요소에 할당
+   $('#userNickname').val(user_nickname);
+   $('#userNo').val($.escapeSelector(user_no));
+
+   console.log("nickname: " + $('#userNickname').val());
+   console.log("userNo: " + $('#userNo').val());
+  });
 
 function loadPostNumber(postNo) {
     $.ajax({
