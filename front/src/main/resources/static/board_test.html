@@ -112,7 +112,7 @@
     $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
 
     console.log("백엔드 호출");
-    getUserPoint(); //포인트 가져오는 함수 호출
+    getUserPoint(userNo); //포인트 가져오는 함수 호출
 });
 
 
@@ -210,7 +210,8 @@
     });
   }
 
-  function getUserPoint() {
+  function getUserPoint(userNo) {
+        console.log("getUserPoint 진입");
         fetch(`https://www.dangnagwi.store/api_post/point/${userNo}`, { 
             method: 'GET',
             credentials: 'include', // 세션 쿠키를 포함
