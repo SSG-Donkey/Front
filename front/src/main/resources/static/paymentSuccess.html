@@ -36,45 +36,32 @@
 </div>
 </body>
 <script>
-    $(document).ready(function() {
-        // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-        var user_nickname = localStorage.getItem('userNickname');
-        var user_no = localStorage.getItem('userId');
-
-        // Set nickname and user number in form fields (Optional)
-        $('#user_nickname').val(username);
-        $('#user_no').val(user_no);
-        $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
-        user_no=28;
-        async function getUserPoint() {
-            try {
-                // 백엔드 엔드포인트 호출
-                const response = await fetch(`https://www.dangnagwi.store/api_post/point?userNo=${user_no}`, {
-                    method: 'GET',
-                    credentials: 'include', // 세션 쿠키를 포함
+    window.onload = function () {
+        const pgToken = (new URLSearchParams(window.location.search)).get('pg_token');
+        console.log("1" + pgToken)
+        if (pgToken != null) {
+            // pg_token을 사용하여 서버로 POST 요청을 보냅니다.
+            fetch(`https://www.dangnagwi.store/kakao/success?pg_token=${pgToken}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: pgToken
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const store = '당신의 나눔은 귀하다'
+                    // 서버로부터 받은 결과를 출력합니다.
+                    document.querySelector('.kp-m-flexlayout:nth-child(1) p:last-child').textContent = store;
+                    document.querySelector('.kp-m-flexlayout:nth-child(2) p:last-child').textContent = data.approved_at;
+                    document.querySelector('.kp-m-flexlayout:nth-child(3) p:last-child').textContent = data.item_name;
+                    document.querySelector('.kp-m-flexlayout:nth-child(4) p:last-child').textContent = data.amount.total + '원';
+                })
+                .catch(error => {
+                    console.error('결제 결과를 가져오는 중 오류 발생:', error);
+                    location.reload();
                 });
-
-                if (!response.ok) {
-                    throw new Error('Network response was not ok ' + response.statusText);
-                }
-
-                // JSON 데이터를 파싱합니다.
-                const data = await response.json();
-
-                // 데이터를 HTML에 표시합니다.
-                $('.point-status p').text(`User Point: ${data.amount}`);
-            } catch (error) {
-                console.error('There was a problem with the fetch operation:', error);
-                $('.point-status p').text('Error fetching data');
-            }
         }
-
-        // getUserPoint 함수 호출
-        getUserPoint();
-
-        // Form submission handling (Optional)
-        // 여기에 필요한 로직을 추가하세요.
-
-    });
+    };
 </script>
 </html>
