@@ -101,36 +101,20 @@
     loadCategoryPosts(category, 0);
   };
 
-  $(document).ready(function() {
-    console.log("document.ready 진입")
-    // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-    var user_nickname = localStorage.getItem('userNickname') ;
-    var userNo=localStorage.getItem('userId');
+  $(document).ready(function() { 
+    console.log("document.ready 진입");
 
-    // Set nickname and user number in form fields (Optional)
+    var user_nickname = localStorage.getItem('userNickname');
+    var userNo = localStorage.getItem('userId');
+
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(userNo);
     $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
 
-    console.log("백엔드 호출")
-    function getUserPoint() {
-      fetch(`https://www.dangnagwi.store/api_post/point/${userNo}`, {
-          method: 'GET',
-          credentials: 'include', // 세션 쿠키를 포함
-      })
-        .then(response => response.json())
-        .then(data => {
-          // JSON 데이터를 파싱합니다.
-          data = response.json();
-          console.log("data : " + data);
-          console.log("data.amount :: " + data.amount);
-          // 데이터를 HTML에 표시합니다.
-          $('.point-status p').text(`User Point: ${data.amount}`);
-        }
-      )
-      .catch(error => console.error('Error loading posts:', error));
-    }
-  });
+    console.log("백엔드 호출");
+    getUserPoint(); //포인트 가져오는 함수 호출
+});
+
 
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
@@ -225,6 +209,20 @@
       behavior: 'smooth' // 부드럽게 스크롤
     });
   }
+
+  function getUserPoint() {
+        fetch(`https://www.dangnagwi.store/api_post/point/${userNo}`, { 
+            method: 'GET',
+            credentials: 'include', // 세션 쿠키를 포함
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("data : ", data);
+            console.log("data.amount : ", data.amount);
+            $('.point-status p').text(`User Point: ${data.amount}`);
+        })
+        .catch(error => console.error('Error loading posts:', error));
+    }
 
   function setCategoryTitle(category) {
     let title;
