@@ -8,16 +8,7 @@ window.onload = function () {
     var user_nickname = localStorage.getItem('userNickname') ;
     user_no=localStorage.getItem('userId');
 
-    console.log(user_nickname);
-    console.log(user_no);
-
     loadPostNumber(postNo);
-
-       
-   console.log("input에 할당");
-
-   console.log("nickname: " + $('#userNickname').val());
-   console.log("userNo: " + $('#userNo').val());
 };
 
 
