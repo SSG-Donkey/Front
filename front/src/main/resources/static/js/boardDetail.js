@@ -1,10 +1,12 @@
+var user_no;
+
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
 
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
-    var user_no=localStorage.getItem('userId');
+    user_no=localStorage.getItem('userId');
 
     console.log(user_nickname);
     console.log(user_no);
