@@ -101,6 +101,45 @@
     loadCategoryPosts(category, 0);
   };
 
+  $(document).ready(function() {
+    console.log("document.ready 진입")
+    // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
+    var user_nickname = localStorage.getItem('userNickname') ;
+    var user_no=localStorage.getItem('userId');
+
+    // Set nickname and user number in form fields (Optional)
+    $('#user_nickname').val(user_nickname);
+    $('#user_no').val(user_no);
+    $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
+
+    console.log("백엔드 호출")
+    async function getUserPoint() {
+      try {
+        // 백엔드 엔드포인트 호출
+        const response = await fetch(`https://www.dangnagwi.store/api_post/point/${user_no}`, {
+          method: 'GET',
+          credentials: 'include', // 세션 쿠키를 포함
+        });
+
+        if (!response.ok) {
+          console.log('Network response was not ok ' + response.statusText);
+        }
+
+        // JSON 데이터를 파싱합니다.
+        const data = await response.json();
+        console.log("data : " + data);
+        console.log("data.amount :: " + data.amount);
+        // 데이터를 HTML에 표시합니다.
+        $('.point-status p').text(`User Point: ${data.amount}`);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        $('.point-status p').text('Error fetching data');
+      }
+    }
+
+    // Form submission handling
+  });
+
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
     fetch(`https://www.dangnagwi.store/api_post/category/${category}?page=${page}&size=${pageSize}`)
@@ -229,46 +268,6 @@
   setCategoryTitle(category);
 </script>
 
-<script>
-  $(document).ready(function() {
-    // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-    var user_nickname = localStorage.getItem('userNickname') ;
-    var user_no=localStorage.getItem('userId');
-
-    // Set nickname and user number in form fields (Optional)
-    $('#user_nickname').val(user_nickname);
-    $('#user_no').val(user_no);
-    $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
-
-    async function getUserPoint() {
-      try {
-        // 백엔드 엔드포인트 호출
-        const response = await fetch(`https://www.dangnagwi.store/api_post/point/${user_no}`, {
-          method: 'GET',
-          credentials: 'include', // 세션 쿠키를 포함
-        });
-
-        if (!response.ok) {
-          console.log('Network response was not ok ' + response.statusText);
-        }
-
-        // JSON 데이터를 파싱합니다.
-        const data = await response.json();
-        console.log("data : " + data);
-        console.log("data.amount :: " + data.amount);
-        // 데이터를 HTML에 표시합니다.
-        $('.point-status p').text(`User Point: ${data.amount}`);
-      } catch (error) {
-        console.error('There was a problem with the fetch operation:', error);
-        $('.point-status p').text('Error fetching data');
-      }
-    }
-
-
-    // Form submission handling
-
-  });
-</script>
 </body>
 
 </html>
