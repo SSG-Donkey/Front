@@ -237,7 +237,7 @@
     // Set nickname and user number in form fields (Optional)
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(user_no);
-    $('.point-status h4').text(`${user_nickname}`);
+    $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
     $.get('https://www.dangnagwi.store/api_post/point', function(data) {
       const currentPoints = data.points; // 포인트 정보에서 실제 보유 포인트 추출
       // 보유 포인트 정보 업데이트
