@@ -58,8 +58,8 @@
 
       <!-- 포인트 이용 현황 내용 -->
       <h4></h4>
-      <p>포인트 : </p> <!-- 여기에 실제 보유 포인트를 표시하도록 수정 -->
 
+    <p id="result"></p>
     </span>
   </span>
   </div>
@@ -233,16 +233,25 @@
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
     var user_no=localStorage.getItem('userId');
-
+    nick_name="서동훈";
     // Set nickname and user number in form fields (Optional)
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(user_no);
     $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
-    $.get('https://www.dangnagwi.store/api_post/point', function(data) {
-      const currentPoints = data.points; // 포인트 정보에서 실제 보유 포인트 추출
-      // 보유 포인트 정보 업데이트
-      $('.point-status p').text(`보유 포인트: ${currentPoints}점`);
-    });
+    const response = await fetch(`http://localhost:8080/user/point?userNo=${userNo}`);
+
+    if (!response.ok) {
+      throw new Error('Network response was not ok ' + response.statusText);
+    }
+
+    // JSON 데이터를 파싱합니다.
+    const data = await response.json();
+
+    // 데이터를 HTML에 표시합니다.
+    document.getElementById('result').textContent = `User Point: ${data.amount}`;
+  } catch (error) {
+    console.error('There was a problem with the fetch operation:', error);
+  }
 
 
 
