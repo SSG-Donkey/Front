@@ -24,7 +24,7 @@
                             <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
 
 
-                            <label for="user_no">(추후에 안보이게할것임)User_no:</label>
+                            <label for="user_no">(추후에 안보이게할것임)User_name:</label>
                             <input type="text" class="form-control" id="user_no" name="user_no" required>
 
                         <div class="form-group">
@@ -65,7 +65,7 @@
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
         var user_nickname = localStorage.getItem('userNickname') ;
-        var user_no=localStorage.getItem('userId');
+        var user_no=localStorage.getItem('username');
 
         $('.container h1').text(` ${user_nickname}님!  포인트 충전`);
         // Set nickname and user number in form fields (Optional)
