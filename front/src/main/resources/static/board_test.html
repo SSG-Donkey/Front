@@ -58,12 +58,13 @@
 
       <!-- 포인트 이용 현황 내용 -->
       <h4></h4>
+        <p></p>
 
-    <p id="result"></p>
+
     </span>
   </span>
   </div>
-  <h1 class="home-main-title home-hot-title">나눔 물품</h1>
+  <h1 class="home-main-title home-hot-title">나눔 물품 test page</h1>
 
   <div id="category"></div>
 
@@ -233,26 +234,34 @@
     // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
     var user_nickname = localStorage.getItem('userNickname') ;
     var user_no=localStorage.getItem('userId');
-    nick_name="서동훈";
+
     // Set nickname and user number in form fields (Optional)
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(user_no);
     $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
-    const response = await fetch(`http://localhost:8080/user/point?userNo=${userNo}`);
 
-    if (!response.ok) {
-      throw new Error('Network response was not ok ' + response.statusText);
+    async function getUserPoint() {
+      try {
+        // 백엔드 엔드포인트 호출
+        const response = await fetch(`https://www.dangnagwi.store/api_post/point`, {
+          method: 'GET',
+          credentials: 'include', // 세션 쿠키를 포함
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        // JSON 데이터를 파싱합니다.
+        const data = await response.json();
+
+        // 데이터를 HTML에 표시합니다.
+        $('.point-status p').text(`User Point: ${data.amount}`);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+        $('.point-status p').text('Error fetching data');
+      }
     }
-
-    // JSON 데이터를 파싱합니다.
-    const data = await response.json();
-
-    // 데이터를 HTML에 표시합니다.
-    document.getElementById('result').textContent = `User Point: ${data.amount}`;
-  } catch (error) {
-    console.error('There was a problem with the fetch operation:', error);
-  }
-
 
 
     // Form submission handling
