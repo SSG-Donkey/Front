@@ -65,9 +65,9 @@
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
         var user_nickname = localStorage.getItem('userNickname') ;
-        var user_no=localStorage.getItem('username');
+        var user_no=localStorage.getItem('userUsername');
 
-        $('.container h1').text(` ${user_nickname}님!  포인트 충전`);
+        $('.container h1').text(` ${user_nickname}님  포인트 충전`);
         // Set nickname and user number in form fields (Optional)
         $('#user_nickname').val(user_nickname);
         $('#user_no').val(user_no);
