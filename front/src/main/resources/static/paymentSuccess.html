@@ -38,6 +38,7 @@
 <script>
     window.onload = function () {
         const pgToken = (new URLSearchParams(window.location.search)).get('pg_token');
+        console.log("1" + pgToken)
         if (pgToken != null) {
             // pg_token을 사용하여 서버로 POST 요청을 보냅니다.
             fetch(`https://www.dangnagwi.store/kakao/success?pg_token=${pgToken}`, {
@@ -45,7 +46,7 @@
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({pg_token: pgToken})
+                body: pgToken
             })
                 .then(response => response.json())
                 .then(data => {
