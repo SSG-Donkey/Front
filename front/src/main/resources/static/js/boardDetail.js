@@ -12,14 +12,14 @@ window.onload = function () {
     $('#user_nickname').val(user_nickname);
     $('#user_no').val(user_no);
 
+    console.log("user_nickname :: " + user_nickname);
+    console.log("user_no :: " + user_no);
+    console.log("display_user_nickname :: " + user_nickname);
+    console.log("display_user_no :: " + user_no);
+    
     //테스트
     $('#display_user_nickname').text(user_nickname);
     $('#display_user_no').text(user_no);
-
-    console.log("user_nickname :: " + user_nickname);
-    console.log("user_no :: " + user_no);
-    console.log("display_user_nickname :: " + display_user_nickname);
-    console.log("display_user_no :: " + display_user_no);
 };
 
 function loadPostNumber(postNo) {
