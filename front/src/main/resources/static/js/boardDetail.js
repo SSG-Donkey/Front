@@ -1,18 +1,13 @@
-var user_no;
-
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
+    const userNo=localStorage.getItem('userId');
 
-    // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
-    var user_nickname = localStorage.getItem('userNickname') ;
-    user_no=localStorage.getItem('userId');
-
-    loadPostNumber(postNo);
+    loadPostNumber(postNo,userNo);
 };
 
 
-function loadPostNumber(postNo) {
+function loadPostNumber(postNo, userNo) {
     $.ajax({
         url: `https://www.dangnagwi.store/api_post/post/${postNo}`,
         type: 'GET',
@@ -50,7 +45,7 @@ function loadPostNumber(postNo) {
 
                                 <form id="commentForm">
                                     <input type="text" name="commentContent">
-                                    <input type="hidden" id="userNo" name="userNo" value="${user_no}">
+                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
                                     <button class="input-button" type="submit">입력</button>
