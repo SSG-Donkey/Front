@@ -96,7 +96,7 @@
 <script>
   // 로그아웃 함수 전역 등록
   function logout() {
-    document.cookie = "AccessToken=; path=/; HttpOnly; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookies = "AccessToken=; path=/; HttpOnly; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
     window.location.href = 'index.html'; // 홈페이지로 리다이렉트
   }
