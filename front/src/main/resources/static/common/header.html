@@ -28,6 +28,7 @@
 
 
 <script src="./js/common.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     // 페이지가 준비된 후에 로그인 상태를 업데이트합니다.
     $(document).ready(function () {
@@ -96,8 +97,21 @@
 <script>
     // 로그아웃 함수 전역 등록
     function logout() {
-        document.cookie = "AccessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"
         localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
+        $.ajax({
+            type: "POST",
+            url: "http://www.dangnagwi.store/user/logout",
+            contentType: "application/json",
+            xhrFields: {
+                credentials: true
+            },
+            success: function (response){
+                console.log("로그아웃 완료",response); // 잘 작동하는지 확인 코드
+            },
+            error:function (error){
+                console.log("로그아웃 실패",error) // 잘 작동하는지 확인 코드
+            }
+        })
         window.location.href = 'index.html'; // 홈페이지로 리다이렉트
     }
 
@@ -105,6 +119,7 @@
 
     $(document).ready(function () {
         console.log(document.cookie)
+
         // 로그인 상태 확인 및 UI 업데이트 함수 정의
         function checkLoginStatus() {
             if (localStorage.getItem('authToken')) {
