@@ -1,118 +1,120 @@
 <header>
-  <div class="header-wrap">
-    <div class="logo">
-      <a href="index.html">
+    <div class="header-wrap">
+        <div class="logo">
+            <a href="index.html">
         <span>
           <svg width="150" height="40" viewBox="0 0 200 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <img src="/assets/donkeyRogo.png" width="150" height="150" />
+            <img src="/assets/donkeyRogo.png" width="150" height="150"/>
           </svg>
         </span>
-      </a>
+            </a>
+        </div>
+        <div class="category">
+            <ul>
+                <li><a class="font-orange" href="../index.html">홈으로</a></li>
+                <li><a class="font-orange" href="/board.html">나눔 게시판</a></li>
+                <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
+                <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
+                <li id="login-status"><a href="/loginForm.html">로그인/회원가입</a></li>
+                <li id="mypage-link" style="display:none;"><a href="/mypage.html">마이페이지</a></li>
+            </ul>
+        </div>
+        <div class="search-block">
+            <input class="search-bar" type="search" placeholder="물품이나 동네를 검색해보세요"/>
+            <button>검색하기</button>
+        </div>
     </div>
-    <div class="category">
-      <ul>
-        <li><a class="font-orange" href="../index.html">홈으로</a></li>
-        <li><a class="font-orange" href="/board.html">나눔 게시판</a></li>
-        <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
-        <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
-        <li id="login-status"><a href="/loginForm.html">로그인/회원가입</a></li>
-        <li id="mypage-link" style="display:none;"><a href="/mypage.html">마이페이지</a></li>
-      </ul>
-    </div>
-    <div class="search-block">
-      <input class="search-bar" type="search" placeholder="물품이나 동네를 검색해보세요" />
-      <button>검색하기</button>
-    </div>
-  </div>
 </header>
 
 
 <script src="./js/common.js"></script>
 <script>
-  // 페이지가 준비된 후에 로그인 상태를 업데이트합니다.
-  $(document).ready(function() {
-    updateLoginStatus();
-  });
+    // 페이지가 준비된 후에 로그인 상태를 업데이트합니다.
+    $(document).ready(function () {
+        updateLoginStatus();
+    });
 </script>
 
 <script>
-  $(document).ready(function(){
-    // 검색 실행 함수
-    function executeSearch() {
-      // 검색어 가져오기
-      const searchTerm = $('.search-bar').val().trim();
-      console.log('검색어:', searchTerm);
+    $(document).ready(function () {
+        // 검색 실행 함수
+        function executeSearch() {
+            // 검색어 가져오기
+            const searchTerm = $('.search-bar').val().trim();
+            console.log('검색어:', searchTerm);
 
-      // 검색어가 비어있지 않은 경우에만 검색 페이지로 이동
-      if (searchTerm !== '') {
-        // 검색 페이지 URL 생성 (검색어를 query parameter로 추가)
-        const searchUrl = '/board.html?search=' + encodeURIComponent(searchTerm);
-        // 검색 페이지로 이동
-        window.location.href = searchUrl;
-      }
-    }
+            // 검색어가 비어있지 않은 경우에만 검색 페이지로 이동
+            if (searchTerm !== '') {
+                // 검색 페이지 URL 생성 (검색어를 query parameter로 추가)
+                const searchUrl = '/board.html?search=' + encodeURIComponent(searchTerm);
+                // 검색 페이지로 이동
+                window.location.href = searchUrl;
+            }
+        }
 
-    // 검색창에서 엔터 키를 눌렀을 때 검색 실행
-    $('.search-bar').on('keypress', function(event) {
-      if (event.which === 13) { // 엔터 키의 keyCode는 13입니다.
-        executeSearch();
-      }
+        // 검색창에서 엔터 키를 눌렀을 때 검색 실행
+        $('.search-bar').on('keypress', function (event) {
+            if (event.which === 13) { // 엔터 키의 keyCode는 13입니다.
+                executeSearch();
+            }
+        });
+
+        // "검색하기" 버튼을 클릭했을 때 검색 실행
+        $('button').on('click', function () {
+            executeSearch();
+        });
+
+        // 검색 페이지 로드 시 검색어가 있는 경우 API를 호출하여 결과를 가져옴
+        if (window.location.pathname === '/board.html' && window.location.search.includes('search=')) {
+            const searchTerm = new URLSearchParams(window.location.search).get('search');
+            console.log("검색 내용 : " + searchTerm);
+
+            const page = 0; // 페이지 수
+            const pageSize = 10; // 페이지당 항목 수
+
+            fetch(`/api_post/search?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}&size=${pageSize}`)
+                .then(response => response.json())
+                .then(data => {
+                    // 여기서는 받아온 데이터를 처리하여 결과를 표시합니다.
+                    console.log('검색 결과:', data);
+                    currentPage = data.currentPage;
+                    totalPages = data.totalPages;
+
+                    console.log('currentPage:', data.currentPage);
+                    console.log('totalPages:', data.totalPages);
+
+                    renderPosts(data.data);
+                    renderPagination();
+                })
+                .catch(error => {
+                    console.error('검색 API 호출 중 오류 발생:', error);
+                });
+        }
     });
-
-    // "검색하기" 버튼을 클릭했을 때 검색 실행
-    $('button').on('click', function() {
-      executeSearch();
-    });
-
-    // 검색 페이지 로드 시 검색어가 있는 경우 API를 호출하여 결과를 가져옴
-    if (window.location.pathname === '/board.html' && window.location.search.includes('search=')) {
-      const searchTerm = new URLSearchParams(window.location.search).get('search');
-      console.log("검색 내용 : " + searchTerm);
-
-      const page = 0; // 페이지 수
-      const pageSize = 10; // 페이지당 항목 수
-
-      fetch(`/api_post/search?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}&size=${pageSize}`)
-              .then(response => response.json())
-              .then(data => {
-                // 여기서는 받아온 데이터를 처리하여 결과를 표시합니다.
-                console.log('검색 결과:', data);
-                currentPage = data.currentPage;
-                totalPages = data.totalPages;
-
-                console.log('currentPage:', data.currentPage);
-                console.log('totalPages:', data.totalPages);
-
-                renderPosts(data.data);
-                renderPagination();
-              })
-              .catch(error => {
-                console.error('검색 API 호출 중 오류 발생:', error);
-              });
-    }
-  });
 </script>
 
 <script>
-  // 로그아웃 함수 전역 등록
-  function logout() {
-    document.cookies = "AccessToken=; path=/; HttpOnly; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
-    window.location.href = 'index.html'; // 홈페이지로 리다이렉트
-  }
-  window.logout = logout;
-
-  $(document).ready(function() {
-    // 로그인 상태 확인 및 UI 업데이트 함수 정의
-    function checkLoginStatus() {
-      if (localStorage.getItem('authToken')) {
-        $('#login-status').html('<a href="#" onclick="logout()">로그아웃</a>');
-      } else {
-        $('#login-status').html('<a href="loginForm.html">로그인/회원가입</a>');
-      }
+    // 로그아웃 함수 전역 등록
+    function logout() {
+        document.cookie = "AccessToken=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;"
+        localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
+        window.location.href = 'index.html'; // 홈페이지로 리다이렉트
     }
 
-    // 페이지 로딩 시 로그인 상태 확인
-    checkLoginStatus();
-  });
+    window.logout = logout;
+
+    $(document).ready(function () {
+        console.log(document.cookie)
+        // 로그인 상태 확인 및 UI 업데이트 함수 정의
+        function checkLoginStatus() {
+            if (localStorage.getItem('authToken')) {
+                $('#login-status').html('<a href="#" onclick="logout()">로그아웃</a>');
+            } else {
+                $('#login-status').html('<a href="loginForm.html">로그인/회원가입</a>');
+            }
+        }
+
+        // 페이지 로딩 시 로그인 상태 확인
+        checkLoginStatus();
+    });
 </script>
