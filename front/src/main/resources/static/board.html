@@ -105,10 +105,16 @@
     var user_nickname = localStorage.getItem('userNickname');
     var userNo = localStorage.getItem('userId');
 
-    $('#user_nickname').val(user_nickname);
-    $('#user_no').val(userNo);
-    $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
-
+    if (userNo) {
+        // userNo가 존재하는 경우
+        $('#user_nickname').val(user_nickname);
+        $('#user_no').val(userNo);
+        $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
+        getUserPoint(userNo); // 포인트 가져오는 함수 호출
+    } else {
+        // userNo가 없는 경우
+        $('.point-status').hide(); // point-status div 숨기기
+    }
     getUserPoint(userNo); //포인트 가져오는 함수 호출
 });
 
