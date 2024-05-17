@@ -94,7 +94,14 @@ function loadPostNumber(postNo, userNo) {
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
-
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('게시글 삭제 실패하였습니다.');
+            }
         });
     });
 
