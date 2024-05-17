@@ -31,6 +31,17 @@ function loadPostNumber(postNo, userNo) {
                         ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''}
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
+                            <div class="button-container">
+                             <form id="updateform">
+                              
+                                <button class="input-button green-button" type="submit">게시글 수정</button>
+                              </form>
+                              <form id="deleteForm">
+                              
+                                <button class="input-button red-button" type="submit">게시글 삭제</button>
+                              </form>
+                             </div>
+                            
                             <div class="comments">
                                 <h2>댓글</h2>
                                 <form id="commentForm">
@@ -65,6 +76,25 @@ function loadPostNumber(postNo, userNo) {
         error: function (xhr, status, error) {
             console.error('데이터를 불러오는 중 에러 발생:', error);
         }
+    });
+
+    $(document).on('submit', '#deleteForm', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'https://www.dangnagwi.store/post/deletePost',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('글삭제 권한이 없습니다.');
+            }
+        });
     });
 
     // 댓글 폼 제출 이벤트 핸들러
