@@ -81,13 +81,18 @@ function loadPostNumber(postNo, userNo) {
     $(document).on('submit', '#deleteForm', function (e) {
         e.preventDefault();
 
+
+        const formData = new FormData();
+        formData.append('userId', userId);
+        formData.append('postNo', postNo);
         $.ajax({
-            url: 'https://www.dangnagwi.store/post/deletePost',
+            url: 'https://www.dangnagwi.store/api_post/delete',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
             success: function (response) {
                 alert(response.message);
+                alert('게시글이 삭제되었습니다.');
                 window.location.href = response.redirectUrl;
             },
             error: function (xhr, status, error) {
