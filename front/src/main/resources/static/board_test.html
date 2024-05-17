@@ -212,7 +212,7 @@
 
   function getUserPoint(userNo) {
         console.log("getUserPoint 진입");
-        fetch(`https://www.dangnagwi.store/api_post/point/${userNo}`, { 
+        fetch(`https://www.dangnagwi.store/api_post/point?userNo=${userNo}`, { 
             method: 'GET',
             credentials: 'include', // 세션 쿠키를 포함
         })
