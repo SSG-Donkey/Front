@@ -43,7 +43,7 @@ function loadPostNumber(postNo, userNo) {
                               <form id="deleteForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button red-button" type="submit">게시글 삭제</button>
+                                <button class="input-button red-button" type="submit">게시글 삭제23</button>
                               </form>
                              </div>
                             
@@ -85,29 +85,21 @@ function loadPostNumber(postNo, userNo) {
     });
 
     //삭제 폼
-    $(document).ready(function() {
-        $('#deleteForm').submit(function(e) {
-            e.preventDefault(); // 기본 양식 제출 방지
+    $(document).on('submit', '#deleteForm', function (e) {
+        e.preventDefault();
 
-            // 팝업으로 삭제 확인
-            if (confirm('게시글을 삭제하시겠습니까?')) {
-                // 확인되면 AJAX 요청 진행
-                $.ajax({
-                    url: 'https://www.dangnagwi.store/api_post/delete',
-                    type: 'POST',
-                    data: $(this).serialize(),
-                    dataType: 'json',
-                    async: true, // async: true 추가
-                    success: function (response) {
-                        alert(response.message);
-                        alert('게시글이 삭제되었습니다.');
-                        window.location.href = response.redirectUrl;
-                    },
-                    error: function (xhr, status, error) {
-                        console.log(error);
-                        alert('글삭제 권한이 없습니다.');
-                    }
-                });
+        $.ajax({
+            url: 'https://www.dangnagwi.store/api_post/delete',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('게시글 삭제에 실패하였습니다.');
             }
         });
     });
