@@ -3,6 +3,7 @@ window.onload = function () {
     const postNo = postParameter.get("postNo");
     const userNo=localStorage.getItem('userId');
 
+
     loadPostNumber(postNo,userNo);
 };
 
@@ -43,7 +44,7 @@ function loadPostNumber(postNo, userNo) {
                               <form id="deleteForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button red-button" type="submit">게시글 삭제23</button>
+                                <button class="input-button red-button" type="submit">게시글 삭제</button>
                               </form>
                              </div>
                             
@@ -93,14 +94,7 @@ function loadPostNumber(postNo, userNo) {
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
-            success: function (response) {
-                alert(response.message);
-                window.location.href = response.redirectUrl;
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-                alert('게시글 삭제에 실패하였습니다.');
-            }
+
         });
     });
 
