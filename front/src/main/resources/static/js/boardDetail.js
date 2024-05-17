@@ -80,24 +80,28 @@ function loadPostNumber(postNo, userNo) {
     });
 
     //삭제 폼
-    $(document).on('submit', '#deleteForm', function (e) {
-        e.preventDefault();
+    $(document).ready(function() {
+        $('#deleteForm').submit(function(e) {
+            e.preventDefault(); // Prevent default form submission
 
-
-
-        $.ajax({
-            url: 'https://www.dangnagwi.store/api_post/delete',
-            type: 'POST',
-            data: $(this).serialize(),
-            dataType: 'json',
-            success: function (response) {
-                alert(response.message);
-                alert('게시글이 삭제되었습니다.');
-                window.location.href = response.redirectUrl;
-            },
-            error: function (xhr, status, error) {
-                console.log(error);
-                alert('글삭제 권한이 없습니다.');
+            // Confirm deletion with a popup
+            if (confirm('게시글을 삭제하시겠습니까?')) {
+                // Proceed with AJAX request if confirmed
+                $.ajax({
+                    url: 'https://www.dangnagwi.store/api_post/delete',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (response) {
+                        alert(response.message);
+                        alert('게시글이 삭제되었습니다.');
+                        window.location.href = response.redirectUrl;
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(error);
+                        alert('글삭제 권한이 없습니다.');
+                    }
+                });
             }
         });
     });
