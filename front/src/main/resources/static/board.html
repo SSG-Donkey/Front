@@ -17,6 +17,7 @@
 
 <body>
 
+
 <!-- header -->
 <div id="header"></div>
 
@@ -39,10 +40,35 @@
       </div>
     </div>
   </div>
-  <h1 class="home-main-title home-hot-title">나눔 물품</h1>
+  <style>
+    .point-status {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background-color: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <div class="point-status">
+  <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;">
+    <span style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;">
+
+      <!-- 포인트 이용 현황 내용 -->
+      <h4></h4>
+        <p></p>
+
+
+    </span>
+  </span>
+  </div>
+  <h1 class="home-main-title home-hot-title">나눔 물품 test page</h1>
+
   <div id="category"></div>
 
-<!--  나눔 물품 보여주기-->
+  <!--  나눔 물품 보여주기-->
   <div class="items-wrap">
 
 
@@ -74,6 +100,18 @@
   window.onload = function() {
     loadCategoryPosts(category, 0);
   };
+
+  $(document).ready(function() { 
+    var user_nickname = localStorage.getItem('userNickname');
+    var userNo = localStorage.getItem('userId');
+
+    $('#user_nickname').val(user_nickname);
+    $('#user_no').val(userNo);
+    $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
+
+    getUserPoint(userNo); //포인트 가져오는 함수 호출
+});
+
 
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
@@ -123,24 +161,24 @@
     });
     paginationDiv.appendChild(prevButton);
 
-  // 페이지 버튼 렌더링
-  const maxPageButtons = 5;
-  const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons + 1));
-  const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+    // 페이지 버튼 렌더링
+    const maxPageButtons = 5;
+    const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons + 1));
+    const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
 
-  for (let i = startPage; i < endPage; i++) {
-    const pageButton = document.createElement('button');
-    pageButton.textContent = i + 1;
-    pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button');
-    if (i === currentPage) {
-      pageButton.classList.add('active');
+    for (let i = startPage; i < endPage; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i + 1;
+      pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button');
+      if (i === currentPage) {
+        pageButton.classList.add('active');
+      }
+      pageButton.addEventListener('click', () => {
+        loadCategoryPosts(category, i);
+        scrollToTop();
+      });
+      paginationDiv.appendChild(pageButton);
     }
-    pageButton.addEventListener('click', () => {
-      loadCategoryPosts(category, i);
-      scrollToTop();
-    });
-    paginationDiv.appendChild(pageButton);
-  }
 
     // 다음 버튼 렌더링
     const nextButton = document.createElement('button');
@@ -157,7 +195,7 @@
     pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
     pageNumber.classList.add('page-number'); // 선택적으로 클래스를 추가할 수 있습니다.
 
-    // 페이지네이션 div에 추가  
+    // 페이지네이션 div에 추가
     paginationDiv.appendChild(pageNumber);
 
   }
@@ -168,6 +206,18 @@
       behavior: 'smooth' // 부드럽게 스크롤
     });
   }
+
+  function getUserPoint(userNo) {
+        fetch(`https://www.dangnagwi.store/api_post/point?userNo=${userNo}`, { 
+            method: 'GET',
+            credentials: 'include', // 세션 쿠키를 포함
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('.point-status p').text(`User Point: ${data.amount}`);
+        })
+        .catch(error => console.log('Error loading posts:', error));
+    }
 
   function setCategoryTitle(category) {
     let title;
@@ -202,6 +252,7 @@
   // 페이지 로드시 실행
   setCategoryTitle(category);
 </script>
+
 </body>
 
 </html>
