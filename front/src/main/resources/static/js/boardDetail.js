@@ -37,7 +37,8 @@ function loadPostNumber(postNo, userNo) {
                                 <button class="input-button green-button" type="submit">게시글 수정</button>
                               </form>
                               <form id="deleteForm">
-                              
+                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                 <input type="hidden" name="postNo" value="${content.postNo}">
                                 <button class="input-button red-button" type="submit">게시글 삭제</button>
                               </form>
                              </div>
@@ -78,13 +79,12 @@ function loadPostNumber(postNo, userNo) {
         }
     });
 
+    //삭제 폼
     $(document).on('submit', '#deleteForm', function (e) {
         e.preventDefault();
 
 
-        const formData = new FormData();
-        formData.append('userId', userId);
-        formData.append('postNo', postNo);
+
         $.ajax({
             url: 'https://www.dangnagwi.store/api_post/delete',
             type: 'POST',
