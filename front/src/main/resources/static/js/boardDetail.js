@@ -31,11 +31,15 @@ function loadPostNumber(postNo, userNo) {
                         ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''}
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
+                            
+                            <!-- 게시글 수정  ,삭제 !-->
                             <div class="button-container">
                              <form id="updateform">
                               
                                 <button class="input-button green-button" type="submit">게시글 수정</button>
                               </form>
+                              
+                              
                               <form id="deleteForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
@@ -43,6 +47,7 @@ function loadPostNumber(postNo, userNo) {
                               </form>
                              </div>
                             
+                              <!-- 댓글 작성 !-->
                             <div class="comments">
                                 <h2>댓글</h2>
                                 <form id="commentForm">
@@ -82,16 +87,17 @@ function loadPostNumber(postNo, userNo) {
     //삭제 폼
     $(document).ready(function() {
         $('#deleteForm').submit(function(e) {
-            e.preventDefault(); // Prevent default form submission
+            e.preventDefault(); // 기본 양식 제출 방지
 
-            // Confirm deletion with a popup
+            // 팝업으로 삭제 확인
             if (confirm('게시글을 삭제하시겠습니까?')) {
-                // Proceed with AJAX request if confirmed
+                // 확인되면 AJAX 요청 진행
                 $.ajax({
                     url: 'https://www.dangnagwi.store/api_post/delete',
                     type: 'POST',
                     data: $(this).serialize(),
                     dataType: 'json',
+                    async: true, // async: true 추가
                     success: function (response) {
                         alert(response.message);
                         alert('게시글이 삭제되었습니다.');
