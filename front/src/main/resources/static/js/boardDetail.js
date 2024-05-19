@@ -34,13 +34,19 @@ function loadPostNumber(postNo, userNo) {
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
                             
-                            <!-- 게시글 수정  ,삭제 !-->
+                            <!-- 게시글 나눔완료 ,수정  ,삭제 !-->
                             <div class="button-container">
+                            <form id="finishForm">
+                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                 <input type="hidden" name="postNo" value="${content.postNo}">
+                                <button class="input-button yellow-button" type="submit">나눔 완료</button>
+                             </form>
+                              
                              <form id="updateForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
                                 <button class="input-button green-button" type="submit">게시글 수정</button>
-                              </form>
+                             </form>
                               
                               
                               <form id="deleteForm">
@@ -85,6 +91,26 @@ function loadPostNumber(postNo, userNo) {
         error: function (xhr, status, error) {
             console.error('데이터를 불러오는 중 에러 발생:', error);
         }
+    });
+
+    //나눔완료
+    $(document).on('submit', '#finishForm', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'https://www.dangnagwi.store/api_post/finish',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('나눔 완료 실패하였습니다.');
+            }
+        });
     });
 
     //삭제 폼
