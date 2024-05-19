@@ -39,7 +39,7 @@ function loadPostNumber(postNo, userNo) {
                              <form id="updateForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button green-button" type="submit">게시글 수정1</button>
+                                <button class="input-button green-button" type="submit">게시글 수정</button>
                               </form>
                               
                               
@@ -122,7 +122,7 @@ function loadPostNumber(postNo, userNo) {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                alert('실패하였습니다');
+                alert(' 수정 권한이 없습니다');
                 window.location.href = "https://www.dangnagwi.store/boardDetail.html?postNo="+postNo;
             }
         });
