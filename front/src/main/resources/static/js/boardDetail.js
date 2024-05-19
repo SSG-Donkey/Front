@@ -28,6 +28,7 @@ function loadPostNumber(postNo, userNo) {
                             <h1 class="post-title">제목: ${content.postTitle}</h1>
                             <p id="pay" class="hidden">책임비 결제</p>
                             <p>작성자 : ${content.userNickname}</p>
+                            <p>책임비 : ${content.point}</p>
                         </div>
                         ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''}
                         <div class="post-info">
