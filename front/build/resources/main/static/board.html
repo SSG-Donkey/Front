@@ -21,25 +21,27 @@
 <!-- header -->
 <div id="header"></div>
 
+<!--카테고리 선택-->
 <section class="home-main-section background-gray">
   <div class="home-hot-content">
-    <div class="container">
-      <div class="row justify-content-center mb-4">
-        <div class="col-auto">
-          <div class="btn-group" role="group" aria-label="Category Buttons">
-            <a href="/board.html" class="btn btn-outline-primary">전체</a>
-            <a href="/board.html?category=1" class="btn btn-outline-primary">도서</a>
-            <a href="/board.html?category=2" class="btn btn-outline-primary">의류</a>
-            <a href="/board.html?category=3" class="btn btn-outline-primary">전자기기</a>
-            <a href="/board.html?category=4" class="btn btn-outline-primary">가구</a>
-            <a href="/board.html?category=5" class="btn btn-outline-primary">악세사리</a>
-            <a href="/board.html?category=6" class="btn btn-outline-primary">생활용품</a>
-            <a href="/board.html?category=9" class="btn btn-outline-primary">기타</a>
+      <div class="container">
+          <div class="row justify-content-center mb-4">
+              <div class="col-auto">
+                  <div class="btn-group" role="group" aria-label="Category Buttons">
+                      <a href="/board.html" class="btn btn-outline-primary categoryList">전체</a>
+                      <a href="/board.html?category=1" class="btn btn-outline-primary categoryList">도서</a>
+                      <a href="/board.html?category=2" class="btn btn-outline-primary categoryList">의류</a>
+                      <a href="/board.html?category=3" class="btn btn-outline-primary categoryList">전자기기</a>
+                      <a href="/board.html?category=4" class="btn btn-outline-primary categoryList">가구</a>
+                      <a href="/board.html?category=5" class="btn btn-outline-primary categoryList">악세사리</a>
+                      <a href="/board.html?category=6" class="btn btn-outline-primary categoryList">생활용품</a>
+                      <a href="/board.html?category=9" class="btn btn-outline-primary categoryList">기타</a>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
   </div>
+  
   <style>
     .point-status {
       position: fixed;
@@ -65,8 +67,6 @@
   </span>
   </div>
   <h1 class="home-main-title home-hot-title">나눔 물품</h1>
-
-  <div id="category"></div>
 
   <!--  나눔 물품 보여주기-->
   <div class="items-wrap">
@@ -99,6 +99,7 @@
 
   window.onload = function() {
     loadCategoryPosts(category, 0);
+    setCategoryTitle(category);
   };
 
   $(document).ready(function() { 
@@ -227,6 +228,7 @@
 
   function setCategoryTitle(category) {
     let title;
+    console.log("여기 :: " + category);
     switch(category) {
       case '1':
         title = '도서';
@@ -252,11 +254,10 @@
       default:
         title = '전체';
     }
-    $('.home-main-title-top').text('나눔 물품 - ' + title);
+    $('.home-main-title').text('나눔 물품 - ' + title);
   }
 
-  // 페이지 로드시 실행
-  setCategoryTitle(category);
+  
 </script>
 
 </body>
