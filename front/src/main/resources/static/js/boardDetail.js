@@ -36,7 +36,8 @@ function loadPostNumber(postNo, userNo) {
                             <!-- 게시글 수정  ,삭제 !-->
                             <div class="button-container">
                              <form id="updateform">
-                              
+                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                 <input type="hidden" name="postNo" value="${content.postNo}">
                                 <button class="input-button green-button" type="submit">게시글 수정</button>
                               </form>
                               
@@ -101,6 +102,26 @@ function loadPostNumber(postNo, userNo) {
             error: function (xhr, status, error) {
                 console.log(error);
                 alert('게시글 삭제 실패하였습니다.');
+            }
+        });
+    });
+
+    //업데이트 폼
+    $(document).on('submit', '#updateForm', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'https://www.dangnagwi.store/api_post/update',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('게시글 수정 실패하였습니다.');
             }
         });
     });
