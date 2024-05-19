@@ -39,7 +39,7 @@ function loadPostNumber(postNo, userNo) {
                              <form id="updateForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button green-button" type="submit">게시글 수정</button>
+                                <button class="input-button green-button" type="submit">게시글 수정1</button>
                               </form>
                               
                               
@@ -112,7 +112,7 @@ function loadPostNumber(postNo, userNo) {
         e.preventDefault();
 
         $.ajax({
-            url: 'https://www.dangnagwi.store/api_post/update',
+            url: 'https://www.dangnagwi.store/payment/update',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
