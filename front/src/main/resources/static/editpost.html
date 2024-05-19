@@ -51,7 +51,7 @@
 
 
 <div class="container">
-    <h1>  나눔게시판작성 </h1>
+    <h1>  나눔게시판수정! </h1>
 
     <div>
         <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
@@ -62,8 +62,10 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
-                    <form action="https://www.dangnagwi.store/api_post/write2" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
+                    <form action="https://www.dangnagwi.store/api_post/edit" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
+                            <label for="postNo">(추후에 안보이게할것임)postNo:</label>
+                            <input type="text" id="postNo" name="postNo">
                             <div class="form-group">
                                 <label for="user_nickname">(추후에 안보이게할것임)Nickname:</label>
                                 <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
@@ -111,12 +113,9 @@
                                 <textarea class="form-control" id="post_content"  style="font-size: 20px;" name="post_content" rows="20"   placeholder="내용을 입력하세요" required></textarea>
                             </div>
 
-                            <div class="form-group mb-3">
-                                <label for="post_file" class="form-label" style="font-size: 20px;">사진 첨부:</label>
-                                <input type="file" style="font-size: 20px;"class="form-control" id="post_file" name="post_file" >
-                            </div>
 
-                            <button type="submit" style="font-size: 20px;" class="btn btn-primary btn-block" onclick="location.href = '/board.html'">나눔 글 작성 완료</button>
+
+                            <button type="submit" style="font-size: 20px;" class="btn btn-primary btn-block" onclick="location.href = '/board.html'">나눔 글 수정 완료</button>
                         </div>
                     </form>
                 </div>
@@ -131,6 +130,20 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Get postNo from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const postNo = urlParams.get('postNo');
+
+        // Set postNo value in hidden input
+        $('#postNo').val(postNo);
+
+        // ... Rest of your JavaScript code
+    });
+</script>
+
 <script>
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
