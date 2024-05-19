@@ -112,7 +112,7 @@ function loadPostNumber(postNo, userNo) {
         e.preventDefault();
 
         $.ajax({
-            url: 'https://www.dangnagwi.store/api_post/update',
+            url: 'https://www.dangnagwi.store/payment/update',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
@@ -123,6 +123,7 @@ function loadPostNumber(postNo, userNo) {
             error: function (xhr, status, error) {
                 console.log(error);
                 alert('게시글 수정 실패하였습니다.');
+                window.location.href = "https://www.dangnagwi.store/editpost.html?postNo="+postNo;
             }
         });
     });
