@@ -112,7 +112,7 @@ function loadPostNumber(postNo, userNo) {
         e.preventDefault();
 
         $.ajax({
-            url: 'http://localhost:8081/payment',
+            url: 'https:///www.dangnagwi.store/api_post/update',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
