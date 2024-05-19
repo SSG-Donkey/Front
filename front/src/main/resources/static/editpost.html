@@ -64,7 +64,8 @@
                 <div class="card-body">
                     <form action="https://www.dangnagwi.store/api_post/edit" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
-                            <input type="hidden" id="postNoInput" name="postNo">
+                            <label for="postNo">(추후에 안보이게할것임)postNo:</label>
+                            <input type="text" id="postNo" name="postNo">
                             <div class="form-group">
                                 <label for="user_nickname">(추후에 안보이게할것임)Nickname:</label>
                                 <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
@@ -136,14 +137,10 @@
         const urlParams = new URLSearchParams(window.location.search);
         const postNo = urlParams.get('postNo');
 
-        // Create and append postNo span to header
-        const postNoSpan = $('<span id="postNo">Post No: ' + postNo + '</span>');
-        $('#header').append(postNoSpan);
-
         // Set postNo value in hidden input
-        $('#postNoInput').val(postNo);
+        $('#postNo').val(postNo);
 
-        // ... (Rest of your JavaScript code)
+        // ... Rest of your JavaScript code
     });
 </script>
 

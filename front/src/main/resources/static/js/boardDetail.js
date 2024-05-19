@@ -122,8 +122,8 @@ function loadPostNumber(postNo, userNo) {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                alert('게시글 수정 불가능합니다.');
-                window.location.href ="https://www.dangnagwi.store/boardDetail.html?postNo=" + postNo;
+                alert('게시글 수정 단계');
+                window.location.href = "https://www.dangnagwi.store/editpost.html?postNo="+postNo;
             }
         });
     });
