@@ -64,6 +64,7 @@
                 <div class="card-body">
                     <form action="https://www.dangnagwi.store/api_post/edit" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
+                            <input type="hidden" id="postNo" value="">
                             <div class="form-group">
                                 <label for="user_nickname">(추후에 안보이게할것임)Nickname:</label>
                                 <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
@@ -128,6 +129,20 @@
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Get postNo from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const postNo = urlParams.get('postNo');
+
+        // Set postNo value in hidden input
+        $('#postNo').val(postNo);
+
+        // ... (Rest of your JavaScript code)
+    });
+</script>
+
 <script>
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
