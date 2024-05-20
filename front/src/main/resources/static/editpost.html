@@ -53,9 +53,7 @@
 <div class="container">
     <h1>  나눔게시판수정! </h1>
 
-    <div>
-        <h1><a class="home-button button-text2" style="float:right"  href="/board.html">이전으로 가기</a></h1>
-    </div>
+    
 
 
     <div class="row">
@@ -64,14 +62,11 @@
                 <div class="card-body">
                     <form action="https://www.dangnagwi.store/api_post/edit" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
-                            <label for="postNo">(추후에 안보이게할것임)postNo:</label>
                             <input type="text" id="postNo" name="postNo">
                             <div class="form-group">
-                                <label for="user_nickname">(추후에 안보이게할것임)Nickname:</label>
                                 <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
                             </div>
                             <div class="form-group">
-                                <label for="user_no">(추후에 안보이게할것임)User_no:</label>
                                 <input type="text" class="form-control" id="user_no" name="user_no" required>
                             </div>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
@@ -115,7 +110,8 @@
 
 
 
-                            <button type="submit" style="font-size: 20px;" class="btn btn-primary btn-block" onclick="location.href = '/board.html'">나눔 글 수정 완료</button>
+                            <button type="submit" style="font-size: 20px;" class="btn btn-primary btn-block" onclick=" location.href = '/board.html'">나눔 글 수정 완료</button>
+                            <button style="font-size: 20px;" class="btn btn-danger btn-block" onclick=" location.href = '/board.html'">수정 취소</button>
                         </div>
                     </form>
                 </div>
