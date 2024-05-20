@@ -69,7 +69,6 @@
     })
         .then(response => response.json())
         .then(data => {
-            console.log("RecentPosts 진입")
             const itemsWrap = document.querySelector('.items-wrap');
             data.forEach(post => {
                 const itemElement = document.createElement('article');
@@ -83,6 +82,7 @@
             <h2 class="item-name">${post.postTitle}</h2>
             <div class="item-postContent">${post.postContent}</div>
             <div class="item-regionName">${post.regionName}</div>
+            <div class="item-regionName">${post.categoryName}</div>
           </div>
         </a>
       `;
