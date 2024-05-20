@@ -131,6 +131,18 @@
 
 <script src="./js/common.js"></script>
 <script>
+    // OAuth2 콜백 처리
+    $(document).ready(function() {
+        var queryString = new URLSearchParams(window.location.search);
+        const token = queryString.get('token'); // URL에서 token 쿼리 파라미터 가져오기
+
+        if (token) {
+            localStorage.setItem('authToken', token); // 토큰을 로컬 스토리지에 저장
+            updateLoginStatus(); // 로그인 상태 업데이트
+            window.location.href = 'index.html'; // 메인 페이지로 리디렉션
+        }
+
+
     $(document).ready(function() {
         // 폼 제출 이벤트 핸들러
         $("form").submit(function(event) {
