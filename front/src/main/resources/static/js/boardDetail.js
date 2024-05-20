@@ -2,8 +2,6 @@ let contnet = null;
 let comment = null;
 
 window.onload = function () {
-    console.log("window.onload");
-    
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
     const userNo=localStorage.getItem('userId');
@@ -14,8 +12,6 @@ window.onload = function () {
 
 
 function loadPostNumber(postNo, userNo) {
-    console.log("loadPostNumber 진입");
-
     $.ajax({
         url: `https://www.dangnagwi.store/api_post/post/${postNo}`,
         type: 'GET',

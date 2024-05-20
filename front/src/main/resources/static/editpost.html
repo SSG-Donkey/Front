@@ -136,15 +136,14 @@
         // Get postNo from URL query parameter
         const urlParams = new URLSearchParams(window.location.search);
         const postNo = urlParams.get('postNo');
+        const userNo=localStorage.getItem('userId');
 
         // Set postNo value in hidden input
         $('#postNo').val(postNo);
 
-        // ... Rest of your JavaScript code
+        loadPostData(postNo,userNo);
     });
-</script>
 
-<script>
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
         var user_nickname = localStorage.getItem('userNickname') ;
@@ -157,8 +156,7 @@
         // Form submission handling
 
     });
-</script>
-<script>
+
     // 페이지 로드 시 실행
     window.onload = function () {
         // 서버에서 지역 데이터를 가져와서 옵션으로 추가
@@ -180,6 +178,26 @@
             });
     };
 
+    function loadPostData(postNo, userNo) {
+    $.ajax({
+        url: `https://www.dangnagwi.store/api_post/post/${postNo}`,
+        type: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            content = data.content;
+
+            console.log(content);
+            $('#post_title').val(content.postTitle);
+            $('#region_no').val(content.regionNo);
+            $('point').val(content.point);
+            $('post_category').val(content.postCategory);
+            $('post_content').val(content.postContent);
+        },
+        error: function (xhr, status, error) {
+            console.error('데이터를 불러오는 중 에러 발생:', error);
+        }
+    });
+    }
 
 
 
