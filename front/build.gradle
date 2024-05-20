@@ -40,13 +40,7 @@ dependencies {
 	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
 	compileOnly('javax.servlet:javax.servlet-api:4.0.1')
 	implementation 'javax.validation:validation-api:2.0.1.Final'
-
-
-	// Spring Security OAuth2 Client
 	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client:2.7.11'
-	implementation 'org.springframework.security:spring-security-oauth2-core:5.7.2'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
-
 }
 
 dependencyManagement {
