@@ -13,8 +13,8 @@
             <ul>
                 <li><a class="font-orange" href="../index.html">홈으로</a></li>
                 <li><a class="font-orange" href="/board.html">나눔 게시판</a></li>
-                <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
-                <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
+                <li class="login"><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
+                <li class="login"><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
                 <li id="login-status"><a href="/loginForm.html">로그인/회원가입</a></li>
                 <li id="mypage-link" style="display:none;"><a href="/mypage.html">마이페이지</a></li>
             </ul>
@@ -105,11 +105,11 @@
             xhrFields: {
                 credentials: true
             },
-            success: function (response){
-                console.log("로그아웃 완료",response); // 잘 작동하는지 확인 코드
+            success: function (response) {
+                console.log("로그아웃 완료", response); // 잘 작동하는지 확인 코드
             },
-            error:function (error){
-                console.log("로그아웃 실패",error) // 잘 작동하는지 확인 코드
+            error: function (error) {
+                console.log("로그아웃 실패", error) // 잘 작동하는지 확인 코드
             }
         })
         window.location.href = 'index.html'; // 홈페이지로 리다이렉트
@@ -124,8 +124,10 @@
         function checkLoginStatus() {
             if (localStorage.getItem('authToken')) {
                 $('#login-status').html('<a href="#" onclick="logout()">로그아웃</a>');
+
             } else {
                 $('#login-status').html('<a href="loginForm.html">로그인/회원가입</a>');
+                $('.login a').attr('href','/loginForm.html')
             }
         }
 
