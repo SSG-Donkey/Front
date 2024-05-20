@@ -3,7 +3,6 @@ $(document).ready(function () {
     function executeSearch() {
         // 검색어 가져오기
         const searchTerm = $('.search-bar').val().trim();
-        console.log('검색어:', searchTerm);
 
         // 검색어가 비어있지 않은 경우에만 검색 페이지로 이동
         if (searchTerm !== '') {
@@ -29,7 +28,6 @@ $(document).ready(function () {
     // 검색 페이지 로드 시 검색어가 있는 경우 API를 호출하여 결과를 가져옴
     if (window.location.pathname === '/board.html' && window.location.search.includes('search=')) {
         const searchTerm = new URLSearchParams(window.location.search).get('search');
-        console.log("검색 내용 : " + searchTerm);
 
         const page = 0; // 페이지 수
         const pageSize = 10; // 페이지당 항목 수
@@ -38,12 +36,8 @@ $(document).ready(function () {
             .then(response => response.json())
             .then(data => {
                 // 여기서는 받아온 데이터를 처리하여 결과를 표시합니다.
-                console.log('검색 결과:', data);
                 currentPage = data.currentPage;
                 totalPages = data.totalPages;
-
-                console.log('currentPage:', data.currentPage);
-                console.log('totalPages:', data.totalPages);
 
                 renderPosts(data.data);
                 renderPagination();

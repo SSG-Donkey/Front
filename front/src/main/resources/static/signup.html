@@ -107,13 +107,6 @@
                 account: $("#accountInput").val()
             };
             
-            console.log("username :: " + userData.username);
-            console.log("password :: " + userData.password);
-            console.log("nickname :: " + userData.nickname);
-            console.log("email :: " + userData.email);
-            console.log("bankNo :: " + userData.bankNo);
-            console.log("account :: " + userData.account);
-            
             $.ajax({
                 type: "POST",
                 url: "https://www.dangnagwi.store/user/signup",
