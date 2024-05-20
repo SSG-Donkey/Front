@@ -62,13 +62,6 @@
                 <div class="card-body">
                     <form action="https://www.dangnagwi.store/api_post/edit" method="post" class="needs-validation" enctype= "multipart/form-data" novalidate>
                         <div class="container">
-                            <input type="text" id="postNo" name="postNo">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="user_nickname" name="user_nickname" required>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="user_no" name="user_no" required>
-                            </div>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_views" name="post_views"  value="0" required>
                             <input type="hidden" class="form-control" style="font-size: 20px;" id="post_status" name="post_status"  value="0" required>
                             <div class="form-group mb-3">
@@ -115,7 +108,7 @@
                             </div>
 
                             <button type="submit" style="font-size: 20px;" class="btn btn-primary btn-block" onclick=" location.href = '/board.html'">나눔 글 수정 완료</button>
-                            <button style="font-size: 20px;" class="btn btn-danger btn-block" onclick=" location.href = '/board.html'">수정 취소</button>
+                            <button style="font-size: 20px;" class="btn btn-danger btn-block" onclick="history.back()">수정 취소</button>
                         </div>
                     </form>
                 </div>
@@ -185,10 +178,10 @@
         dataType: 'json',
         success: function (data) {
             content = data.content;
+            const postFile = content.postFile;
 
-            console.log(content);
-            const filename = content.postFile.substring(url.lastIndexOf("/") + 11);
-            
+            const filename = postFile.substring(postFile.lastIndexOf("/") + 11);
+
             $('#post_title').val(content.postTitle);
             $('#region_no').val(content.regionNo);
             $('#point').val(content.point);
