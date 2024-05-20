@@ -105,3 +105,32 @@ form {
 .hidden {
     display: none;
 }
+
+.yellow-button {
+    float: right;
+    background-color: coral; /* Set background color to red */
+    color: white; /* Set text color to white for contrast */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add some padding for visual comfort */
+    cursor: pointer; /* Indicate clickable area */
+}
+.green-button {
+    float: right;
+    background-color: green; /* Set background color to red */
+    color: white; /* Set text color to white for contrast */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add some padding for visual comfort */
+    cursor: pointer; /* Indicate clickable area */
+}
+.red-button {
+    float: right;
+    background-color: red; /* Set background color to red */
+    color: white; /* Set text color to white for contrast */
+    border: none; /* Remove default border */
+    padding: 10px 20px; /* Add some padding for visual comfort */
+    cursor: pointer; /* Indicate clickable area */
+}
+.button-container {
+    display: flex; /* Enable flexbox layout */
+    justify-content: flex-end; /* Align elements to the left */
+}

@@ -17,32 +17,58 @@
 
 <body>
 
+
 <!-- header -->
 <div id="header"></div>
 
+<!--카테고리 선택-->
 <section class="home-main-section background-gray">
   <div class="home-hot-content">
-    <div class="container">
-      <div class="row justify-content-center mb-4">
-        <div class="col-auto">
-          <div class="btn-group" role="group" aria-label="Category Buttons">
-            <a href="/board.html" class="btn btn-outline-primary">전체</a>
-            <a href="/board.html?category=1" class="btn btn-outline-primary">도서</a>
-            <a href="/board.html?category=2" class="btn btn-outline-primary">의류</a>
-            <a href="/board.html?category=3" class="btn btn-outline-primary">전자기기</a>
-            <a href="/board.html?category=4" class="btn btn-outline-primary">가구</a>
-            <a href="/board.html?category=5" class="btn btn-outline-primary">악세사리</a>
-            <a href="/board.html?category=6" class="btn btn-outline-primary">생활용품</a>
-            <a href="/board.html?category=9" class="btn btn-outline-primary">기타</a>
+      <div class="container">
+          <div class="row justify-content-center mb-4">
+              <div class="col-auto">
+                  <div class="btn-group" role="group" aria-label="Category Buttons">
+                      <a href="/board.html" class="btn btn-outline-primary categoryList">전체</a>
+                      <a href="/board.html?category=1" class="btn btn-outline-primary categoryList">도서</a>
+                      <a href="/board.html?category=2" class="btn btn-outline-primary categoryList">의류</a>
+                      <a href="/board.html?category=3" class="btn btn-outline-primary categoryList">전자기기</a>
+                      <a href="/board.html?category=4" class="btn btn-outline-primary categoryList">가구</a>
+                      <a href="/board.html?category=5" class="btn btn-outline-primary categoryList">악세사리</a>
+                      <a href="/board.html?category=6" class="btn btn-outline-primary categoryList">생활용품</a>
+                      <a href="/board.html?category=9" class="btn btn-outline-primary categoryList">기타</a>
+                  </div>
+              </div>
           </div>
-        </div>
       </div>
-    </div>
+  </div>
+  
+  <style>
+    .point-status {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      background-color: white;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  <div class="point-status">
+  <span style="box-sizing: border-box; display: inline-block; overflow: hidden; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; position: relative; max-width: 100%;">
+    <span style="box-sizing: border-box; display: block; width: initial; height: initial; background: none; opacity: 1; border: 0px; margin: 0px; padding: 0px; max-width: 100%;">
+
+      <!-- 포인트 이용 현황 내용 -->
+      <h4></h4>
+        <p></p>
+
+
+    </span>
+  </span>
   </div>
   <h1 class="home-main-title home-hot-title">나눔 물품</h1>
-  <div id="category"></div>
 
-<!--  나눔 물품 보여주기-->
+  <!--  나눔 물품 보여주기-->
   <div class="items-wrap">
 
 
@@ -73,7 +99,26 @@
 
   window.onload = function() {
     loadCategoryPosts(category, 0);
+    setCategoryTitle(category);
   };
+
+  $(document).ready(function() { 
+    var user_nickname = localStorage.getItem('userNickname');
+    var userNo = localStorage.getItem('userId');
+
+    if (userNo) {
+        // userNo가 존재하는 경우
+        $('#user_nickname').val(user_nickname);
+        $('#user_no').val(userNo);
+        $('.point-status h4').text(`${user_nickname}님의 포인트 정보`);
+        getUserPoint(userNo); // 포인트 가져오는 함수 호출
+    } else {
+        // userNo가 없는 경우
+        $('.point-status').hide(); // point-status div 숨기기
+    }
+    getUserPoint(userNo); //포인트 가져오는 함수 호출
+});
+
 
   //카테고리 누를 때 페이지 이동
   function loadCategoryPosts(category, page) {
@@ -123,24 +168,24 @@
     });
     paginationDiv.appendChild(prevButton);
 
-  // 페이지 버튼 렌더링
-  const maxPageButtons = 5;
-  const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons + 1));
-  const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
+    // 페이지 버튼 렌더링
+    const maxPageButtons = 5;
+    const startPage = Math.max(0, Math.min(currentPage - Math.floor(maxPageButtons / 2), totalPages - maxPageButtons + 1));
+    const endPage = Math.min(totalPages, startPage + maxPageButtons - 1);
 
-  for (let i = startPage; i < endPage; i++) {
-    const pageButton = document.createElement('button');
-    pageButton.textContent = i + 1;
-    pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button');
-    if (i === currentPage) {
-      pageButton.classList.add('active');
+    for (let i = startPage; i < endPage; i++) {
+      const pageButton = document.createElement('button');
+      pageButton.textContent = i + 1;
+      pageButton.classList.add('btn', 'btn-outline-primary', 'pagination-button');
+      if (i === currentPage) {
+        pageButton.classList.add('active');
+      }
+      pageButton.addEventListener('click', () => {
+        loadCategoryPosts(category, i);
+        scrollToTop();
+      });
+      paginationDiv.appendChild(pageButton);
     }
-    pageButton.addEventListener('click', () => {
-      loadCategoryPosts(category, i);
-      scrollToTop();
-    });
-    paginationDiv.appendChild(pageButton);
-  }
 
     // 다음 버튼 렌더링
     const nextButton = document.createElement('button');
@@ -157,7 +202,7 @@
     pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
     pageNumber.classList.add('page-number'); // 선택적으로 클래스를 추가할 수 있습니다.
 
-    // 페이지네이션 div에 추가  
+    // 페이지네이션 div에 추가
     paginationDiv.appendChild(pageNumber);
 
   }
@@ -169,8 +214,21 @@
     });
   }
 
+  function getUserPoint(userNo) {
+        fetch(`https://www.dangnagwi.store/api_post/point?userNo=${userNo}`, { 
+            method: 'GET',
+            credentials: 'include', // 세션 쿠키를 포함
+        })
+        .then(response => response.json())
+        .then(data => {
+            $('.point-status p').text(`User Point: ${data.amount}`);
+        })
+        .catch(error => console.log('Error loading posts:', error));
+    }
+
   function setCategoryTitle(category) {
     let title;
+    console.log("여기 :: " + category);
     switch(category) {
       case '1':
         title = '도서';
@@ -196,12 +254,12 @@
       default:
         title = '전체';
     }
-    $('.home-main-title-top').text('나눔 물품 - ' + title);
+    $('.home-main-title').text('나눔 물품 - ' + title);
   }
 
-  // 페이지 로드시 실행
-  setCategoryTitle(category);
+  
 </script>
+
 </body>
 
 </html>
