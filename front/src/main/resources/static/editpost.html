@@ -187,9 +187,11 @@
             content = data.content;
 
             console.log(content);
-            $('#post_title').text(content.postTitle);
+            $('#post_title').val(content.postTitle);
             $('#region_no').val(content.regionNo);
-
+            $('point').val(content.point);
+            $('post_category').val(content.postCategory);
+            $('post_content').val(content.postContent);
         },
         error: function (xhr, status, error) {
             console.error('데이터를 불러오는 중 에러 발생:', error);
