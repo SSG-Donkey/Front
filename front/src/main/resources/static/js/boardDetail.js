@@ -1,21 +1,28 @@
+let contnet = null;
+let comment = null;
+
 window.onload = function () {
+    console.log("window.onload");
+    
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
     const userNo=localStorage.getItem('userId');
-
 
     loadPostNumber(postNo,userNo);
 };
 
 
+
 function loadPostNumber(postNo, userNo) {
+    console.log("loadPostNumber 진입");
+
     $.ajax({
         url: `https://www.dangnagwi.store/api_post/post/${postNo}`,
         type: 'GET',
         dataType: 'json',
         success: function (data) {
-            const content = data.content;
-            const comment = data.comment;
+            content = data.content;
+            comment = data.comment;
 
             $('.container').empty();
 
@@ -143,7 +150,7 @@ function loadPostNumber(postNo, userNo) {
             data: $(this).serialize(),
             dataType: 'json',
             success: function (response) {
-                alert(response.message);
+                // alert(response.message);
                 window.location.href = response.redirectUrl;
             },
             error: function (xhr, status, error) {
