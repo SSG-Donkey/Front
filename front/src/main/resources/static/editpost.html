@@ -111,6 +111,7 @@
                             <button style="font-size: 20px;" class="btn btn-danger btn-block" onclick="history.back()">수정 취소</button>
                         </div>
                     </form>
+                    <button style="font-size: 20px;" class="btn btn-primary btn-block" onclick="location.href = '/board.html'">수정 취소</button>
                 </div>
             </div>
 
@@ -178,24 +179,18 @@
         dataType: 'json',
         success: function (data) {
             content = data.content;
-            const postFile = content.postFile;
-
-            const filename = postFile.substring(postFile.lastIndexOf("/") + 11);
 
             $('#post_title').val(content.postTitle);
             $('#region_no').val(content.regionNo);
             $('#point').val(content.point);
             $('#post_category').val(content.postCategory);
             $('#post_content').val(content.postContent);
-            $('#post_file').val(filename);
         },
         error: function (xhr, status, error) {
             console.error('데이터를 불러오는 중 에러 발생:', error);
         }
     });
     }
-
-
 
 </script>
 </body>
