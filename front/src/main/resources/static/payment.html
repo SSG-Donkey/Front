@@ -1,12 +1,96 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>포인트 충전 </title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>결제 페이지</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <link rel="icon" href="./assets/favicon.ico">
+    <link rel="stylesheet" href="./css/general.css" />
+    <link rel="stylesheet" href="./css/header.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/footer.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .custom-card-size {
+            margin: auto;
+        }
+        .card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .double-size-form .form-control,
+        .double-size-form .input-group,
+        .double-size-form select {
+            height: calc(2.5rem + 2px);
+            font-size: 1.25em;
+        }
+        .double-size-form .input-group-addon {
+            font-size: 1.25em;
+        }
+        .double-size-form .btn {
+            height: calc(2.5rem + 2px);
+            font-size: 1.25em;
+        }
+        .img-fluid {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
 </head>
+
+<body>
+<div id="header-placeholder"></div>
+
+<!-- header -->
+<header>
+    <div class="header-wrap">
+        <div class="logo">
+            <a href="index.html">
+          <span>
+            <svg width="200" height="100" viewBox="0 0 200 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <image href="https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png" width="200" height="100" />
+            </svg>
+          </span>
+            </a>
+        </div>
+        <div class="category">
+            <ul>
+                <li><a class="font-orange" href="index.html">홈으로</a></li>
+                <li><a class="font-orange" href="/board.html">나눔 게시판 </a></li>
+                <li><a class="font-orange" href="/write.html">나눔 글 작성</a></li>
+                <li><a class="font-orange" href="/payment.html">포인트 충전하기</a></li>
+                <li><a href="/mypage.html">마이페이지</a></li>
+            </ul>
+        </div>
+        <div class="search-block">
+            <input class="search-bar" type="search" placeholder="물품이나 동네를 검색해보세요" />
+        </div>
+    </div>
+</header>
+<br><br><br><br><br><br><br>
+
+</div>
 <body>
 <div class="container">
     <h1>포인트 충전</h1>
@@ -15,22 +99,21 @@
         <div class="col-md-6">
             <img src="https://www.mangboard.com/wp-content/uploads/mangboard/2017/04/07/F814_points.png" class="img-fluid" alt="포인트 이미지">
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <form action="https://www.dangnagwi.store/payment" method="post" content>
-
-
-
-
-                            <label for="user_id">(로그인 아이디)User_id:</label>
-                            <input type="text" class="form-control" id="user_id" name="user_id" required>
-
+        <div class="col-md-6 custom-card-size">
+            <div class="card" style="height: 380px;">
+                <div class="card-body double-size-form">
+                    <form id="paymentForm" action="https://www.dangnagwi.store/payment" method="post">
+                        <div class="form-group">
+                            <label for="user_id"></label>
+                            <input type="hidden" class="form-control" id="user_id" name="user_id" required>
+                        </div>
                         <div class="form-group">
                             <label for="amount">충전 금액</label>
                             <div class="input-group">
                                 <input type="number" id="amount" name="amount" class="form-control" min="1000" max="1000000" value="10000">
-                                <span class="input-group-addon">원</span>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">원</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
@@ -44,22 +127,35 @@
                                 <option value="tosspay">토스페이</option>
                             </select>
                         </div>
-                        <br>
                         <button type="submit" class="btn btn-primary btn-block">결제하기</button>
                     </form>
                 </div>
             </div>
             <br>
             <div id="after-payment" style="display: none;">
-                <h2>결제 후 !</h2>
+                <h2>결제 후!</h2>
                 <p>충전 금액: ${amount}</p>
                 <p>결제 방식: ${paymentMethod}</p>
                 <p>결제 후 포인트 잔액: ${pointBalance}</p>
             </div>
-
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+        var userId = document.getElementById('user_id').value;
+        if (!userId) {
+            alert('로그인 아이디를 입력하세요.');
+            event.preventDefault();
+        }
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+
 <script>
     $(document).ready(function() {
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
