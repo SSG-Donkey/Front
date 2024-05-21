@@ -78,10 +78,19 @@ function loadPostNumber(postNo, userNo) {
                                         <div class="comment">
                                             <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
                                             <p class="comment-content">${comment.commentContent}</p>
+                                            <form id="selectUser">
+                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
+                                                <input type="hidden" id="userNo" name="userNo" value="${comment.userNo}">
+                                                <input type="hidden"  id="point" name="point" value="${content.point}">
+                                                <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
+                 
+                                            <button class="select-button" type="submit">나눔채택</button>
+                                            </form>
                                             <form id="deleteCommentForm">
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                                <input type="hidden" id="point" name="point" value="${content.point}">
                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
-                                                <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
+
                                             <button class="delete-button" type="submit">삭제</button>
                                             </form>
                                         </div>
@@ -157,7 +166,7 @@ function loadPostNumber(postNo, userNo) {
             data: $(this).serialize(),
             dataType: 'json',
             success: function (response) {
-                // alert(response.message);
+                 alert(response.message);
                 window.location.href = response.redirectUrl;
             },
             error: function (xhr, status, error) {
@@ -204,6 +213,25 @@ function loadPostNumber(postNo, userNo) {
             error: function (xhr, status, error) {
                 console.log(error);
                 alert('댓글 삭제 실패하였습니다.');
+            }
+        });
+    });
+
+    $(document).on('submit', '#selectUser', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'https://www.dangnagwi.store/comment/select',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('채택 할수없습니다.(이용자 포인트부족 등)');
             }
         });
     });
