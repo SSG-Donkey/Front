@@ -44,17 +44,17 @@ function loadPostNumber(postNo, userNo) {
                   <form id="finishForm" class="me-2">
                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                     <input type="hidden" name="postNo" value="${content.postNo}">
-                    <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                    <button class="btn btn-warning btn-lg btn-block" type="submit">나눔 완료</button>
                   </form>
                   <form id="updateForm" class="me-2">
                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                     <input type="hidden" name="postNo" value="${content.postNo}">
-                    <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
+                    <button class="btn btn-success btn-lg btn-block" type="submit">게시글 수정</button>
                   </form>
                   <form id="deleteForm">
                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                     <input type="hidden" name="postNo" value="${content.postNo}">
-                    <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
+                    <button class="btn btn-danger btn-lg btn-block" type="submit">게시글 삭제</button>
                   </form>
                 </div>
                 <div class="comments">
@@ -64,7 +64,7 @@ function loadPostNumber(postNo, userNo) {
                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                     <input type="hidden" name="postNo" value="${content.postNo}">
                     <input type="hidden" name="isChosen" value="0">
-                    <button class="btn btn-primary btn-lg" type="submit">입력</button>
+                    <button class="btn btn-primary btn-lg btn-block " type="submit">입력</button>
                   </form>
                   <div class="comment-list">
                     ${comment.map(comment => `
