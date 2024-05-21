@@ -24,38 +24,45 @@ function loadPostNumber(postNo, userNo) {
 
             const itemElement = $('<article>').addClass('content');
             itemElement.html(`
-                <main>
+                <main class="container my-5">
                     <section class="post-detail">
-                        <div class="post-header">
-                            <p id="state">나눔 중</p>
-                            <h1 class="post-title">제목: ${content.postTitle}</h1>
-                            <p id="pay" class="hidden">책임비 결제</p>
-                            <p>작성자 : ${content.userNickname}</p>
-                            <p>책임비 : ${content.point}</p>
+                    <div class="post-header text-center mb-5">
+                    <span id="state" class="badge bg-primary fs-5 py-2 px-3 mb-3">나눔 중</span>
+                    <h1 class="post-title display-4 fw-bold mb-4">${content.postTitle}</h1>
+                    <div class="d-flex justify-content-center align-items-center">
+                        <div class="post-author me-5">
+                        <i class="bi bi-person-fill me-2"></i>
+                        <span class="fw-bold">${content.userNickname}</span>
                         </div>
-                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid" style="max-width: 100%; max-height: 500px;">` : ''}
-                        <div class="post-info">
-                            <p class="post-content">내용: ${content.postContent}</p>
-                            
-                            <div class="d-flex justify-content-end">
-                                <div class="btn-group" role="group">
-                                    <form id="finishForm" class="me-2">
-                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                    <input type="hidden" name="postNo" value="${content.postNo}">
-                                    <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
-                                    </form>
-                                    <form id="updateForm" class="me-2">
-                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                    <input type="hidden" name="postNo" value="${content.postNo}">
-                                    <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
-                                    </form>
-                                    <form id="deleteForm">
-                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                    <input type="hidden" name="postNo" value="${content.postNo}">
-                                    <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
-                                    </form>
-                                </div>
-                            </div>
+                        <div class="post-fee">
+                        <i class="bi bi-cash-coin me-2"></i>
+                        <span class="fw-bold">${content.point}</span>
+                        </div>
+                    </div>
+                    </div>
+                  ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid mx-auto d-block mb-4" style="max-width: 100%; max-height: 500px;">` : ''}
+                  <div class="post-info">
+                    <p class="post-content">${content.postContent}</p>
+                    <div class="d-flex justify-content-end">
+                      <div class="btn-group" role="group">
+                        <form id="finishForm" class="me-2">
+                          <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                          <input type="hidden" name="postNo" value="${content.postNo}">
+                          <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                        </form>
+                        <form id="updateForm" class="me-2">
+                          <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                          <input type="hidden" name="postNo" value="${content.postNo}">
+                          <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
+                        </form>
+                        <form id="deleteForm">
+                          <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                          <input type="hidden" name="postNo" value="${content.postNo}">
+                          <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
 
                             <div class="comments">
                                 <h2>댓글</h2>
@@ -71,7 +78,14 @@ function loadPostNumber(postNo, userNo) {
                                         <div class="comment">
                                             <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
                                             <p class="comment-content">${comment.commentContent}</p>
+                                            <form id="deleteCommentForm">
+                                                <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                                <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
+                                                <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
+                                            <button class="delete-button" type="submit">삭제</button>
+                                            </form>
                                         </div>
+                                        
                                     `).join('')}
                                 </div>
                             </div>
@@ -85,7 +99,7 @@ function loadPostNumber(postNo, userNo) {
             // 나눔 완료 상태
             if (content.postStatus === '1') {
                 $('#pay').removeClass('hidden');
-                $('#state').text('나눔 완료').css('color', 'green');
+                $('#state').text('나눔 완료').removeClass('bg-primary').addClass('bg-success');
             }
         },
         error: function (xhr, status, error) {
@@ -113,7 +127,7 @@ function loadPostNumber(postNo, userNo) {
         });
     });
 
-    //삭제 폼
+    //글 삭제 폼
     $(document).on('submit', '#deleteForm', function (e) {
         e.preventDefault();
 
@@ -170,6 +184,26 @@ function loadPostNumber(postNo, userNo) {
             error: function (xhr, status, error) {
                 console.log(error);
                 alert('댓글 추가에 실패하였습니다.');
+            }
+        });
+    });
+
+    // 댓글 삭제
+    $(document).on('submit', '#deleteCommentForm', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'https://www.dangnagwi.store/comment/deleteComment',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('댓글 삭제 실패하였습니다.');
             }
         });
     });
