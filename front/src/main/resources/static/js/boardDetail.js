@@ -33,7 +33,7 @@ function loadPostNumber(postNo, userNo) {
                             <p>작성자 : ${content.userNickname}</p>
                             <p>책임비 : ${content.point}</p>
                         </div>
-                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''}
+                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid" style="max-width: 100%; max-height: 500px;">` : ''}
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
                             
