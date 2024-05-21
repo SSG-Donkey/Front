@@ -161,3 +161,47 @@ form#deleteCommentForm {
 .btn-no-wrap {
     white-space: nowrap;
   }
+  /* 추가적인 CSS 스타일 */
+.post-header {
+    margin-bottom: 3rem;
+    }
+
+    .post-title {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .post-content {
+    margin-bottom: 2rem;
+    }
+
+    .comments {
+    border-top: 1px solid #dee2e6;
+    padding-top: 2rem;
+    }
+
+    .comment {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+    }
+
+    .comment:last-child {
+    border-bottom: none;
+    }
+    
+    .post-author,
+    .post-fee {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    }
+    
+    .post-author i,
+    .post-fee i {
+    font-size: 1.5rem;
+    color: #6c757d;
+    }
+
+    .badge {
+        font-size: 1.2rem;
+      }
