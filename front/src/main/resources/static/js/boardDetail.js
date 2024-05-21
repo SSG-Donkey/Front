@@ -24,63 +24,62 @@ function loadPostNumber(postNo, userNo) {
 
             const itemElement = $('<article>').addClass('content');
             itemElement.html(`
-                <main>
-                    <section class="post-detail">
-                        <div class="post-header">
-                            <p id="state">나눔 중</p>
-                            <h1 class="post-title">제목: ${content.postTitle}</h1>
-                            <p id="pay" class="hidden">책임비 결제</p>
-                            <p>작성자 : ${content.userNickname}</p>
-                            <p>책임비 : ${content.point}</p>
+            <main>
+            <section class="post-detail">
+              <header class="post-header d-flex align-items-center justify-content-between">
+                <div>
+                  <span class="badge rounded-pill bg-warning text-dark">나눔 중</span>
+                  <h1 class="post-title my-2">${content.postTitle}</h1>
+                  <p class="m-0">작성자: ${content.userNickname}</p>
+                </div>
+                <div>
+                  <p class="m-0">책임비: ${content.point}</p>
+                  <p id="pay" class="hidden m-0">책임비 결제</p>
+                </div>
+              </header>
+              ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid my-3">` : ''}
+              <div class="post-info">
+                <p class="post-content">${content.postContent}</p>
+                <div class="button-container d-flex justify-content-around my-3">
+                  <form id="finishForm" class="me-2">
+                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                    <input type="hidden" name="postNo" value="${content.postNo}">
+                    <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                  </form>
+                  <form id="updateForm" class="me-2">
+                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                    <input type="hidden" name="postNo" value="${content.postNo}">
+                    <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
+                  </form>
+                  <form id="deleteForm">
+                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                    <input type="hidden" name="postNo" value="${content.postNo}">
+                    <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
+                  </form>
+                </div>
+                <div class="comments">
+                  <h2>댓글</h2>
+                  <form id="commentForm" class="d-flex mb-3">
+                    <input type="text" name="commentContent" class="form-control me-2" placeholder="댓글 입력">
+                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                    <input type="hidden" name="postNo" value="${content.postNo}">
+                    <input type="hidden" name="isChosen" value="0">
+                    <button class="btn btn-primary btn-lg" type="submit">입력</button>
+                  </form>
+                  <div class="comment-list">
+                    ${comment.map(comment => `
+                      <div class="comment mb-3">
+                        <div class="d-flex justify-content-between">
+                          <p class="comment-info m-0"><strong>${comment.userNickname}</strong> | ${comment.commentDate}</p>
                         </div>
-                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''}
-                        <div class="post-info">
-                            <p class="post-content">내용: ${content.postContent}</p>
-                            
-                            <!-- 게시글 나눔완료 ,수정  ,삭제 !-->
-                            <div class="button-container">
-                            <form id="finishForm">
-                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                 <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="btn btn-warning btn-block" type="submit">나눔 완료</button>
-                             </form>
-                              
-                             <form id="updateForm">
-                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                 <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="btn button-info" type="submit">게시글 수정</button>
-                             </form>
-                              
-                              
-                              <form id="deleteForm">
-                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                 <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="btn btn-danger btn-block" type="submit">게시글 삭제</button>
-                              </form>
-                             </div>
-                            
-                              <!-- 댓글 작성 !-->
-                            <div class="comments">
-                                <h2>댓글</h2>
-                                <form id="commentForm">
-                                    <input type="text" name="commentContent">
-                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                    <input type="hidden" name="postNo" value="${content.postNo}">
-                                    <input type="hidden" name="isChosen" value="0">
-                                    <button class="btn btn-primary btn-block" type="submit">입력</button>
-                                </form>
-                                <div class="comment-list">
-                                    ${comment.map(comment => `
-                                        <div class="comment">
-                                            <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
-                                            <p class="comment-content">${comment.commentContent}</p>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </main>
+                        <p class="comment-content m-0">${comment.commentContent}</p>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
             `);
 
             $('.container').append(itemElement);
