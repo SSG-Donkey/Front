@@ -37,29 +37,24 @@ function loadPostNumber(postNo, userNo) {
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
                             
-                            <!-- 게시글 나눔완료 ,수정  ,삭제 !-->
-                            <div class="button-container">
-                            <form id="finishForm">
-                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                 <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button yellow-button" type="submit">나눔 완료</button>
-                             </form>
-                              
-                             <form id="updateForm">
-                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                 <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button green-button" type="submit">게시글 수정</button>
-                             </form>
-                              
-                              
-                              <form id="deleteForm">
-                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                 <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button red-button" type="submit">게시글 삭제</button>
-                              </form>
-                             </div>
-                            
-                              <!-- 댓글 작성 !-->
+                            <div class="btn-group d-flex" role="group">
+                                <form id="finishForm" class="me-2">
+                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                    <input type="hidden" name="postNo" value="${content.postNo}">
+                                    <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                                </form>
+                                <form id="updateForm" class="me-2">
+                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                    <input type="hidden" name="postNo" value="${content.postNo}">
+                                    <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
+                                </form>
+                                <form id="deleteForm">
+                                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                    <input type="hidden" name="postNo" value="${content.postNo}">
+                                    <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
+                                </form>
+                            </div>
+
                             <div class="comments">
                                 <h2>댓글</h2>
                                 <form id="commentForm">
