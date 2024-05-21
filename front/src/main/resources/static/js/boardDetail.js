@@ -45,11 +45,13 @@ function loadPostNumber(postNo, userNo) {
                     <p class="post-content">${content.postContent}</p>
                     <div class="d-flex justify-content-end">
                       <div class="btn-group" role="group">
+                 
                         <form id="finishForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
-                          <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                       
                         </form>
+                        
                         <form id="updateForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
