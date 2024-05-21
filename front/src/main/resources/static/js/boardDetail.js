@@ -69,7 +69,14 @@ function loadPostNumber(postNo, userNo) {
                                         <div class="comment">
                                             <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
                                             <p class="comment-content">${comment.commentContent}</p>
+                                            <form id="deleteCommentForm">
+                                                <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                                <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
+                                                <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
+                                            <button class="delete-button" type="submit">삭제</button>
+                                            </form>
                                         </div>
+                                        
                                     `).join('')}
                                 </div>
                             </div>
@@ -111,7 +118,7 @@ function loadPostNumber(postNo, userNo) {
         });
     });
 
-    //삭제 폼
+    //글 삭제 폼
     $(document).on('submit', '#deleteForm', function (e) {
         e.preventDefault();
 
@@ -168,6 +175,26 @@ function loadPostNumber(postNo, userNo) {
             error: function (xhr, status, error) {
                 console.log(error);
                 alert('댓글 추가에 실패하였습니다.');
+            }
+        });
+    });
+
+    // 댓글 삭제
+    $(document).on('submit', '#deleteCommentForm', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            url: 'https://www.dangnagwi.store/comment/deleteComment',
+            type: 'POST',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (response) {
+                alert(response.message);
+                window.location.href = response.redirectUrl;
+            },
+            error: function (xhr, status, error) {
+                console.log(error);
+                alert('댓글 삭제 실패하였습니다.');
             }
         });
     });

@@ -67,18 +67,41 @@ form {
 }
 /* Comment Styles */
 .comment {
-    background-color: #F9F9F9;
-    border-radius: 5px;
-    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 10px;
-}
-.comment-list {
-    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
 }
 .comment-info {
-    font-size: 14px;
-    color: #666;
-    margin-bottom: 5px;
+    margin-right: 10px;
+}
+.comment-content {
+    margin-right: 10px;
+    flex-grow: 1;
+}
+.delete-button {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0;
+    margin-left: auto;
+}
+.delete-button:hover {
+    color: darkred;
+}
+form#deleteCommentForm {
+    display: inline;
+}
+.delete-button:hover {
+    color: darkred;
+}
+form#deleteCommentForm {
+    display: inline;
 }
 .comment-content {
     font-size: 16px;
