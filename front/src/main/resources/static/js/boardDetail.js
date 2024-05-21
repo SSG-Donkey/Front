@@ -33,26 +33,28 @@ function loadPostNumber(postNo, userNo) {
                             <p>작성자 : ${content.userNickname}</p>
                             <p>책임비 : ${content.point}</p>
                         </div>
-                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진">` : ''}
+                        ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid" style="max-width: 100%; max-height: 500px;">` : ''}
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
                             
-                            <div class="btn-group d-flex" justify-content-end role="group">
-                                <form id="finishForm" class="me-2">
+                            <div class="d-flex justify-content-end">
+                                <div class="btn-group" role="group">
+                                    <form id="finishForm" class="me-2">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
-                                </form>
-                                <form id="updateForm" class="me-2">
+                                    </form>
+                                    <form id="updateForm" class="me-2">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
-                                </form>
-                                <form id="deleteForm">
+                                    </form>
+                                    <form id="deleteForm">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
 
                             <div class="comments">
