@@ -123,7 +123,7 @@
         #delete-account-link {
             float: right;  /* 오른쪽 정렬 */
             color: #ccc;  /* 옅은 회색 */
-            text-decoration: none;  /* 밑줄 없앰 */
+            text-decoration: none;  /* 밑줄 없앰 */ 
             font-size: 14px;
             cursor: pointer;
         }
@@ -169,7 +169,8 @@
         // 사용자 정보 로드
         var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
         var email = localStorage.getItem('userEmail'); // 이메일 가져오기
-        var bankNo = localStorage.getItem('userBankNo'); // 은행 번호 가져오기
+        var bankNo = localStorage.getItem('userBankNo'); // 은행 가져오기
+        var userAccount = localStorage.getItem('userAccount'); //계좌번호 가져오기
 
         // 기존 정보가 있다면 입력란에 설정
         if (nickname) {
@@ -182,6 +183,10 @@
 
         if (email) {
             $('#email').val(email);
+        }
+        
+        if(userAccount) {
+            $('#userAccount').val(userAccount);
         }
     });
 
