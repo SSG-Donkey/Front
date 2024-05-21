@@ -209,9 +209,9 @@
             var updateData = {
                 password: password,
                 nickname: $("#nickname").val(),
-                email: $("#email").val(),
-                bankNo: $("#bankNo").val(),
-                account: $("#account").val()
+                newEmail: $("#email").val(),
+                newBankNo: $("#bankNo").val(),
+                newAccount: $("#account").val()
             };
 
             $.ajax({
@@ -222,9 +222,9 @@
                 success: function(response) {
                     alert("회원 정보가 성공적으로 업데이트되었습니다.");
                     localStorage.setItem('userNickname',updateData.nickname);
-                    localStorage.setItem('userEmail',updateData.email);
-                    localStorage.setItem('userBankNo',updateData.bankNo);
-                    localStorage.setItem('userAccount',updateData.account);
+                    localStorage.setItem('userEmail',updateData.newEmail);
+                    localStorage.setItem('userBankNo',updateData.newBankNo);
+                    localStorage.setItem('userAccount',updateData.newAccount);
 
                     window.location.href = 'https://www.dangnagwi.store/index.html'; // 성공 후 홈페이지로 리다이렉트
                 },
