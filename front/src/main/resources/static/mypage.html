@@ -238,7 +238,7 @@
             event.preventDefault(); // 기본 이벤트를 방지합니다.
             if (confirm("정말 탈퇴하시겠습니까?")) {
                 $.ajax({
-                    type: "DELETE",
+                    method: "DELETE",
                     url: `https://www.dangnagwi.store/user/user/${userId}`,
                     success: function(response) {
                         alert("회원 탈퇴가 완료되었습니다. 이용해 주셔서 감사합니다.");
