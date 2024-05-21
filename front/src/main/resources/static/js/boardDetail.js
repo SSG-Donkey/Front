@@ -24,7 +24,7 @@ function loadPostNumber(postNo, userNo) {
 
             const itemElement = $('<article>').addClass('content');
             itemElement.html(`
-                <main>
+                <main class="container my-5">
                     <section class="post-detail">
                     <div class="post-header text-center mb-5">
                     <span id="state" class="badge bg-primary fs-5 py-2 px-3 mb-3">나눔 중</span>
