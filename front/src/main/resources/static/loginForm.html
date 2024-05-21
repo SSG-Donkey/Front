@@ -170,25 +170,6 @@
 
 
 
-        // 페이지 로드 시 HTTP 헤더에서 토큰을 가져와서 저장
-        var token = null;
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/", true); // 실제 요청을 보낼 엔드포인트로 수정
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var authHeader = xhr.getResponseHeader("Authorization");
-                if (authHeader && authHeader.startsWith("Bearer ")) {
-                    token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
-                    if (token) {
-                        localStorage.setItem('authToken', token);
-                        updateLoginStatus();
-                    }
-                }
-            }
-        };
-        xhr.send();
-
-
         // header.html 로드 후 로그인 상태를 확인합니다.
         $("#header").load("common/header.html", function () {
             updateLoginStatus();
