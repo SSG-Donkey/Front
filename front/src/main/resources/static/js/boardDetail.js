@@ -48,7 +48,7 @@ function loadPostNumber(postNo, userNo) {
                              <form id="updateForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button green-button" type="submit">게시글 수정</button>
+                                <button class="button-info" type="submit">게시글 수정</button>
                              </form>
                               
                               
@@ -67,7 +67,7 @@ function loadPostNumber(postNo, userNo) {
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <input type="hidden" name="isChosen" value="0">
-                                    <button class="input-button" type="submit">입력</button>
+                                    <button class="btn btn-primary btn-block" type="submit">입력</button>
                                 </form>
                                 <div class="comment-list">
                                     ${comment.map(comment => `
