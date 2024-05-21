@@ -92,14 +92,6 @@
         .catch(error => console.error('Error loading posts:', error));
 </script>
 
-<script>
-    if (new URLSearchParams(window.location.search).has('token')) {
-        const token = new URLSearchParams(window.location.search).get('token');
-        localStorage.setItem('authToken', token); // 로컬 스토리지에 토큰 저장
-        window.location.href = 'index.html'; // 토큰 파라미터 제거를 위해 메인 페이지로 리다이렉트
-    }
-</script>
-
 <script src="./js/common.js"></script>
 <script>
     $(document).ready(function () {
