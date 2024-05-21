@@ -42,20 +42,20 @@ function loadPostNumber(postNo, userNo) {
                             <form id="finishForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button yellow-button" type="submit">나눔 완료</button>
+                                <button class="btn btn-warning btn-block" type="submit">나눔 완료</button>
                              </form>
                               
                              <form id="updateForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="button-info" type="submit">게시글 수정</button>
+                                <button class="btn button-info" type="submit">게시글 수정</button>
                              </form>
                               
                               
                               <form id="deleteForm">
                                  <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                  <input type="hidden" name="postNo" value="${content.postNo}">
-                                <button class="input-button red-button" type="submit">게시글 삭제</button>
+                                <button class="btn btn-danger btn-block" type="submit">게시글 삭제</button>
                               </form>
                              </div>
                             

@@ -134,3 +134,7 @@ form {
     display: flex; /* Enable flexbox layout */
     justify-content: flex-end; /* Align elements to the left */
 }
+
+.btn-no-wrap {
+    white-space: nowrap;
+  }
