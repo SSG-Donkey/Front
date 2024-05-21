@@ -186,7 +186,7 @@
         }
         
         if(userAccount) {
-            $('#userAccount').val(userAccount);
+            $('#account').val(userAccount);
         }
     });
 
@@ -221,6 +221,11 @@
                 data: JSON.stringify(updateData),
                 success: function(response) {
                     alert("회원 정보가 성공적으로 업데이트되었습니다.");
+                    localStorage.setItem('userNickname',updateData.nickname);
+                    localStorage.setItem('userEmail',updateData.email);
+                    localStorage.setItem('userBankNo',updateData.bankNo);
+                    localStorage.setItem('userAccount',updateData.account);
+
                     window.location.href = 'https://www.dangnagwi.store/index.html'; // 성공 후 홈페이지로 리다이렉트
                 },
                 error: function(xhr) {

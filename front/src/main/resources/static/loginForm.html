@@ -151,7 +151,11 @@
                 url: "https://www.dangnagwi.store/user/login",
                 contentType: "application/json",
                 data: JSON.stringify(userData),
+<<<<<<< HEAD
                 success: function (response) {
+=======
+                success: function(response) {
+>>>>>>> 3d4e5407a57c11980fd9fc04e455365b8c2c6093
                     localStorage.setItem('authToken', response.data.token);
                     localStorage.setItem('userNickname', response.data.nickname); // 닉네임 저장
                     localStorage.setItem('userEmail', response.data.email); // 이메일 저장
