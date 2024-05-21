@@ -40,22 +40,22 @@ function loadPostNumber(postNo, userNo) {
               ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid my-3">` : ''}
               <div class="post-info">
                 <p class="post-content">${content.postContent}</p>
-                <div class="button-container d-flex justify-content-around my-3">
-                  <form id="finishForm" class="me-2">
-                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                    <input type="hidden" name="postNo" value="${content.postNo}">
-                    <button class="btn btn-warning btn-lg btn-block" type="submit">나눔 완료</button>
-                  </form>
-                  <form id="updateForm" class="me-2">
-                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                    <input type="hidden" name="postNo" value="${content.postNo}">
-                    <button class="btn btn-success btn-lg btn-block" type="submit">게시글 수정</button>
-                  </form>
-                  <form id="deleteForm">
-                    <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                    <input type="hidden" name="postNo" value="${content.postNo}">
-                    <button class="btn btn-danger btn-lg btn-block" type="submit">게시글 삭제</button>
-                  </form>
+                <div class="btn-group d-flex" role="group">
+                    <form id="finishForm" class="me-2">
+                        <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                        <input type="hidden" name="postNo" value="${content.postNo}">
+                        <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                    </form>
+                    <form id="updateForm" class="me-2">
+                        <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                        <input type="hidden" name="postNo" value="${content.postNo}">
+                        <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
+                    </form>
+                    <form id="deleteForm">
+                        <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                        <input type="hidden" name="postNo" value="${content.postNo}">
+                        <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
+                    </form>
                 </div>
                 <div class="comments">
                   <h2>댓글</h2>
