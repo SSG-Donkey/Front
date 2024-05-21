@@ -37,22 +37,24 @@ function loadPostNumber(postNo, userNo) {
                         <div class="post-info">
                             <p class="post-content">내용: ${content.postContent}</p>
                             
-                            <div class="btn-group d-flex" justify-content-end role="group">
-                                <form id="finishForm" class="me-2">
+                            <div class="d-flex justify-content-end">
+                                <div class="btn-group" role="group">
+                                    <form id="finishForm" class="me-2">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
-                                </form>
-                                <form id="updateForm" class="me-2">
+                                    </form>
+                                    <form id="updateForm" class="me-2">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
-                                </form>
-                                <form id="deleteForm">
+                                    </form>
+                                    <form id="deleteForm">
                                     <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                     <input type="hidden" name="postNo" value="${content.postNo}">
                                     <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
 
                             <div class="comments">
