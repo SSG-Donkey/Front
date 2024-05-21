@@ -147,10 +147,6 @@
                 contentType: "application/json",
                 data: JSON.stringify(userData),
                 success: function(response) {
-                    console.log("response :: " + response);
-                    console.log("data :: " + response.data);
-                    console.log("account :: " + response.data.account);
-
                     localStorage.setItem('authToken', response.data.token);
                     localStorage.setItem('userNickname', response.data.nickname); // 닉네임 저장
                     localStorage.setItem('userEmail', response.data.email); // 이메일 저장
