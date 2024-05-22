@@ -103,6 +103,15 @@ form {
     font-size: 14px;
     border-radius: 5px;
 }
+.share-button {
+    background-color: #c82333;
+    color: #F4F4F4;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
 
 .select-button:hover {
     background-color: #0056b3;
