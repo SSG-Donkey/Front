@@ -95,7 +95,7 @@ form {
 }
 
 .select-button {
-    background-color: #007bff;
+    background-color: #4CAF50;
     color: #fff;
     border: none;
     cursor: pointer;
@@ -109,7 +109,7 @@ form {
 }
 
 .delete-button {
-    background-color: #dc3545;
+    background-color: #ff6f0f;
     color: #fff;
     border: none;
     cursor: pointer;
