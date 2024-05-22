@@ -88,6 +88,9 @@ function loadPostNumber(postNo, userNo) {
                                             <p class="comment-info">${comment.userNickname} ( ${comment.commentDate})</p>
                                             <p class="comment-content">${comment.commentContent}</p>
                                             <div class="comment-actions">
+                                       ${( comment.isChosen == 1) ? `
+                                                     <button class="share-button" type="submit">나눔승인된댓글</button>
+                                         ` : ''}
                                         ${(content.userNo == userNo  && comment.userNo!=content.userNo && content.postStatus== 0) ? `
                                         <form id="selectUser">
                                             <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
@@ -97,9 +100,7 @@ function loadPostNumber(postNo, userNo) {
                                             <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
                                             <button class="select-button" type="submit">나눔채택</button>
                                         </form>` : ''}
-                                         ${( comment.isChosen == 1) ? `
-                                                     <button class="share-button" type="submit">나눔승인된댓글</button>
-                                              ` : ''}
+                                  
                                                ${(comment.userNo == userNo ) ? `
                                                      <form id="deleteCommentForm">
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
