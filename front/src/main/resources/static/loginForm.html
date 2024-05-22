@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <style>
         body {
             background-color: #f8f9fa;
@@ -74,6 +75,7 @@
             filter: brightness(90%); /* 마우스 호버 시 명암이 살짝 어두워지도록 함 */
             border-radius: 15px;
         }
+
         .image-button img {
             width: 80%; /* 이미지 크기를 70%로 줄입니다. */
             height: auto;
@@ -84,7 +86,8 @@
 <body>
 
 <div class="container">
-    <img src="https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png" alt="이미지 설명" width="400" height="300">
+    <img src="https://ssg-donkey-bucket.s3.ap-northeast-2.amazonaws.com/%EB%A1%9C%EA%B3%A0%EC%B5%9C%EC%A2%85.png"
+         alt="이미지 설명" width="400" height="300">
 
     <h2>당나귀 로그인</h2>
 
@@ -116,10 +119,12 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="./js/common.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 <script>
-    $(document).ready(function() {
-        $("#header").load("common/header.html", function() {
+    $(document).ready(function () {
+        $("#header").load("common/header.html", function () {
             // header.html이 로드된 후에 로그인 상태를 업데이트합니다.
             updateLoginStatus();
         });
@@ -131,9 +136,9 @@
 
 <script src="./js/common.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         // 폼 제출 이벤트 핸들러
-        $("form").submit(function(event) {
+        $("form").submit(function (event) {
             event.preventDefault();
             var userData = {
                 username: $("#username").val(),
@@ -146,7 +151,7 @@
                 url: "https://www.dangnagwi.store/user/login",
                 contentType: "application/json",
                 data: JSON.stringify(userData),
-                success: function(response) {
+                success: function (response) {
                     localStorage.setItem('authToken', response.data.token);
                     localStorage.setItem('userNickname', response.data.nickname); // 닉네임 저장
                     localStorage.setItem('userEmail', response.data.email); // 이메일 저장
@@ -157,16 +162,38 @@
                     updateLoginStatus();
                     window.location.href = 'index.html';
                 },
-                error: function(xhr) {
+                error: function (xhr) {
                     alert("로그인 실패: " + xhr.responseJSON.message);
                 }
             });
         });
 
+
+
+        // 페이지 로드 시 HTTP 헤더에서 토큰을 가져와서 저장
+        var token = null;
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "/", true); // 실제 요청을 보낼 엔드포인트로 수정
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var authHeader = xhr.getResponseHeader("Authorization");
+                if (authHeader && authHeader.startsWith("Bearer ")) {
+                    token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
+                    if (token) {
+                        localStorage.setItem('authToken', token);
+                        updateLoginStatus();
+                    }
+                }
+            }
+        };
+        xhr.send();
+
+
         // header.html 로드 후 로그인 상태를 확인합니다.
-        $("#header").load("common/header.html", function() {
+        $("#header").load("common/header.html", function () {
             updateLoginStatus();
         });
+
     });
 </script>
 
