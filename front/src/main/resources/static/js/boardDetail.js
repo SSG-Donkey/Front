@@ -49,7 +49,7 @@ function loadPostNumber(postNo, userNo) {
                         <form id="shareForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
-                            <button class="yellow-button btn-lg" type="submit">나눔중으로 되돌리기(임시기능)</button>
+                            <button class="yellow-button btn-lg" type="submit">나눔중 되돌리기(임시기능)</button>
                         </form>
                         
                         <form id="updateForm" class="me-2">
