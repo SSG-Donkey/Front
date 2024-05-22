@@ -4,7 +4,7 @@ let comment = null;
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
-    const userNo=28;
+    const userNo=localStorage.getItem('userId');
 
     loadPostNumber(postNo,userNo);
 };
@@ -44,9 +44,10 @@ function loadPostNumber(postNo, userNo) {
                   <div class="post-info">
                     <p class="post-content">${content.postContent}</p>
                     <div class="d-flex justify-content-end">
-                      <div class="btn-group" role="group">
-                 
-                        <form id="shareForm" class="me-2">
+                      <div class="btn-group" role="group" id="authorActions" >
+                     ${(content.userNo == userNo ) ? `
+                       
+                          <form id="shareForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
                             <button class="yellow-button btn-lg" type="submit">나눔중 상태로 되돌리기</button>
@@ -62,6 +63,12 @@ function loadPostNumber(postNo, userNo) {
                           <input type="hidden" name="postNo" value="${content.postNo}">
                           <button class="btn btn-danger btn-lg" type="submit">게시글 삭제</button>
                         </form>
+                       
+                       
+                       
+                       ` : ''}
+ 
+
                       </div>
                     </div>
                   </div>
@@ -88,16 +95,20 @@ function loadPostNumber(postNo, userNo) {
                                             <input type="hidden" id="postuserNo" name="postuserNo" value="${content.userNo}">
                                             <input type="hidden" id="point" name="point" value="${content.point}">
                                             <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
-                                            <button class="select-button" type="submit">나눔채택</button>
+                                            <button class="select-button" type="submit">나눔신청</button>
                                         </form>` : ''}
-
-                                            <form id="deleteCommentForm">
+                                               ${(comment.userNo == userNo ) ? `
+                                                     <form id="deleteCommentForm">
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                                 <input type="hidden" id="point" name="point" value="${content.point}">
                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
-                                                 <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
-                                            <button class="delete-button" type="submit">댓글삭제</button>
-                                            </form>
+                                                <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
+                                                 <button class="delete-button" type="submit">댓글삭제</button>
+                                                 </form>
+                                                
+                                                
+                                                ` : ''}
+                                       
                                             </div>
                                         </div>
                                         
@@ -119,6 +130,14 @@ function loadPostNumber(postNo, userNo) {
         },
         error: function (xhr, status, error) {
             console.error('데이터를 불러오는 중 에러 발생:', error);
+        }
+    });
+//글 작성자만 보이게
+    document.addEventListener("DOMContentLoaded", function() {
+
+
+        if (userNo != contentUserNo) {
+            authorActions.style.display = 'none';
         }
     });
 
