@@ -35,20 +35,30 @@
                 console.log("Token stored in localStorage"); // 토큰 저장 확인
                 updateLoginStatus();
             } else {
+                var token = localStorage.getItem('authToken');
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", "https://www.dangnagwi.store/user/auth/status", true); // 실제 요청을 보낼 엔드포인트로 수정
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        var authHeader = xhr.getResponseHeader("Authorization");
-                        console.log("XHR Authorization Header: " + authHeader); // 헤더 로그 출력
 
-                        if (authHeader && authHeader.startsWith("Bearer ")) {
-                            token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
-                            if (token) {
-                                console.log("Extracted Token: " + token); // 토큰 로그 출력
-                                localStorage.setItem('authToken', token);
-                                updateLoginStatus();
+                if (token) {
+                    xhr.setRequestHeader("Authorization", "Bearer " + token);
+                }
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var authHeader = xhr.getResponseHeader("Authorization");
+                            console.log("XHR Authorization Header: " + authHeader); // 헤더 로그 출력
+
+                            if (authHeader && authHeader.startsWith("Bearer ")) {
+                                var token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
+                                if (token) {
+                                    console.log("Extracted Token: " + token); // 토큰 로그 출력
+                                    localStorage.setItem('authToken', token);
+                                    updateLoginStatus();
+                                }
                             }
+                        } else {
+                            console.error("Error fetching auth status: " + xhr.status);
                         }
                     }
                 };
