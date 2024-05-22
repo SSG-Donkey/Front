@@ -6,34 +6,29 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            $.get('./common/head.html', function (data) {
-                $('head').append(data);
-            });
-
-            // header.html 로드 후 로그인 상태를 확인하고 UI를 업데이트합니다.
             $("#header").load("common/header.html", function () {
                 updateLoginStatus();
             });
 
-            // main.html과 footer.html 로드
             $("#main").load("common/main.html");
             $("#footer").load("common/footer.html");
 
-            // 페이지 로드 시 HTTP 헤더에서 토큰을 가져와서 저장
             var token = getCookie('Authorization');
+            console.log("Authorization Header: " + token); // 헤더 로그 출력
             if (token && token.startsWith("Bearer ")) {
                 localStorage.setItem('authToken', token.split(" ")[1]);
                 updateLoginStatus();
             } else {
-                // xhr 요청을 통해 Authorization 헤더에서 토큰을 가져옵니다.
                 var xhr = new XMLHttpRequest();
                 xhr.open("GET", "/", true); // 실제 요청을 보낼 엔드포인트로 수정
                 xhr.onreadystatechange = function() {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var authHeader = xhr.getResponseHeader("Authorization");
+                        console.log("XHR Authorization Header: " + authHeader); // 헤더 로그 출력
                         if (authHeader && authHeader.startsWith("Bearer ")) {
                             token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
                             if (token) {
+                                console.log("Extracted Token: " + token); // 토큰 로그 출력
                                 localStorage.setItem('authToken', token);
                                 updateLoginStatus();
                             }

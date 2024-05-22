@@ -161,9 +161,11 @@
 
         document.addEventListener("DOMContentLoaded", function() {
             var authHeader = getCookie('Authorization');
+            console.log("Authorization Header: " + authHeader); // 헤더 로그 출력
             if (authHeader && authHeader.startsWith("Bearer ")) {
-                var token = authHeader.split(" ")[1];
+                var token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
                 if (token) {
+                    console.log("Extracted Token: " + token); // 토큰 로그 출력
                     localStorage.setItem('authToken', token);
                     updateLoginStatus();
                 }
