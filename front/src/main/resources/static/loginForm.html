@@ -125,19 +125,11 @@
 <script>
     $(document).ready(function () {
         $("#header").load("common/header.html", function () {
-            // header.html이 로드된 후에 로그인 상태를 업데이트합니다.
             updateLoginStatus();
         });
-        // 다른 페이지 로드 코드
         $("#main").load("common/main.html");
         $("#footer").load("common/footer.html");
-    });
-</script>
 
-<script src="./js/common.js"></script>
-<script>
-    $(document).ready(function () {
-        // 폼 제출 이벤트 핸들러
         $("form").submit(function (event) {
             event.preventDefault();
             var userData = {
@@ -145,7 +137,6 @@
                 password: $("#password").val()
             };
 
-            // AJAX 요청
             $.ajax({
                 type: "POST",
                 url: "https://www.dangnagwi.store/user/login",
@@ -153,10 +144,10 @@
                 data: JSON.stringify(userData),
                 success: function (response) {
                     localStorage.setItem('authToken', response.data.token);
-                    localStorage.setItem('userNickname', response.data.nickname); // 닉네임 저장
-                    localStorage.setItem('userEmail', response.data.email); // 이메일 저장
-                    localStorage.setItem('userBankNo', response.data.bankNo); // 은행정보 저장
-                    localStorage.setItem('userAccount', response.data.account); // 계좌 저장
+                    localStorage.setItem('userNickname', response.data.nickname);
+                    localStorage.setItem('userEmail', response.data.email);
+                    localStorage.setItem('userBankNo', response.data.bankNo);
+                    localStorage.setItem('userAccount', response.data.account);
                     localStorage.setItem('userId', response.data.userId);
                     localStorage.setItem('username', response.data.username);
                     updateLoginStatus();
@@ -168,31 +159,24 @@
             });
         });
 
-
-
-        // 페이지 로드 시 HTTP 헤더에서 토큰을 가져와서 저장
-        var token = null;
-        var xhr = new XMLHttpRequest();
-        xhr.open("GET", "/", true); // 실제 요청을 보낼 엔드포인트로 수정
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var authHeader = xhr.getResponseHeader("Authorization");
-                if (authHeader && authHeader.startsWith("Bearer ")) {
-                    token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
-                    if (token) {
-                        localStorage.setItem('authToken', token);
-                        updateLoginStatus();
-                    }
+        document.addEventListener("DOMContentLoaded", function() {
+            var authHeader = getCookie('Authorization');
+            console.log("Authorization Header: " + authHeader); // 헤더 로그 출력
+            if (authHeader && authHeader.startsWith("Bearer ")) {
+                var token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
+                if (token) {
+                    console.log("Extracted Token: " + token); // 토큰 로그 출력
+                    localStorage.setItem('authToken', token);
+                    updateLoginStatus();
                 }
             }
-        };
-        xhr.send();
-
-
-        // header.html 로드 후 로그인 상태를 확인합니다.
-        $("#header").load("common/header.html", function () {
-            updateLoginStatus();
         });
+
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
 
     });
 </script>
