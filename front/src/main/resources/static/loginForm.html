@@ -135,16 +135,14 @@
         const nickname = urlParams.get('nickname');
         const email = urlParams.get('email');
         const userId = urlParams.get('userId');
-        const bankNo = urlParams.get('bankNo');
-        const account = urlParams.get('account');
+
 
         if (token) {
             localStorage.setItem('authToken', token);
             localStorage.setItem('userNickname', nickname);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userId', userId);
-            localStorage.setItem('userBankNo', bankNo);
-            localStorage.setItem('userAccount', account);
+
 
             // 알림 메시지 조건에 따라 저장
             if (!bankNo && !account) {
