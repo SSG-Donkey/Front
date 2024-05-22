@@ -45,11 +45,13 @@ function loadPostNumber(postNo, userNo) {
                     <p class="post-content">${content.postContent}</p>
                     <div class="d-flex justify-content-end">
                       <div class="btn-group" role="group">
+                 
                         <form id="finishForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
-                          <button class="btn btn-warning btn-lg" type="submit">나눔 완료</button>
+                       
                         </form>
+                        
                         <form id="updateForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
@@ -80,7 +82,7 @@ function loadPostNumber(postNo, userNo) {
                                             <p class="comment-content">${comment.commentContent}</p>
                                             <form id="selectUser">
                                                  <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
-                                                <input type="hidden" id="userNo" name="userNo" value="${comment.userNo}">
+                                                <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                                 <input type="hidden"  id="point" name="point" value="${content.point}">
                                                 <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
                  
@@ -90,7 +92,7 @@ function loadPostNumber(postNo, userNo) {
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                                 <input type="hidden" id="point" name="point" value="${content.point}">
                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
-
+                                                 <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
                                             <button class="delete-button" type="submit">삭제</button>
                                             </form>
                                         </div>
