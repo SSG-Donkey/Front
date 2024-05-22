@@ -80,7 +80,7 @@ function loadPostNumber(postNo, userNo) {
                                         <div class="comment">
                                             <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
                                             <p class="comment-content">${comment.commentContent}</p>
-                                        ${(content.userNo == userNo) ? `
+                                        ${(content.userNo == userNo  && comment.userNo!=content.userNo) ? `
                                         <form id="selectUser">
                                             <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
                                             <input type="hidden" id="userNo" name="userNo" value="${userNo}">
