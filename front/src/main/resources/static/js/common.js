@@ -10,9 +10,7 @@ function updateLoginStatus() {
 }
 
 function logout() {
-    localStorage.clear(); // 로컬 스토리지에서 세션 정보 제거
+    localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
     updateLoginStatus(); // UI 업데이트
     window.location.href = 'index.html'; // 홈페이지로 리다이렉트
 }
-
-
