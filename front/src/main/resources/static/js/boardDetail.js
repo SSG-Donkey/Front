@@ -46,10 +46,10 @@ function loadPostNumber(postNo, userNo) {
                     <div class="d-flex justify-content-end">
                       <div class="btn-group" role="group">
                  
-                        <form id="finishForm" class="me-2">
+                        <form id="shareForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
-                       
+                            <button class="btn btn-success btn-lg" type="submit">나눔중으로 되돌리기</button>
                         </form>
                         
                         <form id="updateForm" class="me-2">
@@ -80,14 +80,16 @@ function loadPostNumber(postNo, userNo) {
                                         <div class="comment">
                                             <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
                                             <p class="comment-content">${comment.commentContent}</p>
-                                            <form id="selectUser">
-                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
-                                                <input type="hidden" id="userNo" name="userNo" value="${userNo}">
-                                                <input type="hidden"  id="point" name="point" value="${content.point}">
-                                                <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
-                 
+                                        ${(content.userNo == userNo) ? `
+                                        <form id="selectUser">
+                                            <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
+                                            <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                            <input type="hidden" id="postuserNo" name="postuserNo" value="${content.userNo}">
+                                            <input type="hidden" id="point" name="point" value="${content.point}">
+                                            <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
                                             <button class="select-button" type="submit">나눔채택</button>
-                                            </form>
+                                        </form>` : ''}
+
                                             <form id="deleteCommentForm">
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                                 <input type="hidden" id="point" name="point" value="${content.point}">
@@ -119,11 +121,11 @@ function loadPostNumber(postNo, userNo) {
     });
 
     //나눔완료
-    $(document).on('submit', '#finishForm', function (e) {
+    $(document).on('submit', '#shareForm', function (e) {
         e.preventDefault();
 
         $.ajax({
-            url: 'https://www.dangnagwi.store/api_post/finish',
+            url: 'https://www.dangnagwi.store/api_post/share',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
@@ -133,7 +135,7 @@ function loadPostNumber(postNo, userNo) {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                alert('나눔 완료 실패하였습니다.');
+                alert('나눔중 상태로 변경실패 하였습니다.');
             }
         });
     });
@@ -233,7 +235,7 @@ function loadPostNumber(postNo, userNo) {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                alert('채택 할수없습니다.(이용자 포인트부족 등)');
+                alert(response.message);
             }
         });
     });
