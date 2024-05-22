@@ -132,10 +132,20 @@
     window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
+        const nickname = urlParams.get('nickname');
+        const email = urlParams.get('email');
         const userId = urlParams.get('userId');
+        const bankNo = urlParams.get('bankNo');
+        const account = urlParams.get('account');
+        const username = urlParams.get('username');
         if (token) {
             localStorage.setItem('authToken', token);
+            localStorage.setItem('userNickname', nickname);
+            localStorage.setItem('userEmail', email);
             localStorage.setItem('userId', userId);
+            localStorage.setItem('userBankNo', bankNo);
+            localStorage.setItem('userAccount', account);
+            localStorage.setItem('username', username);
             updateLoginStatus();
             window.location.href = 'mypage.html';
         }
