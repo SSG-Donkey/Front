@@ -4,7 +4,7 @@ let comment = null;
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
-    const userNo=localStorage.getItem('userId');
+    const userNo=28;
 
     loadPostNumber(postNo,userNo);
 };
@@ -78,8 +78,9 @@ function loadPostNumber(postNo, userNo) {
                                 <div class="comment-list">
                                     ${comment.map(comment => `
                                         <div class="comment">
-                                            <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
+                                            <p class="comment-info">${comment.userNickname} ( ${comment.commentDate})</p>
                                             <p class="comment-content">${comment.commentContent}</p>
+                                            <div class="comment-actions">
                                         ${(content.userNo == userNo  && comment.userNo!=content.userNo) ? `
                                         <form id="selectUser">
                                             <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
@@ -95,8 +96,9 @@ function loadPostNumber(postNo, userNo) {
                                                 <input type="hidden" id="point" name="point" value="${content.point}">
                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
                                                  <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
-                                            <button class="delete-button" type="submit">삭제</button>
+                                            <button class="delete-button" type="submit">댓글삭제</button>
                                             </form>
+                                            </div>
                                         </div>
                                         
                                     `).join('')}
