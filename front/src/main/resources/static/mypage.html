@@ -15,6 +15,13 @@
             $.get('./common/head.html', function (data) {
                 $('head').append(data);
             });
+
+            // 알림 메시지 확인 및 표시
+            const alertMessage = localStorage.getItem('alertMessage');
+            if (alertMessage) {
+                alert(alertMessage);
+                localStorage.removeItem('alertMessage'); // 알림 메시지 삭제
+            }
         });
     </script>
     <br> <br> <br> <br> <br> <br> <br>
@@ -123,7 +130,7 @@
         #delete-account-link {
             float: right;  /* 오른쪽 정렬 */
             color: #ccc;  /* 옅은 회색 */
-            text-decoration: none;  /* 밑줄 없앰 */ 
+            text-decoration: none;  /* 밑줄 없앰 */
             font-size: 14px;
             cursor: pointer;
         }
@@ -184,7 +191,7 @@
         if (email) {
             $('#email').val(email);
         }
-        
+
         if(userAccount) {
             $('#account').val(userAccount);
         }
