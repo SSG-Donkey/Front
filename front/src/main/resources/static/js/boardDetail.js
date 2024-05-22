@@ -253,7 +253,7 @@ function loadPostNumber(postNo, userNo) {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                alert(response.message);
+                alert('회원의 포인트가 부족합니다');
             }
         });
     });
