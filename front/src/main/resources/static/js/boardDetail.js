@@ -4,7 +4,7 @@ let comment = null;
 window.onload = function () {
     const postParameter = new URLSearchParams(window.location.search);
     const postNo = postParameter.get("postNo");
-    const userNo=28;
+    const userNo=localStorage.getItem('userId');
 
     loadPostNumber(postNo,userNo);
 };
@@ -98,7 +98,7 @@ function loadPostNumber(postNo, userNo) {
                                             <input type="hidden" id="postuserNo" name="postuserNo" value="${content.userNo}">
                                             <input type="hidden" id="point" name="point" value="${content.point}">
                                             <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
-                                            <button class="select-button" type="submit">나눔채택1</button>
+                                            <button class="select-button" type="submit">나눔채택</button>
                                         </form>` : ''}
                                   
                                                ${(comment.userNo == userNo ) ? `
@@ -143,7 +143,7 @@ function loadPostNumber(postNo, userNo) {
         e.preventDefault();
 
         $.ajax({
-            url: 'http://localhost:8081/api_post/share',
+            url: 'https://www.dangnagwi.store/api_post/share',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
@@ -243,7 +243,7 @@ function loadPostNumber(postNo, userNo) {
         e.preventDefault();
 
         $.ajax({
-            url: 'http://localhost:8081/comment/select',
+            url: 'https://www.dangnagwi.store/comment/select',
             type: 'POST',
             data: $(this).serialize(),
             dataType: 'json',
@@ -253,7 +253,7 @@ function loadPostNumber(postNo, userNo) {
             },
             error: function (xhr, status, error) {
                 console.log(error);
-                alert(response.message);
+                alert('회원의 포인트가 부족합니다');
             }
         });
     });
