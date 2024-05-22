@@ -11,6 +11,42 @@
             if (parts.length === 2) return parts.pop().split(";").shift();
         }
 
+        function updateLoginStatus() {
+            var token = localStorage.getItem('authToken');
+            if (token) {
+                // Update UI to show logged-in state
+                console.log("User is logged in with token: " + token);
+                checkAuthStatus();
+            } else {
+                // Update UI to show logged-out state
+                console.log("User is not logged in");
+            }
+        }
+
+        function checkAuthStatus() {
+            var token = localStorage.getItem('authToken');
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "https://www.dangnagwi.store/user/auth/status", true);
+
+            if (token) {
+                xhr.setRequestHeader("Authorization", "Bearer " + token);
+            }
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log("Authenticated: " + xhr.responseText);
+                    } else {
+                        console.error("Error fetching auth status: " + xhr.status);
+                        localStorage.removeItem('authToken');
+                        updateLoginStatus();
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+
         $(document).ready(function () {
             console.log("Document is ready"); // 로드 확인
 
@@ -96,10 +132,7 @@
 
     <!-- 최근 올라온 나눔 물품 -->
     <h1 class="home-main-title home-hot-title">최근 올라온 나눔 물품</h1>
-    <div class="items-wrap">
-
-
-    </div>
+    <div class="items-wrap"></div>
     <div class="text-center">
         <a href="/board.html" class="home-link-text home-text">나눔 물품 더 보기</a>
     </div>

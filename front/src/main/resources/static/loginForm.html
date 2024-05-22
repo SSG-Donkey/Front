@@ -130,34 +130,63 @@
         $("#main").load("common/main.html");
         $("#footer").load("common/footer.html");
 
-        $("form").submit(function (event) {
+        $("#loginForm").submit(function (event) {
             event.preventDefault();
-            var userData = {
-                username: $("#username").val(),
-                password: $("#password").val()
+            handleLogin();
+        });
+
+        function handleLogin() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "https://www.dangnagwi.store/user/login", true); // 로그인 엔드포인트
+
+            xhr.setRequestHeader("Content-Type", "application/json");
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        var authHeader = xhr.getResponseHeader("Authorization");
+                        console.log("Authorization Header: " + authHeader);
+
+                        if (authHeader && authHeader.startsWith("Bearer ")) {
+                            var token = authHeader.split(" ")[1];
+                            if (token) {
+                                console.log("Extracted Token: " + token);
+                                localStorage.setItem('authToken', token);
+                                updateLoginStatus();
+                                window.location.href = 'index.html';
+                            }
+                        }
+                    } else {
+                        console.error("Login failed: " + xhr.status);
+                        alert("로그인 실패: " + xhr.status);
+                    }
+                }
             };
 
-            $.ajax({
-                type: "POST",
-                url: "https://www.dangnagwi.store/user/login",
-                contentType: "application/json",
-                data: JSON.stringify(userData),
-                success: function (response) {
-                    localStorage.setItem('authToken', response.data.token);
-                    localStorage.setItem('userNickname', response.data.nickname);
-                    localStorage.setItem('userEmail', response.data.email);
-                    localStorage.setItem('userBankNo', response.data.bankNo);
-                    localStorage.setItem('userAccount', response.data.account);
-                    localStorage.setItem('userId', response.data.userId);
-                    localStorage.setItem('username', response.data.username);
-                    updateLoginStatus();
-                    window.location.href = 'index.html';
-                },
-                error: function (xhr) {
-                    alert("로그인 실패: " + xhr.responseJSON.message);
-                }
+            var loginData = JSON.stringify({
+                username: document.getElementById("username").value,
+                password: document.getElementById("password").value
             });
-        });
+
+            xhr.send(loginData);
+        }
+
+        function updateLoginStatus() {
+            var token = localStorage.getItem('authToken');
+            if (token) {
+
+                console.log("User is logged in with token: " + token);
+            } else {
+
+                console.log("User is not logged in");
+            }
+        }
+
+        function getCookie(name) {
+            var value = "; " + document.cookie;
+            var parts = value.split("; " + name + "=");
+            if (parts.length === 2) return parts.pop().split(";").shift();
+        }
 
         document.addEventListener("DOMContentLoaded", function() {
             var authHeader = getCookie('Authorization');
@@ -171,16 +200,7 @@
                 }
             }
         });
-
-        function getCookie(name) {
-            var value = "; " + document.cookie;
-            var parts = value.split("; " + name + "=");
-            if (parts.length === 2) return parts.pop().split(";").shift();
-        }
-
     });
 </script>
-
-
 </body>
 </html>
