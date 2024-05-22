@@ -84,7 +84,7 @@ function loadPostNumber(postNo, userNo) {
                                         ${(content.userNo == userNo  && comment.userNo!=content.userNo) ? `
                                         <form id="selectUser">
                                             <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
-                                            <input type="hidden" id="userNo" name="userNo" value="${userNo}">
+                                            <input type="hidden" id="userNo" name="userNo" value="${comment.userNo}">
                                             <input type="hidden" id="postuserNo" name="postuserNo" value="${content.userNo}">
                                             <input type="hidden" id="point" name="point" value="${content.point}">
                                             <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
