@@ -132,25 +132,15 @@
     window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
-        const nickname = urlParams.get('nickname');
-        const email = urlParams.get('email');
-        const userId = urlParams.get('userId');
-
-
         if (token) {
             localStorage.setItem('authToken', token);
-            localStorage.setItem('userNickname', nickname);
-            localStorage.setItem('userEmail', email);
-            localStorage.setItem('userId', userId);
-
-
-            // 알림 메시지 조건에 따라 저장
-            if (!bankNo && !account) {
-                localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
-            }
-
             updateLoginStatus();
             window.location.href = 'mypage.html';
+        }
+
+        // 알림 메시지 조건에 따라 저장
+        if (!bankNo && !account) {
+            localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
         }
 
 
