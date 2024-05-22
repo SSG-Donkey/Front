@@ -55,7 +55,7 @@ function loadPostNumber(postNo, userNo) {
                         <form id="updateForm" class="me-2">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                           <input type="hidden" name="postNo" value="${content.postNo}">
-                          <button class="btn btn-success btn-lg" type="submit">게시글 수정1</button>
+                          <button class="btn btn-success btn-lg" type="submit">게시글 수정</button>
                         </form>
                         <form id="deleteForm">
                           <input type="hidden" id="userNo" name="userNo" value="${userNo}">
@@ -80,7 +80,7 @@ function loadPostNumber(postNo, userNo) {
                                         <div class="comment">
                                             <p class="comment-info">${comment.userNickname} | ${comment.commentDate}</p>
                                             <p class="comment-content">${comment.commentContent}</p>
-                                        ${(content.userNo == userNo) ? `
+                                        ${(content.userNo == userNo  && comment.userNo!=content.userNo) ? `
                                         <form id="selectUser">
                                             <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
                                             <input type="hidden" id="userNo" name="userNo" value="${userNo}">
