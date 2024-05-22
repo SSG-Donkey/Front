@@ -5,101 +5,10 @@
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        function getCookie(name) {
-            var value = "; " + document.cookie;
-            var parts = value.split("; " + name + "=");
-            if (parts.length === 2) return parts.pop().split(";").shift();
-        }
-
-        function updateLoginStatus() {
-            var token = localStorage.getItem('authToken');
-            if (token) {
-                // Update UI to show logged-in state
-                console.log("User is logged in with token: " + token);
-                checkAuthStatus();
-            } else {
-                // Update UI to show logged-out state
-                console.log("User is not logged in");
-            }
-        }
-
-        function checkAuthStatus() {
-            var token = localStorage.getItem('authToken');
-            var xhr = new XMLHttpRequest();
-            xhr.open("GET", "https://www.dangnagwi.store/user/auth/status", true);
-
-            if (token) {
-                xhr.setRequestHeader("Authorization", "Bearer " + token);
-            }
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4) {
-                    if (xhr.status === 200) {
-                        console.log("Authenticated: " + xhr.responseText);
-                    } else {
-                        console.error("Error fetching auth status: " + xhr.status);
-                        localStorage.removeItem('authToken');
-                        updateLoginStatus();
-                    }
-                }
-            };
-
-            xhr.send();
-        }
-
         $(document).ready(function () {
-            console.log("Document is ready"); // 로드 확인
-
-            $("#header").load("common/header.html", function () {
-                console.log("Header loaded"); // 헤더 로드 확인
-                updateLoginStatus();
+            $.get('./common/head.html', function (data) {
+                $('head').append(data);
             });
-
-            $("#main").load("common/main.html", function () {
-                console.log("Main loaded"); // 메인 로드 확인
-            });
-
-            $("#footer").load("common/footer.html", function () {
-                console.log("Footer loaded"); // 푸터 로드 확인
-            });
-
-            var token = getCookie('Authorization');
-            console.log("Authorization Header from Cookie: " + token); // 헤더 로그 출력
-
-            if (token && token.startsWith("Bearer ")) {
-                localStorage.setItem('authToken', token.split(" ")[1]);
-                console.log("Token stored in localStorage"); // 토큰 저장 확인
-                updateLoginStatus();
-            } else {
-                var token = localStorage.getItem('authToken');
-                var xhr = new XMLHttpRequest();
-                xhr.open("GET", "https://www.dangnagwi.store/user/auth/status", true); // 실제 요청을 보낼 엔드포인트로 수정
-
-                if (token) {
-                    xhr.setRequestHeader("Authorization", "Bearer " + token);
-                }
-
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            var authHeader = xhr.getResponseHeader("Authorization");
-                            console.log("XHR Authorization Header: " + authHeader); // 헤더 로그 출력
-
-                            if (authHeader && authHeader.startsWith("Bearer ")) {
-                                var token = authHeader.split(" ")[1]; // Bearer 토큰에서 실제 토큰 값 추출
-                                if (token) {
-                                    console.log("Extracted Token: " + token); // 토큰 로그 출력
-                                    localStorage.setItem('authToken', token);
-                                    updateLoginStatus();
-                                }
-                            }
-                        } else {
-                            console.error("Error fetching auth status: " + xhr.status);
-                        }
-                    }
-                };
-                xhr.send();
-            }
         });
     </script>
 </head>
@@ -132,7 +41,10 @@
 
     <!-- 최근 올라온 나눔 물품 -->
     <h1 class="home-main-title home-hot-title">최근 올라온 나눔 물품</h1>
-    <div class="items-wrap"></div>
+    <div class="items-wrap">
+
+
+    </div>
     <div class="text-center">
         <a href="/board.html" class="home-link-text home-text">나눔 물품 더 보기</a>
     </div>
@@ -150,13 +62,6 @@
 <script>
     const postsList = document.getElementById('posts-list');
 
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
     //메인 화면 뿌리기
     fetch('https://www.dangnagwi.store/api_post/getRecentPosts',{
         method:"GET",
@@ -164,9 +69,6 @@
     })
         .then(response => response.json())
         .then(data => {
-            // 데이터 섞기
-            shuffleArray(data);
-            
             const itemsWrap = document.querySelector('.items-wrap');
             data.forEach(post => {
                 const itemElement = document.createElement('article');
@@ -192,7 +94,6 @@
 
 <script src="./js/common.js"></script>
 <script>
-
     $(document).ready(function () {
         // header.html 로드 후 로그인 상태를 확인하고 UI를 업데이트합니다.
         $("#header").load("common/header.html", function () {
