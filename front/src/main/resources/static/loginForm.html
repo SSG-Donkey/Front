@@ -132,8 +132,10 @@
     window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
+        const userId = urlParams.get('userId');
         if (token) {
             localStorage.setItem('authToken', token);
+            localStorage.setItem('userId', userId);
             updateLoginStatus();
             window.location.href = 'mypage.html';
         }
