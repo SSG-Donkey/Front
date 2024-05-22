@@ -88,15 +88,18 @@ function loadPostNumber(postNo, userNo) {
                                             <p class="comment-info">${comment.userNickname} ( ${comment.commentDate})</p>
                                             <p class="comment-content">${comment.commentContent}</p>
                                             <div class="comment-actions">
-                                        ${(content.userNo == userNo  && comment.userNo!=content.userNo) ? `
+                                        ${(content.userNo == userNo  && comment.userNo!=content.userNo && content.postStatus== 0) ? `
                                         <form id="selectUser">
                                             <input type="hidden" id="postNo" name="postNo" value="${content.postNo}">
                                             <input type="hidden" id="userNo" name="userNo" value="${comment.userNo}">
                                             <input type="hidden" id="postuserNo" name="postuserNo" value="${content.userNo}">
                                             <input type="hidden" id="point" name="point" value="${content.point}">
                                             <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
-                                            <button class="select-button" type="submit">나눔신청</button>
+                                            <button class="select-button" type="submit">나눔채택</button>
                                         </form>` : ''}
+                                         ${( comment.isChosen == 1) ? `
+                                                     <button class="share-button" type="submit">나눔승인된댓글</button>
+                                              ` : ''}
                                                ${(comment.userNo == userNo ) ? `
                                                      <form id="deleteCommentForm">
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
@@ -132,14 +135,7 @@ function loadPostNumber(postNo, userNo) {
             console.error('데이터를 불러오는 중 에러 발생:', error);
         }
     });
-//글 작성자만 보이게
-    document.addEventListener("DOMContentLoaded", function() {
 
-
-        if (userNo != contentUserNo) {
-            authorActions.style.display = 'none';
-        }
-    });
 
     //나눔완료
     $(document).on('submit', '#shareForm', function (e) {
