@@ -150,6 +150,13 @@
 <script>
     const postsList = document.getElementById('posts-list');
 
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
     //메인 화면 뿌리기
     fetch('https://www.dangnagwi.store/api_post/getRecentPosts',{
         method:"GET",
@@ -157,6 +164,9 @@
     })
         .then(response => response.json())
         .then(data => {
+            // 데이터 섞기
+            shuffleArray(data);
+            
             const itemsWrap = document.querySelector('.items-wrap');
             data.forEach(post => {
                 const itemElement = document.createElement('article');
