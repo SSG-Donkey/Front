@@ -190,25 +190,17 @@
                 localStorage.setItem('username', userInfo.username);
                 updateLoginStatus();
 
-                // 유저 정보 확인 후 리다이렉트
-                $.ajax({
-                    type: "GET",
-                    url: `https://www.dangnagwi.store/user/${userInfo.userId}/exists`,
-                    success: function(response) {
-                        // response.exists가 true면 기존 유저, false면 신규 유저
-                        if (response.exists) {
-                            window.location.href = 'index.html';
-                        } else {
-                            if (!userInfo.bankNo && !userInfo.account) {
-                                localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
-                            }
-                            window.location.href = 'mypage.html';
-                        }
-                    },
-                    error: function(xhr) {
-                        alert("유저 정보 확인 실패: " + xhr.responseJSON.message);
-                    }
-                });
+                // 알림 메시지 조건에 따라 저장
+                if (!userInfo.bankNo && !userInfo.account) {
+                    localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
+                }
+
+                // 신규 유저인지 기존 유저인지 확인하여 리다이렉트
+                if (userInfo.isNewUser) {
+                    window.location.href = 'mypage.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
             }
         }
     });
