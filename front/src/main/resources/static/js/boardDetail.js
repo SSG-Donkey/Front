@@ -36,7 +36,7 @@ function loadPostNumber(postNo, userNo) {
                         </div>
                         <div class="post-fee">
                         <i class="bi bi-cash-coin me-2"></i>
-                        <span class="fw-bold">${content.point}</span>
+                        <span class="fw-bold">${content.point}포인트</span>
                         </div>
                     </div>
                     </div>
