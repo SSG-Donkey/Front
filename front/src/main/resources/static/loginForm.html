@@ -146,16 +146,12 @@
             localStorage.setItem('userNickname', nickname);
             localStorage.setItem('userEmail', email);
             localStorage.setItem('userId', userId);
-            if (bankNo && bankNo !== "null") {
-                localStorage.setItem('userBankNo', bankNo);
-            }
-            if (account && account !== "null") {
-                localStorage.setItem('userAccount', account);
-            }
+            localStorage.setItem('userBankNo', bankNo);
+            localStorage.setItem('userAccount', account);
             localStorage.setItem('username', username);
 
             // 알림 메시지 조건에 따라 저장
-            if (!bankNo || bankNo === "null" || !account || account === "null") {
+            if (!bankNo && !account) {
                 localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
             }
 
