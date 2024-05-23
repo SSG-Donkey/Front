@@ -118,17 +118,8 @@
 <script src="./js/common.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-<script>
-    $(document).ready(function() {
-        $("#header").load("common/header.html", function() {
-            // header.html이 로드된 후에 로그인 상태를 업데이트합니다.
-            updateLoginStatus();
-        });
-        // 다른 페이지 로드 코드
-        $("#main").load("common/main.html");
-        $("#footer").load("common/footer.html");
-    });
 
+<script>
     // JWT를 해독하는 함수 추가
     function parseJwt(token) {
         try {
@@ -143,6 +134,18 @@
             return null;
         }
     }
+</script>
+
+<script>
+    $(document).ready(function() {
+        $("#header").load("common/header.html", function() {
+            // header.html이 로드된 후에 로그인 상태를 업데이트합니다.
+            updateLoginStatus();
+        });
+        // 다른 페이지 로드 코드
+        $("#main").load("common/main.html");
+        $("#footer").load("common/footer.html");
+    });
 
     window.onload = function () {
         const urlParams = new URLSearchParams(window.location.search);
@@ -162,12 +165,14 @@
             }
         }
 
+        // 알림 메시지 조건에 따라 저장
         if (!localStorage.getItem('userBankNo') && !localStorage.getItem('userAccount')) {
             localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
         }
     };
+</script>
 
-
+<script>
 
     $(document).ready(function() {
         // 폼 제출 이벤트 핸들러
@@ -206,10 +211,7 @@
             updateLoginStatus();
         });
     });
-
 </script>
-
-
 
 </body>
 </html>
