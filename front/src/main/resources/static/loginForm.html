@@ -134,47 +134,13 @@
             return null;
         }
     }
-</script>
 
-<script>
     $(document).ready(function() {
+        // header.html 로드 후 로그인 상태를 확인합니다.
         $("#header").load("common/header.html", function() {
-            // header.html이 로드된 후에 로그인 상태를 업데이트합니다.
             updateLoginStatus();
         });
-        // 다른 페이지 로드 코드
-        $("#main").load("common/main.html");
-        $("#footer").load("common/footer.html");
-    });
 
-    window.onload = function () {
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get('token');
-        if (token) {
-            const userInfo = parseJwt(token);
-            if (userInfo) {
-                localStorage.setItem('authToken', token);
-                localStorage.setItem('userNickname', userInfo.nickname);
-                localStorage.setItem('userEmail', userInfo.email);
-                localStorage.setItem('userId', userInfo.userId);
-                localStorage.setItem('userBankNo', userInfo.bankNo);
-                localStorage.setItem('userAccount', userInfo.account);
-                localStorage.setItem('username', userInfo.username);
-                updateLoginStatus();
-                window.location.href = 'mypage.html';
-            }
-        }
-
-        // 알림 메시지 조건에 따라 저장
-        if (!localStorage.getItem('userBankNo') && !localStorage.getItem('userAccount')) {
-            localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
-        }
-    };
-</script>
-
-<script>
-
-    $(document).ready(function() {
         // 폼 제출 이벤트 핸들러
         $("form").submit(function(event) {
             event.preventDefault();
@@ -206,10 +172,27 @@
             });
         });
 
-        // header.html 로드 후 로그인 상태를 확인합니다.
-        $("#header").load("common/header.html", function() {
-            updateLoginStatus();
-        });
+        // URL에서 토큰 추출 및 저장
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get('token');
+        if (token) {
+            const userInfo = parseJwt(token);
+            if (userInfo) {
+                localStorage.setItem('authToken', token);
+                localStorage.setItem('userNickname', userInfo.nickname);
+                localStorage.setItem('userEmail', userInfo.email);
+                localStorage.setItem('userId', userInfo.userId);
+                localStorage.setItem('userBankNo', userInfo.bankNo);
+                localStorage.setItem('userAccount', userInfo.account);
+                localStorage.setItem('username', userInfo.username);
+                updateLoginStatus();
+                // 알림 메시지 조건에 따라 저장
+                if (!userInfo.bankNo && !userInfo.account) {
+                    localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
+                }
+                window.location.href = 'mypage.html';
+            }
+        }
     });
 </script>
 
