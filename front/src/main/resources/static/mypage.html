@@ -15,9 +15,111 @@
             $.get('./common/head.html', function (data) {
                 $('head').append(data);
             });
+
+            // 알림 메시지 확인 및 표시
+            const alertMessage = localStorage.getItem('alertMessage');
+            if (alertMessage) {
+                alert(alertMessage);
+                localStorage.removeItem('alertMessage'); // 알림 메시지 삭제
+            }
+
+            // 사용자 정보 로드 및 폼 필드 채우기
+            loadUserInfo();
+
+            // 폼 제출 이벤트 핸들러
+            $("#updateInfoForm").submit(function(event) {
+                event.preventDefault();
+                handleSubmit();
+            });
+
+            $("#delete-account-link").click(handleAccountDeletion);
+
+            const cancelButton = document.querySelector('.button-danger');
+            cancelButton.addEventListener('click', () => {
+                window.location.href = 'https://www.dangnagwi.store/index.html';
+            });
         });
+
+        function loadUserInfo() {
+            var nickname = localStorage.getItem('userNickname');
+            var email = localStorage.getItem('userEmail');
+            var bankNo = localStorage.getItem('userBankNo');
+            var userAccount = localStorage.getItem('userAccount');
+
+            if (nickname) {
+                $('#nickname').val(nickname);
+            }
+            if (email) {
+                $('#email').val(email);
+            }
+            if (bankNo) {
+                $('#bankNo').val(bankNo);
+            }
+            if (userAccount) {
+                $('#account').val(userAccount);
+            }
+        }
+
+        function handleSubmit() {
+            const userId = localStorage.getItem('userId');
+            var password = $("#password").val();
+            var passwordConfirm = $("#passwordconfirm").val();
+
+            if (password !== passwordConfirm) {
+                $("#errorMessage").text("입력한 비밀번호가 일치하지 않습니다.").css("color", "red");
+                return;
+            } else {
+                $("#errorMessage").empty();
+            }
+
+            var updateData = {
+                password: password,
+                nickname: $("#nickname").val(),
+                newEmail: $("#email").val(),
+                newBankNo: $("#bankNo").val(),
+                newAccount: $("#account").val()
+            };
+
+            $.ajax({
+                type: "PUT",
+                url: `https://www.dangnagwi.store/user/user/${userId}/updateInfo`,
+                contentType: "application/json",
+                data: JSON.stringify(updateData),
+                success: function(response) {
+                    alert("회원 정보가 성공적으로 업데이트되었습니다.");
+                    localStorage.setItem('userNickname', updateData.nickname);
+                    localStorage.setItem('userEmail', updateData.newEmail);
+                    localStorage.setItem('userBankNo', updateData.newBankNo);
+                    localStorage.setItem('userAccount', updateData.newAccount);
+
+                    window.location.href = 'https://www.dangnagwi.store/index.html';
+                },
+                error: function(xhr) {
+                    $("#errorMessage").text("업데이트 실패: " + xhr.responseJSON.message);
+                }
+            });
+        }
+
+        function handleAccountDeletion(event) {
+            event.preventDefault();
+            const userId = localStorage.getItem('userId');
+            if (confirm("정말 탈퇴하시겠습니까?")) {
+                $.ajax({
+                    method: "DELETE",
+                    url: `https://www.dangnagwi.store/user/user/${userId}`,
+                    success: function(response) {
+                        alert("회원 탈퇴가 완료되었습니다. 이용해 주셔서 감사합니다.");
+                        localStorage.removeItem('authToken');
+                        window.location.href = 'https://www.dangnagwi.store/index.html';
+                    },
+                    error: function(xhr) {
+                        alert("오류 발생: " + xhr.responseJSON.message);
+                    }
+                });
+            }
+        }
     </script>
-    <br> <br> <br> <br> <br> <br> <br>
+    <br><br><br><br><br><br><br>
     <!-- header -->
     <div id="header"></div>
 
@@ -123,7 +225,7 @@
         #delete-account-link {
             float: right;  /* 오른쪽 정렬 */
             color: #ccc;  /* 옅은 회색 */
-            text-decoration: none;  /* 밑줄 없앰 */ 
+            text-decoration: none;  /* 밑줄 없앰 */
             font-size: 14px;
             cursor: pointer;
         }
@@ -139,15 +241,15 @@
     <div id="welcome-message"></div>
     <br><br><br>
     <form id="updateInfoForm">
-        <label for="password">새로운 비밀번호:</label>
+        <label for="password">새로운 비밀번호</label>
         <input type="password" id="password" name="password">
-        <label for="passwordconfirm">새로운 비밀번호 확인:</label>
+        <label for="passwordconfirm">새로운 비밀번호 확인</label>
         <input type="password" id="passwordconfirm" name="passwordconfirm">
-        <label for="nickname">닉네임:</label>
+        <label for="nickname">닉네임</label>
         <input type="text" id="nickname" name="nickname">
-        <label for="email">이메일:</label>
+        <label for="email">이메일</label>
         <input type="text" id="email" name="email">
-        <label for="bankNo">은행 및 계좌번호:</label>
+        <label for="bankNo">은행 및 계좌번호 ('-'를 빼고 입력해주세요)</label>
         <div style="display: flex;">
             <select id="bankNo" name="bankNo">
                 <option value="">은행 선택</option>
@@ -163,102 +265,5 @@
     </form>
     <div class="error" id="errorMessage"></div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        // 사용자 정보 로드
-        var nickname = localStorage.getItem('userNickname'); // 닉네임 가져오기
-        var email = localStorage.getItem('userEmail'); // 이메일 가져오기
-        var bankNo = localStorage.getItem('userBankNo'); // 은행 가져오기
-        var userAccount = localStorage.getItem('userAccount'); //계좌번호 가져오기
-
-        // 기존 정보가 있다면 입력란에 설정
-        if (nickname) {
-            $('#nickname').val(nickname);
-        }
-
-        if (bankNo) {
-            $('#bankNo').val(bankNo);
-        }
-
-        if (email) {
-            $('#email').val(email);
-        }
-        
-        if(userAccount) {
-            $('#account').val(userAccount);
-        }
-    });
-
-    $(document).ready(function() {
-        const userId = localStorage.getItem('userId');
-
-        $("#updateInfoForm").submit(function(event) {
-            event.preventDefault();
-            var password = $("#password").val();
-            var passwordConfirm = $("#passwordconfirm").val();
-
-            if (password !== passwordConfirm) {
-                $("#errorMessage").text("입력한 비밀번호가 일치하지 않습니다.").css("color", "red");
-                return;
-
-            } else {
-                $("#errorMessage").empty();
-            }
-
-            var updateData = {
-                password: password,
-                nickname: $("#nickname").val(),
-                email: $("#email").val(),
-                bankNo: $("#bankNo").val(),
-                account: $("#account").val()
-            };
-
-            $.ajax({
-                type: "PUT",
-                url: `https://www.dangnagwi.store/user/user/${userId}/updateInfo`,
-                contentType: "application/json",
-                data: JSON.stringify(updateData),
-                success: function(response) {
-                    alert("회원 정보가 성공적으로 업데이트되었습니다.");
-                    localStorage.setItem('userNickname',updateData.nickname);
-                    localStorage.setItem('userEmail',updateData.email);
-                    localStorage.setItem('userBankNo',updateData.bankNo);
-                    localStorage.setItem('userAccount',updateData.account);
-
-                    window.location.href = 'https://www.dangnagwi.store/index.html'; // 성공 후 홈페이지로 리다이렉트
-                },
-                error: function(xhr) {
-                    $("#errorMessage").text("업데이트 실패: " + xhr.responseJSON.message);
-                }
-            });
-        });
-
-        $("#delete-account-link").click(function(event) {
-            event.preventDefault(); // 기본 이벤트를 방지합니다.
-            if (confirm("정말 탈퇴하시겠습니까?")) {
-                $.ajax({
-                    method: "DELETE",
-                    url: `https://www.dangnagwi.store/user/user/${userId}`,
-                    success: function(response) {
-                        alert("회원 탈퇴가 완료되었습니다. 이용해 주셔서 감사합니다.");
-                        localStorage.removeItem('authToken'); // 토큰 삭제
-                        window.location.href = 'https://www.dangnagwi.store/index.html'; // 홈페이지로 리다이렉트
-                    },
-                    error: function(xhr) {
-                        alert("오류 발생: " +userId+ xhr.responseJSON.message);
-                    }
-                });
-            }
-        });
-    });
-
-    const cancelButton = document.querySelector('.button-danger');
-
-    cancelButton.addEventListener('click', () => {
-        // '취소' 버튼 클릭 시 /index.html 로 이동
-        window.location.href = 'https://www.dangnagwi.store/index.html';
-    });
-</script>
 </body>
 </html>

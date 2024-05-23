@@ -67,18 +67,77 @@ form {
 }
 /* Comment Styles */
 .comment {
-    background-color: #F9F9F9;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 10px;
+    position: relative;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
 }
-.comment-list {
-    margin-top: 20px;
-}
+
 .comment-info {
     font-size: 14px;
     color: #666;
     margin-bottom: 5px;
+}
+
+.comment-content {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.comment-actions {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+.select-button {
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+.share-button {
+    background-color: #c82333;
+    color: #F4F4F4;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.select-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button {
+    background-color: #ff6f0f;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+form#deleteCommentForm {
+    display: inline;
+}
+.delete-button:hover {
+    color: darkred;
+}
+form#deleteCommentForm {
+    display: inline;
 }
 .comment-content {
     font-size: 16px;
@@ -133,4 +192,52 @@ form {
 .button-container {
     display: flex; /* Enable flexbox layout */
     justify-content: flex-end; /* Align elements to the left */
+}
+
+.btn-no-wrap {
+    white-space: nowrap;
+}
+/* 추가적인 CSS 스타일 */
+.post-header {
+    margin-bottom: 3rem;
+}
+
+.post-title {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.post-content {
+    margin-bottom: 2rem;
+}
+
+.comments {
+    border-top: 1px solid #dee2e6;
+    padding-top: 2rem;
+}
+
+.comment {
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 0.5rem;
+}
+
+.comment:last-child {
+    border-bottom: none;
+}
+
+.post-author,
+.post-fee {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+.post-author i,
+.post-fee i {
+    font-size: 1.5rem;
+    color: #6c757d;
+}
+
+.badge {
+    font-size: 1.2rem;
 }

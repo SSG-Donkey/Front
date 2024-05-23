@@ -90,7 +90,7 @@
 <script>
     // 로그아웃 함수 전역 등록
     function logout() {
-        localStorage.removeItem('authToken'); // 로컬 스토리지에서 토큰 제거
+        localStorage.clear(); // 로컬 스토리지에서 세션 정보 제거
         $.ajax({
             type: "POST",
             url: "https://www.dangnagwi.store/user/logout",
