@@ -43,7 +43,7 @@
         const pgToken = (new URLSearchParams(window.location.search)).get('pg_token');
         if (pgToken != null) {
             // pg_token을 사용하여 서버로 POST 요청을 보냅니다.
-            fetch(`http://localhost:8081/kakao/success?pg_token=${pgToken}`, {
+            fetch(`https://www.dangnagwi.store/kakao/success?pg_token=${pgToken}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
