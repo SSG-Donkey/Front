@@ -222,8 +222,10 @@ form#deleteCommentForm {
     cursor: pointer; /* Indicate clickable area */
 }
 .button-container {
-    display: flex; /* Enable flexbox layout */
-    justify-content: flex-end; /* Align elements to the left */
+    position: relative;
+    height: 300px; /* Adjust height as needed */
+    border: 1px solid #ccc; /* Optional: for visual reference */
+    padding: 20px; /* Optional: add padding for inner spacing */
 }
 
 .btn-no-wrap {
