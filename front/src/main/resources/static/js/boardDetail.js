@@ -44,7 +44,9 @@ function loadPostNumber(postNo, userNo) {
                   <div class="post-info">
                     <p class="post-content">${content.postContent}</p>
                     <br><br><br><br>
-                    <div class="d-flex justify-content-end">
+                    
+                  </div>
+<div class="d-flex justify-content-end">
                       <div class="btn-group" role="group" id="authorActions" >
                      ${(content.userNo == userNo ) ? `
                        
@@ -72,8 +74,6 @@ function loadPostNumber(postNo, userNo) {
 
                       </div>
                     </div>
-                  </div>
-
                             <div class="comments">
                                 <h2>댓글</h2>
                                 <form id="commentForm">
