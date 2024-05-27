@@ -106,7 +106,7 @@ function loadPostNumber(postNo, userNo) {
                                                 <input type="hidden" id="userNo" name="userNo" value="${userNo}">
                                                 <input type="hidden" id="point" name="point" value="${content.point}">
                                                 <input type="hidden"  id="postNo" name="postNo" value="${content.postNo}">
-                                                <input type="hidden" id="isChosen" name="isChosen" value="${comment.isChosen}">
+                                     
                                                 <input type="hidden" id="commentNo" name="commentNo" value="${comment.commentNo}">
                                                  <button class="delete-button" type="submit">댓글삭제</button>
                                                  </form>
