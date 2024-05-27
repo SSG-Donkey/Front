@@ -180,32 +180,36 @@
             });
         });
 
-        // URL에서 토큰 추출 및 저장
         const urlParams = new URLSearchParams(window.location.search);
         const token = urlParams.get('token');
         if (token) {
             const userInfo = parseJwt(token);
             if (userInfo) {
-                localStorage.setItem('authToken', token);
-                localStorage.setItem('userNickname', userInfo.nickname);
-                localStorage.setItem('userEmail', userInfo.email);
-                localStorage.setItem('userId', userInfo.userId);
-                localStorage.setItem('userBankNo', userInfo.bankNo);
-                localStorage.setItem('userAccount', userInfo.account);
-                localStorage.setItem('username', userInfo.username);
-                updateLoginStatus();
+                $.ajax({
+                    type: "GET",
+                    url: "https://www.dangnagwi.store/user/exists",
+                    data: {email: userInfo.email},
+                    success: function (exists) {
+                        localStorage.setItem('authToken', token);
+                        localStorage.setItem('userNickname', userInfo.nickname);
+                        localStorage.setItem('userEmail', userInfo.email);
+                        localStorage.setItem('userId', userInfo.userId);
+                        localStorage.setItem('userBankNo', userInfo.bankNo);
+                        localStorage.setItem('userAccount', userInfo.account);
+                        localStorage.setItem('username', userInfo.username);
+                        updateLoginStatus();
 
-                // 알림 메시지 조건에 따라 저장
-                if (!userInfo.bankNo && !userInfo.account) {
-                    localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
-                }
+                        if (!userInfo.bankNo && !userInfo.account) {
+                            localStorage.setItem('alertMessage', '회원정보 등록 후 게시글 작성이 가능합니다.');
+                        }
 
-                // 신규 유저인지 기존 유저인지 확인하여 리다이렉트
-                if (userInfo.isNewUser) {
-                    window.location.href = 'mypage.html';
-                } else {
-                    window.location.href = 'index.html';
-                }
+                        if (exists === true) {
+                            window.location.href = 'index.html';
+                        } else {
+                            window.location.href = 'mypage.html';
+                        }
+                    }
+                });
             }
         }
     });

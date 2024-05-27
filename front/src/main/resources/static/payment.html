@@ -105,12 +105,12 @@
                     <form id="paymentForm" action="https://www.dangnagwi.store/payment" method="post">
                         <div class="form-group">
                             <label for="user_id"></label>
-                            <input type="hidden" class="form-control" id="user_id" name="user_id" required>
+                            <input type="text" class="form-control" id="user_id" name="user_id" readonly>
                         </div>
                         <div class="form-group">
                             <label for="amount">충전 금액</label>
                             <div class="input-group">
-                                <input type="number" id="amount" name="amount" class="form-control" min="1000" max="1000000" value="10000">
+                                <input type="number" id="amount" name="amount" class="form-control" min="1000" max="10000000" value="10000">
                                 <div class="input-group-append">
                                     <span class="input-group-text">원</span>
                                 </div>
@@ -161,6 +161,7 @@
         // 사용자 정보 로드 (Optional - Use retrieved values or leave empty)
         var user_nickname = localStorage.getItem('userNickname') ;
         var user_id=localStorage.getItem('username');
+
 
         $('.container h1').text(` ${user_nickname}님  포인트 충전`);
         // Set nickname and user number in form fields (Optional)
