@@ -43,6 +43,7 @@ function loadPostNumber(postNo, userNo) {
                   ${content.postFile ? `<img src="${content.postFile}" alt="게시물 사진" class="img-fluid mx-auto d-block mb-4" style="max-width: 100%; max-height: 500px;">` : ''}
                   <div class="post-info">
                     <p class="post-content">${content.postContent}</p>
+                    <br><br><br><br>
                     <div class="d-flex justify-content-end">
                       <div class="btn-group" role="group" id="authorActions" >
                      ${(content.userNo == userNo ) ? `
